@@ -1,7 +1,7 @@
-package com.jobesk.gong.interfaces
+package com.example.cooplas.interfaces
 
-import com.jobesk.gong.models.GeneralRes
-import com.jobesk.gong.models.SignUpRes
+import com.example.cooplas.models.GeneralRes
+import com.example.cooplas.models.SignUpSigninRes
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -11,49 +11,42 @@ interface Cooplas {
 
     // constants used in "companion Object"
     companion object {
-        const val BASE_URL = "https://gong.jobesk.com"
+        const val BASE_URL = "https://cooplas.jobesk.com"
     }
 
     @FormUrlEncoded
-    @POST("/api/register")
-    fun register(@Field("email") email:String,
+    @POST("/api/signup")
+    fun register(@Field("first_name") first_name:String,
+                 @Field("last_name") last_name:String,
                  @Field("phone") phone:String,
+                 @Field("email") email:String,
                  @Field("password") password:String,
-                 @Field("in_app_notifications") in_app_notifications:Boolean,
-                 @Field("text_notifications") text_notifications:Boolean):Call<SignUpRes>
+                 @Field("role") role:String):Call<SignUpSigninRes>
 
     @FormUrlEncoded
-    @POST("/api/verify-number")
-    fun verify_otp(@Header("Authorization") Authorization: String,
-                   @Field("code") code:String):Call<GeneralRes>
+    @POST("/api/signin")
+    fun login(@Field("email") email:String,
+              @Field("password") password:String ):Call<SignUpSigninRes>
 
-    @GET("/api/resend-otp")
+    @GET("/api/verify/phone")
+    fun verify_otp(@Header("Authorization") Authorization: String,
+                   @Query("code") code:String):Call<GeneralRes>
+
+    @GET("/api/resend/phone-verification-code")
     fun resent_otp(@Header("Authorization") Authorization: String):Call<GeneralRes>
 
-    @FormUrlEncoded
-    @POST("/api/update/role")
-    fun update_role(@Header("Authorization") Authorization: String,
-                   @Field("role") role:String):Call<GeneralRes>
-
     @Multipart
-    @POST("/api/update/user-details")
+    @POST("/api/complete/signup")
     fun complete_sign_up(@Header("Authorization") Authorization:String,
-                         @Part("first_name") first_name: RequestBody,
-                         @Part("last_name") last_name: RequestBody,
-                         @Part("username") username: RequestBody,
-                         @Part("date_of_birth") date_of_birth: RequestBody,
+                         @Part profile_image: MultipartBody.Part,
                          @Part("gender") gender: RequestBody,
-                         @Part("region_id") region_id: RequestBody,
-                         @Part("country_id") country_id: RequestBody,
-                         @Part profile_image: MultipartBody.Part ):Call<GeneralRes>
+                         @Part("username") username: RequestBody,
+                         @Part("dob") dob: RequestBody,
+                         @Part("relationship_status") relationship_status: RequestBody ):Call<GeneralRes>
 
-    @FormUrlEncoded
-    @POST("/api/login")
-    fun login(@Field("email") email:String,
-              @Field("password") password:String ):Call<SignUpRes>
-
-    @FormUrlEncoded
-    @POST("/api/forgot-password")
-    fun forgot_password(@Field("email") email:String ):Call<GeneralRes>
+//
+//    @FormUrlEncoded
+//    @POST("/api/forgot-password")
+//    fun forgot_password(@Field("email") email:String ):Call<GeneralRes>
 
 }
