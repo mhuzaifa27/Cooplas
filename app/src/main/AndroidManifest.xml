@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.cooplas">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:name=".utils.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.Food.FoodActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Wallet.WalletActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Wallet.RechargeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MessagingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".splashscreen.SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".splashscreen.SplashScreen2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".splashscreen.SplashScreen5"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".splashscreen.SplashScreen4"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".splashscreen.SplashScreen3"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SigninSignupScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signup_screens.PhoneVerificatoinScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signup_screens.CompleteSignup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ForgotPassword"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.LikesScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.PostCommentScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.FollowingScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.EditProfileScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.PostImageVideo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.FollowerScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.NotificationScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>
