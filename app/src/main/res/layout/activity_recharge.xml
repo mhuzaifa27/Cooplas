@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_white"
+    tools:context=".activities.Wallet.WalletActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general"></include>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:layout_below="@+id/header"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        android:layout_marginHorizontal="50dp">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@color/white"
+           android:gravity="center">
+           <EditText
+               android:id="@+id/et_amount"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@color/white"
+               android:layout_marginBottom="8dp"
+               android:hint="123,455,666,7777"
+               android:textSize="16sp"
+               android:fontFamily="@font/fira_sans_regular"
+               android:layout_marginHorizontal="20dp"
+               android:layout_centerInParent="true">
+           </EditText>
+           <View
+               android:id="@+id/view_2"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="@color/black"
+               android:layout_below="@+id/et_amount"
+               android:layout_marginHorizontal="20dp"
+               android:alpha="0.1"/>
+       </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/ll_successful"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transaction Successful"
+            android:textSize="24sp"
+            android:fontFamily="@font/fira_sans_bold"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal">
+
+        </TextView>
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_border_orange">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_check"
+                android:layout_centerInParent="true">
+            </ImageView>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A Coo Credit of 100 has been added
+to your account. Enjoy!"
+            android:textSize="17sp"
+            android:fontFamily="@font/fira_sans_italic"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        card_view:cardBackgroundColor="@color/colorSecond"
+        card_view:cardCornerRadius="30dp"
+        android:layout_marginTop="10dp"
+        card_view:cardElevation="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="50dp">
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_orange"
+            android:elevation="4dp"
+            />
+        <!--YOUR CONTENT-->
+    </androidx.cardview.widget.CardView>
+
+    <!--<androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        app:cardElevation="10dp"
+        android:background="@drawable/bg_btn_orange"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="50dp">
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn_orange"
+            android:text="Confirm"
+            android:fontFamily="@font/fira_sans_bold"
+            android:textAllCaps="false"
+            android:textColor="@color/white">
+
+        </Button>
+    </androidx.cardview.widget.CardView>-->
+
+
+</RelativeLayout>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/verificationbg"
+    tools:context=".signup_screens.PhoneVerificatoinScreen">
+
+    <TextView
+        android:id="@+id/tv_cooplas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="CooPlas"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
+
+    <TextView
+        android:id="@+id/tv_verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_cooplas"
+        android:textStyle="bold"
+        android:text="Verification Code"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_below="@id/tv_verification_code"
+        android:orientation="horizontal">
+        
+        <RelativeLayout
+            android:layout_width="57dp"
+            android:layout_height="81dp"
+            android:background="@drawable/round_orange_2">
+
+            <EditText
+                android:id="@+id/et_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textSize="60sp"
+                android:gravity="center"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorSecond"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="57dp"
+            android:layout_height="81dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/round_orange_2">
+
+            <EditText
+                android:id="@+id/et_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textSize="60sp"
+                android:gravity="center"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorSecond"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="57dp"
+            android:layout_height="81dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/round_orange_2">
+
+            <EditText
+                android:id="@+id/et_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:textSize="60sp"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorSecond"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="57dp"
+            android:layout_height="81dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/round_orange_2">
+
+            <EditText
+                android:id="@+id/et_four"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:textSize="60sp"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorSecond"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_otp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="A verification code has been sent to\nyou phone number. Please input code\nto continue."
+        android:textColor="#0092FF"
+        android:textSize="14sp"
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:id="@+id/tv_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl_next"
+        android:layout_marginBottom="30dp"
+        android:text="@string/resend_otp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/rl_next"
+        android:layout_width="match_parent"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_orange"
+        android:layout_height="44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:text="Next"
+            android:textColor="@color/white"
+            android:layout_gravity="end"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

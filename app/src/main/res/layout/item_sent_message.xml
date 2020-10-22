@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:layout_marginTop="10dp"
+    android:weightSum="3"
+    android:gravity="right">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginVertical="5dp"
+            android:paddingVertical="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_sent_message"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:orientation="vertical"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="eirmod tempor sed diam nonumy eirmod tempor sed diam nonumy eirmod dfkkks tempor"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"></TextView>
+                <TextView
+                    android:id="@+id/tv_time_ago"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="bottom|right"
+                    android:layout_below="@+id/tv_message"
+                    android:fontFamily="@font/fira_sans_extra_bold_italic"
+                    android:text="11:48 PM"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toLeftOf="@+id/rl_ticks"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"></TextView>
+
+                <RelativeLayout
+                    android:id="@+id/rl_ticks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_message"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="30dp">
+                    <ImageView
+                        android:id="@+id/img_seen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_message_seen"
+                        app:tint="@color/colorPrimary"
+                        android:visibility="gone">
+
+                    </ImageView>
+                    <ImageView
+                        android:id="@+id/img_single_tick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_single_tick"
+                        app:tint="@color/black"
+                        android:visibility="visible">
+                    </ImageView>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

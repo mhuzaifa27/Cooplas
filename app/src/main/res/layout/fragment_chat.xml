@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white">
+
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_chat">
+    </include>
+        <RelativeLayout
+            android:id="@+id/rl_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_white"
+            android:layout_below="@+id/header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/ll_inbox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/tv_inbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_bold"
+                        android:gravity="center"
+                        android:text="Inbox"
+                        android:textColor="@color/colorSecond"
+                        android:textSize="15sp"></TextView>
+
+                    <View
+                        android:id="@+id/view_inbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/colorSecond">
+
+                    </View>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:background="@color/colorSecond">
+
+                </View>
+
+                <LinearLayout
+                    android:id="@+id/ll_call_logs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/grey_light"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/tv_call_logs"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_bold"
+                        android:gravity="center"
+                        android:text="Call Logs"
+                        android:textColor="@color/mid_grey"
+                        android:textSize="15sp"></TextView>
+
+                    <View
+                        android:id="@+id/view_call_logs"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/colorSecond"
+                        android:visibility="gone">
+
+                    </View>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/chat_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_tabs">
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cooplas</string>
+    <string name="term_condition">By using CooPlas, you agree to the\n<font color='#F46524'>Terms &amp; Conditions</font></string>
+    <string name="resend_otp">Didn\'t get the code? <font color='#F46524'>Resend</font></string>
+    <string name="snackbar_check_internet">Please check your internet connection!</string>
+    <string name="snackbar_internet_available">Internet Connected</string>
+    <string name="character">\u0040</string>
+</resources>
