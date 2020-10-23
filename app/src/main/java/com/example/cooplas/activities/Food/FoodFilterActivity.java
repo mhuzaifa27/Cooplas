@@ -31,6 +31,7 @@ public class FoodFilterActivity extends AppCompatActivity {
 
         //initComponents();
 
+
         typesList.add("All");
         typesList.add("Sushi");
         typesList.add("Seafood");
