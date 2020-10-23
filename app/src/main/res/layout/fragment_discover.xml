@@ -349,6 +349,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_food"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"

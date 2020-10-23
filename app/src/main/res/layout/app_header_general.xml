@@ -27,4 +27,15 @@
         android:textSize="24sp"
         android:layout_centerVertical="true">
     </TextView>
+    <ImageView
+        android:id="@+id/img_cart"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_cart"
+        android:layout_toLeftOf="@+id/img_user"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+
+    </ImageView>
 </RelativeLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_img"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                app:cardCornerRadius="30dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_dummy_restaurant">
+                    </ImageView>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_img"
+                android:background="@color/light_white"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Restaurant Mosaic"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/black">
+                    </TextView>
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_fill_star"
+                        android:layout_marginRight="5dp">
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5.0"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:textColor="@color/colorSecond">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(180)"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/dark_grey">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Pretoria, 0186, South Africa"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/colorPrimary">
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+</RelativeLayout>

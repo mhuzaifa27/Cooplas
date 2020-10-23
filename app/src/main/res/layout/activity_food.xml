@@ -1,173 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_white"
-    tools:context=".activities.Food.FoodActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_white">
+    android:background="@color/light_white">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/app_header_food">
-        </include>
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_food"></include>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/header"
-            android:padding="20dp">
+            android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tv_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_bold"
                 android:text="Taste the Best that Surprise you."
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                android:fontFamily="@font/fira_sans_bold"/>
+                android:layout_marginHorizontal="20dp"/>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_search"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
                 android:layout_below="@+id/tv_text"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="20dp"
                 android:visibility="visible"
-                android:layout_marginHorizontal="5dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:gravity="center"
                     android:paddingHorizontal="20dp">
+
                     <ImageView
                         android:id="@+id/img_search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/ic_search"
-                        app:tint="@color/grey_light"
-                        android:layout_centerVertical="true">
+                        app:tint="@color/grey_light">
 
                     </ImageView>
+
                     <EditText
                         android:id="@+id/et_amount"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:hint="Search Food"
-                        android:textSize="16sp"
-                        android:layout_toRightOf="@+id/img_search"
-                        android:fontFamily="@font/fira_sans_regular"
+                        android:layout_centerInParent="true"
                         android:layout_marginHorizontal="10dp"
+                        android:layout_toRightOf="@+id/img_search"
+                        android:background="@color/white"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:hint="Search Food"
                         android:textColorHint="@color/grey_light"
-                        android:layout_centerInParent="true">
-                    </EditText>
+                        android:textSize="16sp"></EditText>
+
                     <ImageView
                         android:id="@+id/img_filters"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_filters_orange"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_filters_orange">
 
                     </ImageView>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:id="@+id/ll_categories"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_below="@+id/card_search">
+                android:layout_below="@+id/card_search"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:weightSum="1"
+                    android:layout_marginHorizontal="20dp">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_extra_bold"
                         android:text="Categories"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/fira_sans_extra_bold">
+                        android:textSize="18sp">
 
                     </TextView>
+
                     <TextView
+                        android:id="@+id/tv_see_all_categories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="See All"
                         android:fontFamily="@font/fira_sans_regular"
-                        android:textColor="@color/colorSecond"
                         android:padding="5dp"
+                        android:text="See All"
+                        android:textColor="@color/colorSecond"
                         android:textSize="14sp">
 
                     </TextView>
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="4"
-                    tools:listitem="@layout/item_food_category">
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_marginLeft="20dp"
+                    tools:listitem="@layout/item_food_category"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_for_you"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_below="@+id/ll_categories"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/ll_categories">
+                android:orientation="vertical"
+                android:layout_marginHorizontal="20dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="1">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_extra_bold"
                         android:text="For You"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/fira_sans_extra_bold">
+                        android:textSize="18sp">
 
                     </TextView>
+
                     <TextView
+                        android:id="@+id/tv_see_for_you"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="See All"
                         android:fontFamily="@font/fira_sans_regular"
-                        android:textColor="@color/colorSecond"
                         android:padding="5dp"
+                        android:text="See All"
+                        android:textColor="@color/colorSecond"
                         android:textSize="14sp">
 
                     </TextView>
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_for_you"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
                     tools:itemCount="4"
-                    tools:listitem="@layout/item_food_category">
-                </androidx.recyclerview.widget.RecyclerView>
+                    tools:listitem="@layout/item_food_for_you"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_near_you"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_for_you"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="Near You"
+                        android:textColor="@color/black"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/tv_see_near_you"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:padding="5dp"
+                        android:text="See All"
+                        android:textColor="@color/colorSecond"
+                        android:textSize="14sp">
+
+                    </TextView>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_near_you"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="4"
+                    android:layout_marginLeft="20dp"
+                    tools:listitem="@layout/item_food_near_you"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_popular_restaurants"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_near_you"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="Popular Restaurants"
+                        android:textColor="@color/black"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/tv_see_popular_restaurant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:padding="5dp"
+                        android:text="See All"
+                        android:textColor="@color/colorSecond"
+                        android:textSize="14sp">
+
+                    </TextView>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_popular_restaurants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_food_popular_restaurants"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
         </RelativeLayout>
-    </RelativeLayout>
-</ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

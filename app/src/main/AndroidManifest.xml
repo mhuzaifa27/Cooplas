@@ -22,7 +22,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Food.FoodActivity"
+        <activity android:name=".activities.Food.FoodFilterActivity"></activity>
+        <activity
+            android:name=".activities.Food.FoodActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.AllCategoriesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.AllNearYouActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.AllForYouActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.AllPopularRestaurantActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Wallet.WalletActivity"

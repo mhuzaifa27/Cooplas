@@ -12,5 +12,6 @@
     <color name="grey_light">#DDDDDD</color>
     <color name="dark_grey">#3E3E3E</color>
     <color name="mid_grey">#7D7D7D</color>
+    <color name="light_purple">#423050</color>
 
 </resources>
