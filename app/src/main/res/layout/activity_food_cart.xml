@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    tools:context=".activities.Wallet.WalletActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general"></include>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_above="@+id/card_checkout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants">
+
+            <LinearLayout
+                android:id="@+id/ll_amount"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/bg_round_white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:weightSum="2"
+                    android:layout_marginHorizontal="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="@string/subtotal"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:textSize="16sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="30 usd"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="@color/black"
+                        android:textSize="16sp">
+
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:weightSum="2"
+                    android:layout_marginHorizontal="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="@string/tax_and_fees"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:textSize="16sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="0 usd"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="@color/black"
+                        android:textSize="16sp">
+
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:weightSum="2"
+                    android:layout_marginHorizontal="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="@string/delivery"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:textSize="16sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="Free"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="@color/black"
+                        android:textSize="16sp">
+
+                    </TextView>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/dark_grey"
+                    android:alpha="0.5"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginHorizontal="50dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:weightSum="2"
+                    android:layout_marginHorizontal="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="@string/total"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:textColor="@color/colorSecond"
+                        android:textSize="16sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:text="30 usd"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="@color/colorSecond"
+                        android:textSize="16sp">
+
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_amount"
+                tools:itemCount="3"
+                android:layout_marginTop="30dp"
+                tools:listitem="@layout/item_cart"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="15dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        card_view:cardBackgroundColor="@color/colorSecond"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="4dp">
+
+        <Button
+            android:id="@+id/btn_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_btn_orange"
+            android:elevation="4dp"
+            android:text="@string/checkout"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

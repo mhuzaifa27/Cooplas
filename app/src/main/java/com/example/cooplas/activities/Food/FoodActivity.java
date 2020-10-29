@@ -1,6 +1,8 @@
 package com.example.cooplas.activities.Food;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cooplas.R;
+import com.example.cooplas.adapters.Food.FoodCartAdapter;
 import com.example.cooplas.adapters.Food.FoodCategoriesAdapter;
 import com.example.cooplas.adapters.Food.FoodForYouAdapter;
 import com.example.cooplas.adapters.Food.FoodNearYouAdapter;
@@ -21,11 +24,14 @@ import com.example.cooplas.adapters.Food.FoodPopularRestaurantAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FoodActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "FoodActivity";
     private Context context=FoodActivity.this;
     private Activity activity=FoodActivity.this;
+    private DrawerLayout drawer_food;
 
     private RecyclerView rv_category,rv_for_you,rv_near_you,rv_popular_restaurants;
     private LinearLayoutManager layoutManagerCategory,layoutManagerForYou,layoutManagerNearYou,layoutManagerPopularRestaurant;
@@ -41,7 +47,8 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
     private FoodPopularRestaurantAdapter foodPopularRestaurantAdapter;
 
     private TextView tv_see_all_categories,tv_see_for_you,tv_see_near_you,tv_see_popular_restaurant;
-    private ImageView img_filters;
+    private ImageView img_filters,img_cart,img_discover,img_back;
+    private CircleImageView img_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,8 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         tv_see_near_you.setOnClickListener(this);
         tv_see_popular_restaurant.setOnClickListener(this);
         img_filters.setOnClickListener(this);
+        img_cart.setOnClickListener(this);
+        img_user.setOnClickListener(this);
     }
 
     private void getFoodData() {
@@ -81,6 +90,12 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void initComponents() {
         img_filters=findViewById(R.id.img_filters);
+        img_cart=findViewById(R.id.img_cart);
+        img_discover=findViewById(R.id.img_discover);
+        img_discover.setVisibility(View.VISIBLE);
+        img_back=findViewById(R.id.img_back);
+        img_back.setVisibility(View.GONE);
+        img_user=findViewById(R.id.img_user);
 
         tv_see_all_categories=findViewById(R.id.tv_see_all_categories);
         tv_see_for_you=findViewById(R.id.tv_see_for_you);
@@ -109,6 +124,8 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         rv_near_you.setAdapter(foodNearYouAdapter);
         foodPopularRestaurantAdapter=new FoodPopularRestaurantAdapter(popularRestaurantList,context);
         rv_popular_restaurants.setAdapter(foodPopularRestaurantAdapter);
+
+        drawer_food=findViewById(R.id.drawer_food);
     }
 
     @Override
@@ -128,6 +145,12 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.img_filters:
                 startActivity(new Intent(context,FoodFilterActivity.class));
+                break;
+            case R.id.img_cart:
+                startActivity(new Intent(context, FoodCartActivity.class));
+                break;
+            case R.id.img_user:
+                drawer_food.openDrawer(GravityCompat.START,true);
                 break;
         }
     }

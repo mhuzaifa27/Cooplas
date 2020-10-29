@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="-3dp"
+        android:layout_marginTop="-3dp"
+        android:background="@drawable/round_border_grey"
+        android:orientation="vertical"
+        android:paddingVertical="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_4"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="1dp">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <LinearLayout
+            android:id="@+id/ll_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/ll_time"
+            android:layout_toRightOf="@+id/img_user"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_bold"
+                android:singleLine="true"
+                android:text="Joany Boyle Sr."
+                android:textColor="@color/black"
+                android:textSize="15sp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_regular"
+                android:singleLine="true"
+                android:text="Perspiciatis aut facilis quibusdam..."
+                android:textColor="@color/black"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_bold"
+                android:singleLine="true"
+                android:text="1 hrs. ago"
+                android:textColor="@color/black"
+                android:textSize="14sp">
+
+            </TextView>
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:rating="4"
+                android:progressTint="@color/colorSecond"
+                android:indeterminateTint="@color/colorSecond"
+                style="@style/Widget.AppCompat.RatingBar.Small">
+            </RatingBar>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

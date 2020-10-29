@@ -10,8 +10,24 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="ChipTextStyle_Selected">
+   <!-- <style name="chipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/grey</item>
+    </style>-->
+    <style name="CustomChipViewStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <!-- Chip background color selector -->
+        <item name="chipBackgroundColor">@color/chip_view_background_selector</item>
+        <!-- Border color -->
+        <item name="chipStrokeColor">@color/chip_view_stroke_selector</item>
+        <!-- Chip text color selector -->
+        <item name="android:textColor">@color/chip_view_text_color_selector</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorSecond</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/black
+        </item>
     </style>
 </resources>

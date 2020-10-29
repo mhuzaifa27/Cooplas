@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "444852423714",
+    "firebase_url": "https://cooplasdriver.firebaseio.com",
+    "project_id": "cooplasdriver",
+    "storage_bucket": "cooplasdriver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444852423714:android:ca1ae905daacd058d48e7b",
+        "android_client_info": {
+          "package_name": "com.example.cooplas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444852423714-8lpslm92qscbe13b1n7jtd01vj3bhh61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cooplas",
+            "certificate_hash": "ab18ab70ca4c9549027f834afa1a4783a3c2d176"
+          }
+        },
+        {
+          "client_id": "444852423714-1np745f1fc0f4io3jcds6onmc6htdllc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg2uMesqthJfZrwdQiPJgJXzdzwYxj1SM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444852423714-1np745f1fc0f4io3jcds6onmc6htdllc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

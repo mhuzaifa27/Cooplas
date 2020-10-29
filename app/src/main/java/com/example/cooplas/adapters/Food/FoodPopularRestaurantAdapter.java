@@ -1,6 +1,7 @@
 package com.example.cooplas.adapters.Food;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooplas.R;
+import com.example.cooplas.activities.Food.RestaurantDetailActivity;
 
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class FoodPopularRestaurantAdapter extends RecyclerView.Adapter<FoodPopul
     public void onBindViewHolder(final TravelBuddyViewHolder holder, int position) {
         String s = data.get(position);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, RestaurantDetailActivity.class));
+            }
+        });
     }
 
 

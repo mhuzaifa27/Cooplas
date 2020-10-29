@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="130dp"
+    android:padding="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.3"
+        app:cardCornerRadius="30dp"
+        android:layout_margin="2dp"
+        app:cardBackgroundColor="@color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:alpha="0.7">
+            </ImageView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_img"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="30dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_dummy_restaurant">
+                    </ImageView>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/card_img"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:weightSum="3"
+                android:layout_marginHorizontal="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Restaurant Mosaic"
+                        android:textSize="18sp"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/fira_sans_bold"
+                        android:textColor="@color/black">
+                    </TextView>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_empty_heart"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="20dp"
+                        android:visibility="gone">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Burger King"
+                        android:textSize="14sp"
+                        android:gravity="center_vertical"
+                        android:visibility="gone"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/colorPrimary">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="1 item"
+                        android:textSize="14sp"
+                        android:visibility="visible"
+                        android:gravity="center_vertical|left"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/black">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Yesterday"
+                        android:textSize="14sp"
+                        android:visibility="visible"
+                        android:gravity="center_vertical|right"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/colorPrimaryDark">
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

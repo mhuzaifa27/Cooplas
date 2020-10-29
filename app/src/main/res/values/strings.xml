@@ -5,4 +5,23 @@
     <string name="snackbar_check_internet">Please check your internet connection!</string>
     <string name="snackbar_internet_available">Internet Connected</string>
     <string name="character">\u0040</string>
+    <string name="checkout">Checkout</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="tax_and_fees">Tax and Fees</string>
+    <string name="delivery">Delivery</string>
+    <string name="total">Total</string>
+    <string name="cart">Cart</string>
+    <string name="deliver_at_my_place">Deliver At My Place</string>
+    <string name="delivery_at_my_friend_s_place">Delivery At My Friend\'s Place</string>
+    <string name="delivery_mode">Delivery Mode</string>
+    <string name="coopay_credit">Coopay Credit</string>
+    <string name="your_order_is_successfully_added">Your Order is Successfully Added</string>
+    <string name="order_number">Your Order Number is</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="order_history">Order History</string>
+    <string name="title">Title</string>
+    <string name="go_online_to_start_accepting_jobs">Go online to start accepting jobs</string>
+    <string name="you_are_offline">You Are Offline!</string>
+    <string name="hours_online">Hours Online</string>
+    <string name="total_jobs">Total Jobs</string>
 </resources>
