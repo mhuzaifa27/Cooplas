@@ -24,4 +24,12 @@
     <string name="you_are_offline">You Are Offline!</string>
     <string name="hours_online">Hours Online</string>
     <string name="total_jobs">Total Jobs</string>
+    <string name="vehicle_is_waiting_for_you">Vehicle Is Waiting For You</string>
+    <string name="rides_history">Rides History</string>
+    <string name="notifications">Notifications</string>
+    <string name="promo_codes">Promo Codes</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="cancellation_reasons">Cancellation Reasons</string>
+    <string name="faq">FAQ\'s</string>
+    <string name="describe">Describe</string>
 </resources>

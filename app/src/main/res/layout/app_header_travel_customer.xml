@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_below="@+id/audience"
-    android:background="@color/colorPrimary"
+    android:background="@android:color/transparent"
     android:clickable="true"
     android:elevation="3dp"
     android:paddingHorizontal="20dp">
@@ -15,6 +15,7 @@
         android:layout_height="30dp"
         android:src="@drawable/ic_back"
         android:visibility="gone"
+        app:tint="@color/colorSecond"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp">
     </ImageView>
@@ -22,7 +23,8 @@
         android:id="@+id/img_discover"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_menu"
+        android:src="@drawable/ic_discover"
+        app:tint="@color/colorSecond"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
         android:visibility="visible">
@@ -36,17 +38,18 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="24sp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_centerInParent="true">
     </TextView>
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/img_menu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_menu"
+        app:tint="@color/colorSecond"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:checked="true"
-        android:thumbTint="@color/black"
-        android:trackTint="@color/colorPrimaryDark"
-        android:background="@drawable/bg_switch_button">
-    </Switch>
+        android:layout_marginRight="5dp"
+        android:visibility="visible">
+    </ImageView>
 </RelativeLayout>

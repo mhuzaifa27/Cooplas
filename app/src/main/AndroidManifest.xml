@@ -22,11 +22,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.Travel.Customer.AddAddressDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.Travel.Customer.AddAddressActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.Travel.Customer.FaqDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".activities.Travel.Driver.DriverActivity"
+            android:name=".activities.Travel.Customer.FaqActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.SupportActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.InviteFriendsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.PromoCodeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.NotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.RidesHistoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.ReachedAtPickUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.RideCompleteActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.SetAddressActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Food.FoodTrackOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.MainCustomerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Food.FoodOrderHistoryActivity"
@@ -136,9 +169,10 @@
         <activity
             android:name=".activities.NotificationScreen"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_api_key" />
+            android:value="AIzaSyCg2fLwnWOPqqYY_2tx3nkN-D_ypZCV3_Y" />
     </application>
 
 </manifest>

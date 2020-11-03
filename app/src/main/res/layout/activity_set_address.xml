@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    tools:context=".activities.Travel.Customer.SetAddressActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general">
+    </include>
+        <RelativeLayout
+            android:id="@+id/rl_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-3dp"
+            android:layout_marginTop="-3dp"
+            android:layout_below="@+id/header"
+            android:layout_marginRight="-3dp"
+            android:background="@drawable/one_round_border_orange_white_bg">
+
+            <LinearLayout
+                android:id="@+id/ll_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_orange">
+                </View>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/doted_line"
+                    android:layerType="software" />
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/round_blue">
+                </View>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                android:layout_toRightOf="@+id/ll_views"
+                android:visibility="visible"
+                android:orientation="vertical"
+                android:paddingTop="15dp"
+                android:paddingBottom="20dp">
+
+                <EditText
+                    android:id="@+id/et_pick_up_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Wilson Terrace 219 W"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/fira_sans_regular"
+                    android:layout_centerInParent="true">
+                </EditText>
+                <View
+                    android:id="@+id/view_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/et_amount"
+                    android:alpha="0.1"/>
+
+                <EditText
+                    android:id="@+id/et_destination_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginBottom="8dp"
+                    android:text="Diana Trail 115 A"
+                    android:textSize="18sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/fira_sans_regular"
+                    android:layout_centerInParent="true">
+                </EditText>
+                <View
+                    android:id="@+id/view_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/et_amount"
+                    android:alpha="0.1"/>
+            </LinearLayout>
+        </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_home_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rl_address">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:text="Home"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:fontFamily="@font/fira_sans_regular"
+                android:drawableLeft="@drawable/ic_icon_home"
+                android:drawablePadding="20dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:text="Spring St. 140"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/fira_sans_regular">
+
+            </TextView>
+        </LinearLayout>
+        <View
+            android:id="@+id/view_10"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/et_amount"
+            android:alpha="0.1"/>
+
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_home_address">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_prevois_addresses"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_previous_addresses">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+    <RelativeLayout
+        android:id="@+id/rl_done"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/round_orange">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="14dp"
+            android:text="Done"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</RelativeLayout>

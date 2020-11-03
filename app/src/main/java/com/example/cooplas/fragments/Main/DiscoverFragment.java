@@ -15,7 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cooplas.R;
 import com.example.cooplas.activities.Food.FoodActivity;
-import com.example.cooplas.activities.Travel.Driver.DriverActivity;
+import com.example.cooplas.activities.Travel.Customer.MainCustomerActivity;
 import com.example.cooplas.activities.Wallet.WalletActivity;
 
 public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
@@ -65,7 +65,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                 startActivity(new Intent(context, FoodActivity.class));
                 break;
             case R.id.card_travel:
-                startActivity(new Intent(context, DriverActivity.class));
+                startActivity(new Intent(context, MainCustomerActivity.class));
                 break;
         }
     }

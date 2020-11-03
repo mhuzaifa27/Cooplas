@@ -11,6 +11,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,6 +23,10 @@ android {
             multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -42,7 +47,8 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
-    implementation 'androidx.multidex:multidex:2.0.1'
+    //implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
     // implementation 'com.seatgeek:placesautocomplete:0.3-SNAPSHOT'
     // implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     //  implementation 'com.facebook.android:account-kit-sdk:4.33.0'
@@ -64,6 +70,10 @@ dependencies {
 
     //Custom Roundable ImageView
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
+
+    //MapRipple Animation
+    implementation 'com.github.aarsy.googlemapsrippleeffect:googlemapsrippleeffect:1.0.2'
+
    //Google Maps
     implementation 'com.google.android.gms:play-services-places:11.6.2'
     implementation 'com.google.android.gms:play-services:11.6.2'

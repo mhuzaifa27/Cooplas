@@ -16,7 +16,7 @@
     </com.google.android.gms.maps.MapView>-->
     <include
         android:id="@+id/header"
-        layout="@layout/app_header_driver">
+        layout="@layout/app_header_travel_customer">
     </include>
     <LinearLayout
         android:layout_width="match_parent"

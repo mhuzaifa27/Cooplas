@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="40dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:text="Sparkvill Ave 111"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:fontFamily="@font/fira_sans_regular"
+        android:drawableLeft="@drawable/ic_previous_search"
+        android:drawablePadding="20dp">
+
+    </TextView>
+    <View
+        android:id="@+id/view_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/et_amount"
+        android:alpha="0.1"/>
+
+</LinearLayout>

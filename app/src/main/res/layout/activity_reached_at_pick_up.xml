@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    tools:context=".activities.Travel.Customer.ReachedAtPickUpActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="40dp"
+            android:background="@drawable/bg_round_white">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_dummy_red_car"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Your Vehicle"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:fontFamily="@font/fira_sans_bold"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_car_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_1"
+            android:layout_marginHorizontal="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/fira_sans_regular"
+                android:gravity="left"
+                android:text="BMW - M5"
+                android:textColor="@color/colorSecond"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/fira_sans_regular"
+                android:gravity="right"
+                android:text="CA 123-456"
+                android:textColor="@color/colorSecond"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_car_info"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:alpha="0.8"
+            android:background="@color/grey" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="You Have"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:fontFamily="@font/fira_sans_bold"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_1"
+            android:layout_marginHorizontal="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/fira_sans_extra_bold"
+                android:gravity="center"
+                android:text="09 : 05 : 00"
+                android:textColor="@color/colorSecond"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="After 10 minutes your driver has right to cancel the ride"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="30dp"
+            android:gravity="center"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_customer_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="-70dp"
+        android:elevation="1dp"
+        android:visibility="visible">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_customer_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/your_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/fira_sans_bold"
+                    android:text="Your Driver:"
+                    android:textColor="@color/black" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/your_driver"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="-90dp"
+                    android:elevation="5dp"
+                    android:src="@drawable/profile_4"
+                    android:visibility="visible"
+                    app:civ_border_color="@color/colorSecond"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/your_driver"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_user"
+                    android:fontFamily="@font/fira_sans_medium"
+                    android:text="Mart Banks"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_user_name"
+                    android:layout_toRightOf="@+id/img_user"
+                    android:drawableLeft="@drawable/ic_star_border"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/fira_sans_light"
+                    android:text="4.9"
+                    android:textColor="@color/colorSecond"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_call_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/card_driver_info"
+                    android:layout_below="@+id/your_driver"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="40dp"
+                    android:src="@drawable/ic_phone_white"
+                    android:tint="@color/white"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/colorSecond"
+                    app:borderWidth="0dp"
+                    app:elevation="6dp"
+                    app:fabSize="mini"
+                    app:rippleColor="@color/white" />
+                <RelativeLayout
+                    android:id="@+id/rl_reached"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_below="@+id/fab_call_driver"
+                    android:background="@drawable/round_orange">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="14dp"
+                        android:text="I'm Reached"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

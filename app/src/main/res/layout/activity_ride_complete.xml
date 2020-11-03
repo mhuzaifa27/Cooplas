@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F5F6F6">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="60dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:rotation="180"
+                android:src="@drawable/back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/rl_back"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="You are in Place"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_below="@id/rl_profile"
+            android:layout_width="match_parent"
+            android:layout_marginTop="-84dp"
+            android:background="@drawable/bg_follow"
+            android:layout_height="168dp">
+
+            <LinearLayout
+                android:layout_marginBottom="21dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:id="@+id/rl_time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:text=" Time: "
+                        />
+                    <TextView
+                        android:layout_below="@id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:text="15 min"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_price"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:text=" Price: "
+                        />
+                    <TextView
+                        android:layout_below="@id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/fira_sans_extra_bold"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:text="$9.99"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_distance"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:text=" Distance: "
+                        />
+                    <TextView
+                        android:layout_below="@id/tv_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:text="15 Km"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_profile"
+            android:layout_width="match_parent"
+            android:background="@drawable/profile_bg"
+            android:layout_height="220dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/profile_2"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_profile"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textColor="@color/colorSecond"
+                android:textSize="14sp"
+                android:text="Your Driver:"/>
+
+            <TextView
+                android:id="@+id/tv_name_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_user_name"
+                android:layout_margin="4dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:text="Mart Banks"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jack,"
+        android:textSize="12sp"
+        android:textColor="@color/colorSecond"
+        android:fontFamily="@font/fira_sans_regular"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+    </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How is your trip?"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/fira_sans_extra_bold"
+        android:layout_gravity="center_horizontal">
+    </TextView>
+
+    <com.willy.ratingbar.ScaleRatingBar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/srb_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:paddingHorizontal="20dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingVertical="5dp"
+        app:srb_clickable="true"
+        app:srb_drawableEmpty="@drawable/ic_star_border"
+        app:srb_drawableFilled="@drawable/ic_fill_star"
+        app:srb_isIndicator="false"
+        app:srb_numStars="5"
+        app:srb_starHeight="40dp"
+        app:srb_starPadding="10dp"
+        app:srb_starWidth="40dp"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:layout_below="@+id/header"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        android:layout_marginHorizontal="50dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/et_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginBottom="8dp"
+                android:hint="Additional Comments"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:fontFamily="@font/fira_sans_regular"
+                android:layout_marginHorizontal="20dp"
+                android:layout_centerInParent="true">
+            </EditText>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/rl_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/round_orange">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="14dp"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</LinearLayout>

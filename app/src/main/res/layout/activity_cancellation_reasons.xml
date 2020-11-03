@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    tools:context=".activities.Travel.Customer.PromoCodeActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general"></include>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_bold"
+                android:text="Please select the reason for cancellation:"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:elevation="0.7dp"
+                android:background="@color/light_white"
+                android:padding="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.6dp"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/round_border_grey">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_checked_orange"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:text="I don't want to share"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.5dp"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/round_border_grey">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_circle_grey"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:text="Can't contact to driver"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.5dp"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/round_border_grey">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_circle_grey"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:text="Driver is late"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.5dp"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/round_border_grey">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_circle_grey"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:text="The price is not reasonable"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.5dp"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/round_border_grey">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_circle_grey"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:text="Pickup address is incorrect"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_invite"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round_orange">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="14dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

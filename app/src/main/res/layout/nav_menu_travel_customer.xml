@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/menu_header"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimaryDark">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profile_2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jack Snow"
+                android:textSize="24sp"
+                android:fontFamily="@font/fira_sans_extra_bold"
+                android:textColor="@color/colorSecond">
+
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\@jacksnow"
+                android:textSize="14sp"
+                android:fontFamily="@font/fira_sans_extra_bold"
+                android:textColor="@color/white">
+
+            </TextView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_below="@+id/menu_header">
+        <TextView
+            android:id="@+id/tv_my_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="My Wallet"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_rides_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Rides History"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_promo_codes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Promo Codes"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Notifications"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Add Address"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_invite_friends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Invite Friends"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_help_and_support"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Help &amp; Support"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_log_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical|left"
+            android:text="Log Out"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/fira_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_vertical|left"
+        android:text="V1.1.000"
+        android:paddingVertical="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/fira_sans_regular"
+        android:textColor="@color/grey"
+        android:textSize="18sp" />
+</RelativeLayout>

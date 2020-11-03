@@ -22,7 +22,7 @@
     <stroke
         android:color="@color/grey_light"
         android:width="2dp"></stroke>
-    <!--<solid android:color="#E5F4FF"/>-->
+    <solid android:color="@color/light_white"/>
     <corners android:bottomLeftRadius="50dp"/>
 
 </shape>
