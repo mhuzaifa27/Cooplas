@@ -30,6 +30,8 @@ data class User(
 
 )
 
+
+
 data class GeneralRes(
   //  val error: Int,
     val status: Int,

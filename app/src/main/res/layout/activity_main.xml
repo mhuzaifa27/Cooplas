@@ -20,9 +20,8 @@
         android:id="@+id/main_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:elevation="5dp"
-        android:layout_marginTop="5dp"
         android:layout_alignParentBottom="true"
+        android:elevation="5dp"
         android:weightSum="4">
 
         <LinearLayout
@@ -38,7 +37,7 @@
                 android:id="@+id/img_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_home"></ImageView>
+                android:src="@drawable/ic_home" />
 
             <TextView
                 android:id="@+id/tv_home"
@@ -47,7 +46,7 @@
                 android:text="HOME"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_chat"
-                app:tint="@color/dark_grey"></ImageView>
+                app:tint="@color/dark_grey" />
 
             <TextView
                 android:id="@+id/tv_chat"
@@ -73,7 +72,7 @@
                 android:text="CHAT"
                 android:textAllCaps="true"
                 android:textColor="@color/dark_grey"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_videos"
-                app:tint="@color/dark_grey"></ImageView>
+                app:tint="@color/dark_grey" />
 
             <TextView
                 android:id="@+id/tv_videos"
@@ -99,7 +98,7 @@
                 android:text="VIDEOS"
                 android:textAllCaps="true"
                 android:textColor="@color/dark_grey"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -116,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_discover"
-                app:tint="@color/dark_grey"></ImageView>
+                app:tint="@color/dark_grey" />
 
             <TextView
                 android:id="@+id/tv_discover"
@@ -125,7 +124,7 @@
                 android:text="DISCOVER"
                 android:textAllCaps="true"
                 android:textColor="@color/dark_grey"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

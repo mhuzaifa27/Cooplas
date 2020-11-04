@@ -36,4 +36,16 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true">
     </ImageView>
+
+    <ImageView
+        android:id="@+id/three_dots_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_notificaiton"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+    </ImageView>
+
+
+
 </RelativeLayout>

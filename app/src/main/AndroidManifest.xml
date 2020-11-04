@@ -22,6 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <activity android:name=".activities.Travel.Customer.AddAddressDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.Travel.Customer.AddAddressActivity"
@@ -32,8 +35,10 @@
             android:name=".activities.Travel.Customer.FaqActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.Travel.Customer.SupportActivity"
+            android:name=".activities.EnterNewPassword"
+
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.Travel.Customer.InviteFriendsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -101,18 +106,6 @@
             android:name=".activities.MessagingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".splashscreen.SplashScreen"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
-        <activity
             android:name=".splashscreen.SplashScreen2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -135,6 +128,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".splashscreen.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -168,6 +164,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NotificationScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signup_screens.EmailVerificationScreen"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data

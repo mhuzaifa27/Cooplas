@@ -33,35 +33,57 @@ fun getShared_Preference(context: Context): SharedPreferences {
 }
 
 fun saveAccessToken(context: Context, access_token: String) {
-        val sharedPreferences = getShared_Preference(context)
-        val editor = sharedPreferences.edit()
-        editor.putString(ACCESS_TOKEN, access_token)
-        editor.apply()
+    val sharedPreferences = getShared_Preference(context)
+    val editor = sharedPreferences.edit()
+    editor.putString(ACCESS_TOKEN, access_token)
+    editor.apply()
 }
 
+fun clearSharedPreference(context: Context) {
+
+    val settings = context.getSharedPreferences(USER_PREF, Context.MODE_PRIVATE)
+    settings.edit().clear().commit()
+
+}
+
+
 fun getAccessToken(context: Context): String? {
-        return getShared_Preference(context).getString(ACCESS_TOKEN, "")
+    return getShared_Preference(context).getString(ACCESS_TOKEN, "")
 }
 
 fun saveUserEmailAndPass(context: Context, email: String, pass: String) {
-        val editor = getShared_Preference(context).edit()
-        editor.putString(AppConstants.EMAIL, email)
-        editor.putString(AppConstants.PASSWORD, pass)
-        editor.apply()
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.EMAIL, email)
+    editor.putString(AppConstants.PASSWORD, pass)
+    editor.apply()
 }
 
+fun saveLoggedIn(context: Context, value: String) {
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.isLoggedIn, value)
+    editor.apply()
+}
+
+fun getLoggedIn(context: Context): String {
+
+
+    return getShared_Preference(context).getString(AppConstants.isLoggedIn, "").toString()
+}
+
+
 fun getEmail(context: Context): String? {
-    return getShared_Preference(context).getString(AppConstants.EMAIL,"")
+    return getShared_Preference(context).getString(AppConstants.EMAIL, "")
 }
 
 fun getPassword(context: Context): String? {
-    return getShared_Preference(context).getString(AppConstants.PASSWORD,"")
+    return getShared_Preference(context).getString(AppConstants.PASSWORD, "")
 }
 
 fun getTimewithDate(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
-    val date = format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+    format.timeZone = TimeZone.getTimeZone("GMT")
+    val date =
+        format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
     format = SimpleDateFormat("dd MMM yyyy  hh:mm a", Locale.getDefault())
     return format.format(date)
 }
@@ -77,7 +99,7 @@ fun getSimpleDatewithT(dateStr: String): String {
 fun getSimpleDate(dateStr: String): String {
 //    var format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
     var format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val date = format.parse(dateStr)
     format = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
     return format.format(date)
@@ -85,8 +107,9 @@ fun getSimpleDate(dateStr: String): String {
 
 fun getTime(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
-    val time = format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+    format.timeZone = TimeZone.getTimeZone("GMT")
+    val time =
+        format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
     format = SimpleDateFormat("hh:mm a", Locale.getDefault())
     val newTime = format.format(time)
     return newTime
@@ -94,7 +117,7 @@ fun getTime(dateStr: String): String {
 
 fun getTimewithout_T(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val time = format.parse(dateStr)
     format = SimpleDateFormat("hh:mm a", Locale.getDefault())
     val newTime = format.format(time)
@@ -103,7 +126,7 @@ fun getTimewithout_T(dateStr: String): String {
 
 fun getTimeanddatewithout_T(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val time = format.parse(dateStr)
     format = SimpleDateFormat("hh:mm a dd ,MMM yyyy", Locale.getDefault())
     val newTime = format.format(time)
@@ -112,29 +135,31 @@ fun getTimeanddatewithout_T(dateStr: String): String {
 
 fun getMonth(dateStr: String): String {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
-    val date = format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+    format.timeZone = TimeZone.getTimeZone("GMT")
+    val date =
+        format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
     return android.text.format.DateFormat.format("MMM", date) as String
 }
 
 fun getMonthwithoutT(dateStr: String): String {
     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val date = format.parse(dateStr)
     return android.text.format.DateFormat.format("MMM", date) as String
 }
 
 fun getDate(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
-        val date = format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
-        format = SimpleDateFormat("dd", Locale.getDefault())
-        return format.format(date)
+    format.timeZone = TimeZone.getTimeZone("GMT")
+    val date =
+        format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+    format = SimpleDateFormat("dd", Locale.getDefault())
+    return format.format(date)
 }
 
 fun getDatewithoutT(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val date = format.parse(dateStr)
     format = SimpleDateFormat("dd", Locale.getDefault())
     return format.format(date)
@@ -142,15 +167,16 @@ fun getDatewithoutT(dateStr: String): String {
 
 fun getDay(dateStr: String): String {
     var format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
-    val date = format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
+    format.timeZone = TimeZone.getTimeZone("GMT")
+    val date =
+        format.parse(dateStr.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0])
     format = SimpleDateFormat("EEEE", Locale.getDefault())
     return format.format(date)
 }
 
 fun getMonthnumber(dateStr: String): Int {
     var format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val date = format.parse(dateStr)
     format = SimpleDateFormat("MM", Locale.getDefault())
     return format.format(date).toInt()
@@ -158,7 +184,7 @@ fun getMonthnumber(dateStr: String): Int {
 
 fun getintDate(dateStr: String): Int {
     var format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val date = format.parse(dateStr)
     format = SimpleDateFormat("dd", Locale.getDefault())
     return format.format(date).toInt()
@@ -166,7 +192,7 @@ fun getintDate(dateStr: String): Int {
 
 fun getYear(dateStr: String): Int {
     var format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    format.timeZone=TimeZone.getTimeZone("GMT")
+    format.timeZone = TimeZone.getTimeZone("GMT")
     val date = format.parse(dateStr)
     format = SimpleDateFormat("yyyy", Locale.getDefault())
     return format.format(date).toInt()

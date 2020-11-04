@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/round_border_grey"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/profile_4"
+                app:civ_border_color="@color/colorSecond"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/iv_profile"
+                android:gravity="center"
+                android:text="Jack Snow"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/iv_profile"
+                android:gravity="center"
+                android:text="Today at 05:53 PM"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_option"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/below_arrow" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_top"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. "
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_description"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_like"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_fav"
+                    android:layout_width="18dp"
+                    android:layout_height="16sp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/fav" />
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/iv_fav"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="145"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp">
+
+                <ImageView
+                    android:id="@+id/iv_comment"
+                    android:layout_width="18dp"
+                    android:layout_height="16sp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/comment_icon" />
+
+                <TextView
+                    android:id="@+id/tv_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/iv_comment"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="14"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp">
+
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="18dp"
+                    android:layout_height="16sp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/share" />
+
+                <TextView
+                    android:id="@+id/tv_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/iv_share"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="Share"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_option"
+            tools:itemCount="0"
+            tools:listitem="@layout/comment_item" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_below="@id/rcv_comment"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_primary">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_write_comment"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/profile_icon"
+                app:civ_border_color="@color/colorSecond"
+                app:civ_border_width="2dp" />
+
+            <EditText
+                android:id="@+id/et_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toStartOf="@id/iv_send"
+                android:layout_toEndOf="@id/iv_write_comment"
+                android:background="@null"
+                android:hint="Write a comment..."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_send"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:src="@drawable/send_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_edit_del"
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_top"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-15dp"
+            android:background="@drawable/option_bg"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Edit"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_edit"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

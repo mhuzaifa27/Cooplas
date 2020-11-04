@@ -1,6 +1,7 @@
 package com.example.cooplas.interfaces
 
 import com.example.cooplas.models.*
+import com.example.cooplas.utils.callbacks.ForgetPasResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -15,36 +16,50 @@ interface Cooplas {
 
     @FormUrlEncoded
     @POST("/api/signup")
-    fun register(@Field("first_name") first_name:String,
-                 @Field("last_name") last_name:String,
-                 @Field("phone") phone:String,
-                 @Field("email") email:String,
-                 @Field("password") password:String,
-                 @Field("role") role:String):Call<SignUpSigninRes>
+    fun register(
+        @Field("first_name") first_name: String,
+        @Field("last_name") last_name: String,
+        @Field("phone") phone: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("role") role: String
+    ): Call<SignUpSigninRes>
 
     @FormUrlEncoded
     @POST("/api/signin")
-    fun login(@Field("email") email:String,
-              @Field("password") password:String ):Call<SignUpSigninRes>
+    fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Call<SignUpSigninRes>
 
     @GET("/api/verify/phone")
-    fun verify_otp(@Header("Authorization") Authorization: String,
-                   @Query("code") code:String):Call<GeneralRes>
+    fun verify_otp(
+        @Header("Authorization") Authorization: String,
+        @Query("code") code: String
+    ): Call<GeneralRes>
+
+
+    @GET("/api/verify/password-reset-code?code=")
+    fun verify_forgetPassword(
+               @Query("code") code: String
+    ): Call<ForgetPasResponse>
 
     @GET("/api/resend/phone-verification-code")
-    fun resent_otp(@Header("Authorization") Authorization: String):Call<GeneralRes>
+    fun resent_otp(@Header("Authorization") Authorization: String): Call<GeneralRes>
 
     @Multipart
     @POST("/api/complete/signup")
-    fun complete_sign_up(@Header("Authorization") Authorization:String,
-                         @Part profile_image: MultipartBody.Part,
-                         @Part("gender") gender: RequestBody,
-                         @Part("username") username: RequestBody,
-                         @Part("dob") dob: RequestBody,
-                         @Part("relationship_status") relationship_status: RequestBody ):Call<GeneralRes>
+    fun complete_sign_up(
+        @Header("Authorization") Authorization: String,
+        @Part profile_image: MultipartBody.Part,
+        @Part("gender") gender: RequestBody,
+        @Part("username") username: RequestBody,
+        @Part("dob") dob: RequestBody,
+        @Part("relationship_status") relationship_status: RequestBody
+    ): Call<GeneralRes>
 
     @GET("/api/send/password-reset-code")
-    fun forgot_password(@Query("email") email:String):Call<GeneralRes>
+    fun forgot_password(@Query("email") email: String): Call<GeneralRes>
 
     @GET("/api/post/likes")
     fun post_likes(
@@ -53,7 +68,8 @@ interface Cooplas {
     ): Call<PostlikeRes>
 
     @GET
-    fun follow_user(@Url url:String,
+    fun follow_user(
+        @Url url: String,
         @Header("Authorization") Authorization: String
     ): Call<GeneralRes>
 
@@ -71,8 +87,10 @@ interface Cooplas {
     fun get_user_profile(@Header("Authorization") Authorization: String): Call<ProfileRes>
 
     @DELETE
-    fun delete_post(@Url url:String,
-                    @Header("Authorization") Authorization: String): Call<GeneralRes>
+    fun delete_post(
+        @Url url: String,
+        @Header("Authorization") Authorization: String
+    ): Call<GeneralRes>
 
     @FormUrlEncoded
     @POST("/api/add/comment")

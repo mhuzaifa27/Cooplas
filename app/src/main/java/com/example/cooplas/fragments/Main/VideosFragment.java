@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cooplas.R;
-import com.example.cooplas.adapters.HomePostAdapter;
 import com.example.cooplas.adapters.HomeStoriesAdapter;
 import com.example.cooplas.adapters.PostVideosAdapter;
 import com.example.cooplas.utils.ShowMenu;

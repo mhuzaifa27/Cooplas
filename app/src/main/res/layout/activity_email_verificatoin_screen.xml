@@ -85,37 +85,11 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/round_orange_2"
             android:gravity="center"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:textColor="@color/white"
-            android:textSize="@dimen/code_input_textSize" />
-
-
-        <EditText
-            android:id="@+id/et_five"
-            android:layout_width="42dp"
-            android:layout_height="@dimen/code_input_height"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/round_orange_2"
-            android:gravity="center"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:textColor="@color/white"
-            android:textSize="@dimen/code_input_textSize" />
-
-        <EditText
-            android:id="@+id/et_six"
-            android:layout_width="@dimen/code_input_width"
-            android:layout_height="@dimen/code_input_height"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/round_orange_2"
-            android:gravity="center"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:textColor="@color/white"
             android:textSize="@dimen/code_input_textSize" />
+
 
     </LinearLayout>
 
@@ -126,7 +100,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="A verification code has been sent to\nyou phone number. Please input code\nto continue."
+        android:text="Please input received code above."
         android:textColor="#0092FF"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -141,7 +115,8 @@
         android:layout_marginBottom="30dp"
         android:text="@string/resend_otp"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/rl_next"

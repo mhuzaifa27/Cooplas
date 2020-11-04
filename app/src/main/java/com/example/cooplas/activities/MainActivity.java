@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_home, tv_chat, tv_videos, tv_discover;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void iniComponents() {
         extras = getIntent().getStringExtra("CURRENT_TAG");
-        ;
+
         //checkIntentData();
 
         main_frame = findViewById(R.id.main_frame);

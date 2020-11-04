@@ -14,5 +14,6 @@
     <color name="mid_grey">#7D7D7D</color>
     <color name="light_purple">#423050</color>
     <color name="inactive_text">#C2BCC7</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

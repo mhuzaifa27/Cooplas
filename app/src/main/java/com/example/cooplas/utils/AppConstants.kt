@@ -14,8 +14,8 @@ class AppConstants {
         val IMAGE_PATH = "image_path"
         val FIRST_NAME = "first_name"
         val LAST_NAME = "last_name"
-        val GENDER="gender"
-        val SHARED_PREF="shared_pref"
+        val GENDER = "gender"
+        val isLoggedIn = "isLoggedIn"
     }
 
 }

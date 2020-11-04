@@ -50,6 +50,7 @@ import java.io.File
 import java.util.*
 
 class EditProfileScreen : AppCompatActivity() {
+
     var gender=""
     var camerafile: File?=null
     var imagefile: File?=null

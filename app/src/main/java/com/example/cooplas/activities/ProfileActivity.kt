@@ -25,6 +25,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
         rl_back.setOnClickListener { finish() }
 
         rl_following.setOnClickListener {
@@ -50,6 +51,7 @@ class ProfileActivity : AppCompatActivity() {
                 kProgressHUD.dismiss()
                 Toast.makeText(this@ProfileActivity, t.message, Toast.LENGTH_SHORT).show()
             }
+
 
             override fun onResponse(call: Call<ProfileRes>, response: Response<ProfileRes>) {
                 kProgressHUD.dismiss()
