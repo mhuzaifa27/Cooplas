@@ -73,7 +73,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
     private TextView tv_about_us, tv_about_us_text, tv_reviews;
     private CircleImageView img_user;
 
-    private ImageView img_cart;
+    private ImageView img_cart,img_back;
     private SelectableRoundedImageView img_restaurant;
     private TextView tv_restaurant_name, tv_location, tv_reviews_count, tv_rating;
 
@@ -81,6 +81,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
 
     private KProgressHUD progressHUD;
     private String restaurantID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +153,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
             tv_location.setText(response.getLocationName());
         if (response.getAboutUs() != null)
             tv_about_us_text.setText(response.getAboutUs());
-        else{
+        else {
             tv_about_us_text.setVisibility(View.GONE);
             tv_no_about_us.setVisibility(View.VISIBLE);
         }
@@ -307,6 +309,14 @@ public class RestaurantDetailActivity extends AppCompatActivity implements View.
         img_user.setVisibility(View.GONE);
         img_restaurant = findViewById(R.id.img_restaurant);
         img_cart = findViewById(R.id.img_cart);
+         img_back = findViewById(R.id.img_back);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     @Override

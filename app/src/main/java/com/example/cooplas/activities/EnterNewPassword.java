@@ -86,6 +86,8 @@ public class EnterNewPassword extends AppCompatActivity {
 
     private void resetPass(String pass) {
 
+
+
         progressHUD = KProgressHUD.create(EnterNewPassword.this).show();
         progressHUD.show();
         String accessToken = FunctionsKt.getAccessToken(EnterNewPassword.this);

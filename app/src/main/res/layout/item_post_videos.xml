@@ -8,16 +8,14 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="-4dp"
+        android:layout_marginTop="-4dp"
         android:background="@drawable/round_border_grey"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginHorizontal="-4dp"
-        android:layout_marginTop="-4dp">
+        android:padding="20dp">
 
         <RelativeLayout
             android:id="@+id/rl_top"
@@ -82,19 +80,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_description">
+
             <ImageView
                 android:id="@+id/iv_image"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile_4" />
+
             <ImageView
                 android:id="@+id/img_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_play"
-                android:layout_centerInParent="true"/>
+                android:src="@drawable/ic_play" />
         </RelativeLayout>
 
         <LinearLayout
@@ -188,9 +188,7 @@
             android:id="@+id/rcv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll_option"
-            tools:itemCount="6"
-            tools:listitem="@layout/comment_item" />
+            android:layout_below="@id/ll_option" />
 
         <RelativeLayout
             android:layout_width="match_parent"

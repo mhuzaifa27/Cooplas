@@ -41,7 +41,7 @@ interface Cooplas {
 
     @GET("/api/verify/password-reset-code?code=")
     fun verify_forgetPassword(
-               @Query("code") code: String
+        @Query("code") code: String
     ): Call<ForgetPasResponse>
 
     @GET("/api/resend/phone-verification-code")
@@ -116,5 +116,18 @@ interface Cooplas {
         @Part("last_name") last_name: RequestBody,
         @Part("username") username: RequestBody
     ): Call<GeneralRes>
+
+
+    @GET("api/verify/email")
+    fun verifyEmail(
+        @Header("Authorization") Authorization: String,
+        @Query("code") code: String,
+
+        ): Call<GeneralRes>
+
+    @GET("api/resend/email-verification-code")
+    fun verfyEmailMain(
+        @Header("Authorization") Authorization: String,
+              ): Call<GeneralRes>
 
 }

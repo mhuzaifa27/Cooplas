@@ -40,16 +40,17 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
-                android:text="12h ago"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tv_comment_body"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_comment_name"
+
+
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:text="Architecto alias sit quae sunt cum. Modi a rem dolorem laboriosam distinctio maiores. Laboriosam iusto et. Qui officia id. Qui deleniti"/>
+                android:textSize="13sp" />
 
         </RelativeLayout>
 

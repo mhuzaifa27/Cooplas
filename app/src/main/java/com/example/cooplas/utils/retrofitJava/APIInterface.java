@@ -9,6 +9,14 @@ import com.example.cooplas.models.Food.Callbacks.CallbackGetPopularRestaurants;
 import com.example.cooplas.models.Food.Callbacks.CallbackGetNearbyRestaurants;
 import com.example.cooplas.models.Food.Callbacks.CallbackGetRestaurantDetail;
 import com.example.cooplas.models.GeneralRes;
+import com.example.cooplas.models.home.commentModels.CommentMainModel;
+import com.example.cooplas.models.home.createPost.CreatePostModel;
+import com.example.cooplas.models.home.homeFragmentModel.HomeModel;
+import com.example.cooplas.models.home.homeLikesModels.LikeMainModel;
+import com.example.cooplas.models.home.singlePost.SinglePostMainModel;
+import com.example.cooplas.models.profile.ProfileModel;
+import com.example.cooplas.models.videos.VideosFeedModel;
+import com.google.gson.JsonObject;
 import com.example.cooplas.models.GoogleDistanceApi.CallbackGetDistanceTime;
 import com.example.cooplas.models.Travel.Customer.CallbackAcceptRide.CallbackAcceptRide;
 import com.example.cooplas.models.Travel.Customer.CallbackDriverReached.CallbackDriverReached;
@@ -16,12 +24,16 @@ import com.example.cooplas.models.Travel.Customer.CallbackSearchForVehicle.Callb
 import com.example.cooplas.models.Travel.Customer.CallbackUpdateVehicleType.CallbackUpdateVehicleType;
 import com.example.cooplas.models.Travel.Customer.Callbacks.CallbackCreateRide;
 import com.example.cooplas.models.Travel.Customer.Callbacks.CallbackGetRecentPlaces;
-import com.example.cooplas.models.homeFragmentModel.HomeModel;
 
+
+
+import okhttp3.RequestBody;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.Response;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -39,9 +51,85 @@ public interface APIInterface {
     @POST("api/change/password")
     Call<GeneralRes> changeForgetPassword(@Header("Authorization") String token, @Field("password") String offset);
 
-
     @GET("api/user/wall")
+    Call<ProfileModel> getUserWall(@Header("Authorization") String token, @Query("posts_offset") String offset);
+
+    @GET("api/home")
     Call<HomeModel> getHomeFeed(@Header("Authorization") String token, @Query("posts_offset") String offset);
+
+    @GET("api/post/likes")
+    Call<LikeMainModel> getPostLikes(@Header("Authorization") String token, @Query("post_id") String offset);
+
+
+    @POST("api/create/post")
+    Call<CreatePostModel> createHomePost(@Header("Authorization") String token, @Body() RequestBody file);
+
+
+    @GET("api/like/post/{id}")
+    Call<JsonObject> postLikeHome(@Header("Authorization") String token, @Path("id") String id);
+
+
+    @GET("api/dislike/post/{id}")
+    Call<JsonObject> poskUnLikeHome(@Header("Authorization") String token, @Path("id") String id);
+
+
+    @GET("api/follow/user/{id}")
+    Call<JsonObject> followUserHome(@Header("Authorization") String token, @Path("id") String id);
+
+    @GET("api/unfollow/user/{id}")
+    Call<JsonObject> UnFollowUserHome(@Header("Authorization") String token, @Path("id") String id);
+
+    @DELETE("api/delete/post/{id}")
+    Call<JsonObject> deletePost(@Header("Authorization") String token, @Path("id") String id);
+
+
+    @GET("api/single-post")
+    Call<SinglePostMainModel> getSinglePost(@Header("Authorization") String token, @Query("id") String id);
+
+    @FormUrlEncoded
+    @POST("api/add/comment")
+    Call<CommentMainModel> postComment(@Header("Authorization") String token, @Field("post_id") String id, @Field("body") String body);
+
+
+    @DELETE("api/delete/comment/{id}")
+    Call<JsonObject> deleteComment(@Header("Authorization") String token, @Path("id") String id);
+
+
+    @FormUrlEncoded
+    @POST("api/update/comment/{id}")
+    Call<JsonObject> updateComment(@Header("Authorization") String token, @Path("id") String id, @Field("body") String body);
+
+
+    @POST("api/update/profile")
+    Call<JsonObject> updateProfile(@Header("Authorization") String token, @Body() RequestBody file);
+
+    @GET("api/resend/email-verification-code")
+    Call<JsonObject> emailVerifyMain(@Header("Authorization") String token);
+
+    @GET("api/verify/email")
+    Call<JsonObject> verifyEmailInApp(@Header("Authorization") String token, @Query("code") String code);
+
+
+    @POST("api/update/post/{id}")
+    Call<CreatePostModel> updatePost(@Header("Authorization") String token, @Path("id") String id, @Body() RequestBody file);
+
+
+    @POST("api/add/story")
+    Call<JsonObject> createStoryPost(@Header("Authorization") String token, @Body() RequestBody file);
+
+
+    @GET("api/videos")
+    Call<VideosFeedModel> getVideosFeed(@Header("Authorization") String token, @Query("type") String Type, @Query("offset") String offset);
+
+    @GET("api/unfollow/user/{id}")
+    Call<JsonObject> followUser(@Header("Authorization") String token, @Path("id") String id);
+
+    @GET("api/follow/user/{id}")
+    Call<JsonObject> unFollowUser(@Header("Authorization") String token, @Path("id") String id);
+
+
+    @POST("api/report/post/{id}")
+    Call<JsonObject> repostPost(@Header("Authorization") String token, @Path("id") String id);
 
 
     /**************************APIS IMPLEMENTED BY M.HUZAIFA 11/04/2020********************************/

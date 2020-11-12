@@ -8,4 +8,7 @@
 
     <dimen name="feedImageHeight">200dp</dimen>
 
+
+    <dimen name="feedIiconSizes">20dp</dimen>
+
 </resources>

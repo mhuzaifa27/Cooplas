@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="@color/white"
     android:orientation="vertical"
-    android:background="#F5F6F6"
-    tools:context=".activities.ProfileActivity">
+    tools:context=".activities.profile.ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:id="@+id/rl_back"
             android:layout_width="50dp"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -29,19 +31,20 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/rl_back"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/rl_back"
             android:gravity="center"
-            android:textStyle="bold"
+
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="Jack Snow"/>
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/rl_edit"
             android:layout_width="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true">
+
             <ImageView
                 android:layout_width="27dp"
                 android:layout_height="27dp"
@@ -51,142 +54,17 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_below="@id/rl_profile"
-            android:layout_width="match_parent"
-            android:layout_marginTop="-84dp"
-            android:background="@drawable/bg_follow"
-            android:layout_height="168dp">
-
-           <LinearLayout
-               android:layout_marginBottom="21dp"
-               android:layout_alignParentBottom="true"
-               android:layout_centerHorizontal="true"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
-               
-               <RelativeLayout
-                   android:id="@+id/rl_following"
-                   android:layout_weight="1"
-                   android:layout_width="0dp"
-                   android:layout_marginEnd="10dp"
-                   android:layout_height="match_parent">
-
-                   <TextView
-                       android:id="@+id/tv_following"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_centerHorizontal="true"
-                       android:gravity="center"
-                       android:textStyle="bold"
-                       android:textColor="@color/white"
-                       android:textSize="20sp"
-                       android:text="123"/>
-
-                   <TextView
-                       android:layout_below="@id/tv_following"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_centerVertical="true"
-                       android:gravity="center"
-                       android:layout_centerHorizontal="true"
-                       android:textColor="@color/white"
-                       android:textSize="11sp"
-                       android:text=" FOLLOWING "/>
-               </RelativeLayout>
-
-               <TextView
-                   android:layout_width="1dp"
-                   android:layout_height="match_parent"
-                   android:background="@color/black"/>
-
-               <RelativeLayout
-                   android:id="@+id/rl_followers"
-                   android:layout_weight="1"
-                   android:layout_width="0dp"
-                   android:layout_marginStart="10dp"
-                   android:layout_height="match_parent">
-
-                   <TextView
-                       android:id="@+id/tv_follow"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_centerHorizontal="true"
-                       android:gravity="center"
-                       android:textStyle="bold"
-                       android:textColor="@color/white"
-                       android:textSize="20sp"
-                       android:text="123"/>
-
-                   <TextView
-                       android:layout_below="@id/tv_follow"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_centerVertical="true"
-                       android:gravity="center"
-                       android:layout_centerHorizontal="true"
-                       android:textColor="@color/white"
-                       android:textSize="11sp"
-                       android:text="FOLLOWERS"/>
-               </RelativeLayout>
-               
-           </LinearLayout>
-
-        </RelativeLayout>
-    
-        <RelativeLayout
-            android:id="@+id/rl_profile"
-            android:layout_width="match_parent"
-            android:background="@drawable/profile_bg"
-            android:layout_height="220dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/profile_icon"
-                android:layout_margin="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/colorSecond"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:id="@+id/tv_name_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_profile"
-                android:layout_margin="4dp"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:text="Jack Snow"/>
-
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name_heading"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textColor="#78849E"
-                android:textSize="14sp"
-                android:text="jacksnow"/>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_post"
-        android:layout_margin="10dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_post"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

@@ -22,9 +22,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Music.AlbumActivity"></activity>
-        <activity android:name=".activities.Music.ArtistDetailActivity" />
-        <activity android:name=".activities.Music.AllYourPlaylistActivity" />
+
+        <activity
+            android:name=".activities.video.EditVideoPostsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.StoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.home.EditPostActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.home.HomeCreatePostActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signup_screens.EmailInAppScreeenVerification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.home.HomePostLikesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.Music.AlbumActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Music.ArtistDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Music.AllYourPlaylistActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Music.AllTrendingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -61,6 +88,16 @@
             android:required="false" />
 
         <activity
+            android:name=".activities.home.VideoViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.home.HomeCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.home.ImageViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".activities.Travel.Customer.AddAddressDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -69,6 +106,7 @@
         <activity
             android:name=".activities.Travel.Customer.FaqDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.Travel.Customer.FaqActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -178,19 +216,13 @@
             android:name=".activities.ForgotPassword"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.LikesScreen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.PostCommentScreen"
+            android:name=".activities.profile.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.FollowingScreen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.EditProfileScreen"
+            android:name=".activities.profile.EditProfileScreen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.PostImageVideo"
@@ -203,6 +235,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".signup_screens.EmailVerificationScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.home.PostCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".storyviewer.screen.MainActivityStory.MainActivityStory"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data

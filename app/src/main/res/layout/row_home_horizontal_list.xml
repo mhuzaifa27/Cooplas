@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/rl_stories"
@@ -25,9 +26,6 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="6"
-            tools:listitem="@layout/item_storey">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            tools:listitem="@layout/item_storey" />
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

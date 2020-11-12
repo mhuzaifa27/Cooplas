@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh_layout"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/audience"
     android:background="@color/light_white"
-    android:clickable="true">
+
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,44 +16,46 @@
 
         <include
             android:id="@+id/header"
-            layout="@layout/app_header_videos">
-        </include>
+            layout="@layout/app_header_videos" />
+
         <RelativeLayout
             android:id="@+id/rl_stories"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_below="@+id/header"
+            android:background="@drawable/bg_grey_stories"
             android:paddingLeft="15dp"
-            android:paddingBottom="15dp"
             android:paddingTop="15dp"
-            android:background="@drawable/bg_grey_stories">
+            android:paddingBottom="15dp"
+            android:visibility="gone">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_stories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:itemCount="6"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
-                tools:listitem="@layout/item_storey">
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+     />
 
-            </androidx.recyclerview.widget.RecyclerView>
+
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_post_videos"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_below="@+id/rl_stories"
-            tools:listitem="@layout/item_post_videos"
-            tools:itemCount="6"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="20dp">
-        </ImageView>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_post_videos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+              />
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     </RelativeLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

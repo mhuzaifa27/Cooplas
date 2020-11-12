@@ -85,7 +85,7 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
 
     private KProgressHUD progressHUD;
 
-    private TextView tv_my_wallet,tv_order_history,tv_track_order,tv_addresses,tv_notifications,tv_invite_friends,tv_help_and_support,tv_log_out;
+    private TextView tv_my_wallet, tv_order_history, tv_track_order, tv_addresses, tv_notifications, tv_invite_friends, tv_help_and_support, tv_log_out;
 
 
     @Override
@@ -112,6 +112,7 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         tv_invite_friends.setOnClickListener(this);
         tv_help_and_support.setOnClickListener(this);
         tv_log_out.setOnClickListener(this);
+        img_discover.setOnClickListener(this);
     }
 
     private void getFoodData() {
@@ -171,11 +172,10 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         foodForYouAdapter.OnClickListener(new FoodForYouAdapter.ICLicks() {
             @Override
             public void onFavouriteClick(View view, ForYou forYou, int position) {
-                if (forYou.getIsFavourite().equalsIgnoreCase("1")){
-                    makeFoodUnFavourite(forYou.getId().toString(),position);
-                }
-                else{
-                    makeFoodFavourite(forYou.getId().toString(),position);
+                if (forYou.getIsFavourite().equalsIgnoreCase("1")) {
+                    makeFoodUnFavourite(forYou.getId().toString(), position);
+                } else {
+                    makeFoodFavourite(forYou.getId().toString(), position);
                 }
             }
         });
@@ -188,7 +188,7 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         String accessToken = FunctionsKt.getAccessToken(context);
         Log.d(TAG, "onResponse: " + accessToken);
         APIInterface apiInterface = APIClient.getClient(context).create(APIInterface.class);
-        Call<ResponseBody> call = apiInterface.makeFoodUnFavourite("Bearer " + accessToken,id);
+        Call<ResponseBody> call = apiInterface.makeFoodUnFavourite("Bearer " + accessToken, id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -196,9 +196,9 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "onResponse: " + response);
                 if (responseGetFood != null) {
                     progressHUD.dismiss();
-                    ForYou forYou=forYouList.get(position);
+                    ForYou forYou = forYouList.get(position);
                     forYou.setIsFavourite("0");
-                    forYouList.set(position,forYou);
+                    forYouList.set(position, forYou);
                     foodForYouAdapter.addAll(forYouList);
                 } else {
                     progressHUD.dismiss();
@@ -221,7 +221,7 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         String accessToken = FunctionsKt.getAccessToken(context);
         Log.d(TAG, "onResponse: " + accessToken);
         APIInterface apiInterface = APIClient.getClient(context).create(APIInterface.class);
-        Call<ResponseBody> call = apiInterface.makeFoodFavourite("Bearer " + accessToken,id);
+        Call<ResponseBody> call = apiInterface.makeFoodFavourite("Bearer " + accessToken, id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -229,9 +229,9 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "onResponse: " + response);
                 if (responseGetFood != null) {
                     progressHUD.dismiss();
-                    ForYou forYou=forYouList.get(position);
+                    ForYou forYou = forYouList.get(position);
                     forYou.setIsFavourite("1");
-                    forYouList.set(position,forYou);
+                    forYouList.set(position, forYou);
                     foodForYouAdapter.addAll(forYouList);
                 } else {
                     progressHUD.dismiss();
@@ -361,8 +361,12 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_log_out:
                 drawer_food.closeDrawer(Gravity.LEFT);
                 break;
+            case R.id.img_discover:
+                finish();
+                break;
         }
     }
+
     private void registerNetworkBroadcastForNougat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
@@ -379,12 +383,14 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         eventBus.unregister(this);
         unregisterNetworkChanges();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CheckInternetEvent event) {
         Log.d("SsS", "checkInternetAvailability: called");

@@ -116,7 +116,17 @@
         android:text="@string/resend_otp"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:visibility="gone" />
+        android:visibility="visible" />
+    <TextView
+        android:id="@+id/count_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_resend"
+        android:layout_centerInParent="true"
+
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp" />
+
 
     <RelativeLayout
         android:id="@+id/rl_next"

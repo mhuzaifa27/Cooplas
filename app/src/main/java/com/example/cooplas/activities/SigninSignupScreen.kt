@@ -3,6 +3,7 @@ package com.example.cooplas.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -20,6 +21,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SigninSignupScreen : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin_signup_screen)
@@ -48,6 +51,8 @@ class SigninSignupScreen : AppCompatActivity() {
             startActivity(Intent(this@SigninSignupScreen, ForgotPassword::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
+
+
     }
 
     private fun validateDataAndLogin() {
@@ -112,14 +117,28 @@ class SigninSignupScreen : AppCompatActivity() {
                             this@SigninSignupScreen,
                             response.body()?.user?.auth_token ?: ""
                         )
+                        var userName =
+                            response.body()?.user?.first_name + " " + response.body()?.user?.last_name;
+                        var roleVal = response.body()!!.user.role
+                        var image = response.body()!!.user.profile_pic
+                        var idUser = response.body()!!.user.id
+                        saveUserDetails(
+                            applicationContext,
+                            idUser.toString(),
+                            userName,
+                            roleVal
+
+                        )
+
 
                         var phoneVerified = response.body()?.user?.phone_verified
                         if (phoneVerified == false) {
 
 
-                            var intentPhone = Intent(this@SigninSignupScreen, PhoneVerificatoinScreen::class.java)
+                            var intentPhone =
+                                Intent(this@SigninSignupScreen, PhoneVerificatoinScreen::class.java)
                             intentPhone.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intentPhone.putExtra("fromLogin","1")
+                            intentPhone.putExtra("fromLogin", "1")
                             startActivity(intentPhone)
 
 
@@ -136,14 +155,10 @@ class SigninSignupScreen : AppCompatActivity() {
                         }
 
 
-
-
                         var intentMain = Intent(this@SigninSignupScreen, MainActivity::class.java)
                         intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         saveLoggedIn(applicationContext, "1")
                         startActivity(intentMain)
-
-
 
 
                     } else {
@@ -272,10 +287,32 @@ class SigninSignupScreen : AppCompatActivity() {
 
                         return
                     }
+                    if (message.contains("Could not send phone verification code. Try again")) {
+
+                        Toast.makeText(
+                            this@SigninSignupScreen,
+                            "Could not send phone verification code. Try again",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                    }
                     saveUserEmailAndPass(this@SigninSignupScreen, email, password)
                     saveAccessToken(
                         this@SigninSignupScreen, response.body()?.user?.auth_token ?: ""
                     )
+
+                    var userName =
+                        response.body()?.user?.first_name + " " + response.body()?.user?.last_name;
+                    var roleVal = response.body()!!.user.role
+//                    var image = response.body()!!.user.profile_pic
+                    var idUser = response.body()!!.user.id
+                    saveUserDetails(
+                        applicationContext,
+                        idUser.toString(),
+                        userName,roleVal
+                    )
+
+
 //                    when(response.body()?.status){
 //                        201-> {
                     startActivity(

@@ -6,14 +6,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cooplas.R
 import com.example.cooplas.adapters.FollowUnfollowAdapter
-import com.example.cooplas.adapters.LikesAdapter
 import com.example.cooplas.models.FollowersRes
-import com.example.cooplas.models.LikesData
 import com.example.cooplas.models.User
 import com.example.cooplas.utils.AppManager
 import com.jobesk.gong.utils.getAccessToken
 import com.kaopiz.kprogresshud.KProgressHUD
-import kotlinx.android.synthetic.main.activity_follower_screen.*
 import kotlinx.android.synthetic.main.activity_following_screen.*
 import kotlinx.android.synthetic.main.activity_following_screen.rl_back
 import org.json.JSONObject

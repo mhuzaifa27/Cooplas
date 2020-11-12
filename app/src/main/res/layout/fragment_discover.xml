@@ -405,6 +405,7 @@
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/profileContainer"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dp"
@@ -660,8 +661,8 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
                 android:id="@+id/logoutCard"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
@@ -703,7 +704,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:padding="5dp"
+                        android:padding="2dp"
                         android:src="@drawable/ic_logout"
                         app:tint="@color/white" />
                 </RelativeLayout>

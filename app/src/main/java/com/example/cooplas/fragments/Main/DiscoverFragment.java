@@ -15,8 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cooplas.R;
 import com.example.cooplas.activities.Food.FoodActivity;
-import com.example.cooplas.activities.Food.FoodOrderDetailActivity;
-import com.example.cooplas.activities.LikesScreen;
+
 import com.example.cooplas.activities.Music.MusicActivity;
 import com.example.cooplas.activities.SettingsActivity;
 import com.example.cooplas.activities.SigninSignupScreen;
@@ -24,6 +23,7 @@ import com.example.cooplas.activities.SigninSignupScreen;
 import com.example.cooplas.activities.Travel.Customer.MainCustomerActivity;
 import com.example.cooplas.activities.Travel.Customer.SupportActivity;
 import com.example.cooplas.activities.Wallet.WalletActivity;
+import com.example.cooplas.activities.profile.ProfileActivity;
 import com.jobesk.gong.utils.FunctionsKt;
 
 public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
@@ -31,7 +31,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     private static final String TAG = "DiscoverFragment";
     private Context context;
     private Activity activity;
-    private CardView card_music,card_wallet, card_food, logoutCard, card_travel,card_settings,card_support;
+    private CardView card_wallet, card_food, profileContainer, logoutCard, card_travel;
+    private CardView card_music,card_settings,card_support;
 
 
     @Override
@@ -59,6 +60,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         card_food = view.findViewById(R.id.card_food);
         card_travel = view.findViewById(R.id.card_travel);
         logoutCard = view.findViewById(R.id.logoutCard);
+        profileContainer = view.findViewById(R.id.profileContainer);
         card_settings=view.findViewById(R.id.card_settings);
         card_support=view.findViewById(R.id.card_support);
 
@@ -69,6 +71,18 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                 Intent intent = new Intent(getActivity(), SigninSignupScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+            }
+        });
+
+
+        profileContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+
+                startActivity(intent);
+
             }
         });
 

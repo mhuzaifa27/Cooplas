@@ -3,6 +3,7 @@ package com.example.cooplas.utils
 class AppConstants {
     companion object {
         @JvmStatic
+        val USER_ID = "userID"
         val EMAIL = "email"
         val USERNAME = "user_name"
         val PASSWORD = "password"
@@ -16,6 +17,8 @@ class AppConstants {
         val LAST_NAME = "last_name"
         val GENDER = "gender"
         val isLoggedIn = "isLoggedIn"
+        val emailVerified = "emailVerified"
+
     }
 
 }

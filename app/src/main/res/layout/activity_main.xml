@@ -8,11 +8,66 @@
     android:background="@color/white"
     tools:openDrawer="end">
 
+    <RelativeLayout
+        android:id="@+id/verifyEmailCon"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorSecond"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="Email unverified"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/resend_tv"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/verify_email_tv"
+            android:background="@drawable/round_white"
+            android:paddingLeft="10dp"
+            android:paddingTop="8dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="8dp"
+            android:text="@string/resend_email"
+            android:textColor="@color/colorSecond"
+            android:textSize="12dp" />
+
+
+        <TextView
+            android:id="@+id/verify_email_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round_white"
+            android:paddingLeft="10dp"
+            android:paddingTop="8dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="8dp"
+            android:text="@string/verify_now"
+            android:textColor="@color/colorSecond"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_bottom_nav">
+        android:layout_above="@+id/main_bottom_nav"
+        android:layout_below="@+id/verifyEmailCon">
 
     </FrameLayout>
 

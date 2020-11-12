@@ -45,6 +45,7 @@ class ForgotPassword : AppCompatActivity() {
     }
 
     private fun forgot_password(email: String) {
+
         val progressHUD = KProgressHUD.create(this).show()
         AppManager.getInstance().restClient.cooplas.forgot_password(email).enqueue(object :
             Callback<GeneralRes> {
@@ -71,7 +72,7 @@ class ForgotPassword : AppCompatActivity() {
 //                    )
 
                     var intent = Intent(this@ForgotPassword, EmailVerificationScreen::class.java)
-//                    intent.putExtra("fromLogin", "1")
+                    intent.putExtra("email", email)
                     startActivity(intent);
 
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

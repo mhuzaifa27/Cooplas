@@ -3,6 +3,7 @@ package com.example.cooplas.signup_screens
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -22,6 +23,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PhoneVerificatoinScreen : AppCompatActivity() {
+
+    var counter = 60;
+    lateinit var timer: CountDownTimer;
+    var timerCheck: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_verificatoin_screen)
@@ -109,6 +114,9 @@ class PhoneVerificatoinScreen : AppCompatActivity() {
             }
         })
 
+
+
+
         tv_resend.setOnClickListener {
             resent_otp()
         }
@@ -122,10 +130,43 @@ class PhoneVerificatoinScreen : AppCompatActivity() {
         }
 
 
+
+        count_tv.setText("60")
+        tv_resend.isClickable = false
+        timer = object : CountDownTimer(60000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+
+                counter = counter - 1;
+                Log.d("timer", "onTick: " + counter)
+                count_tv.setText(counter.toString())
+                timerCheck = true
+            }
+
+            override fun onFinish() {
+
+                tv_resend.isClickable = true
+                Log.d("timer", "onTick: Finished")
+                timerCheck = false
+                count_tv.setText("")
+                timer.cancel()
+            }
+        }
+        timer.start()
+    }
+
+    override fun onDestroy() {
+        if (timerCheck == true) {
+            timer.cancel()
+        }
+
+
+        super.onDestroy()
+
+
     }
 
     private fun verify_otp(code: String) {
-
         val progressHUD = KProgressHUD.create(this).show()
         AppManager.getInstance().restClient.cooplas.verify_otp(
             "Bearer " + getAccessToken(this),
@@ -165,6 +206,7 @@ class PhoneVerificatoinScreen : AppCompatActivity() {
 
                 } else {
                     val jsonObject = JSONObject(response.errorBody()?.string())
+                    progressHUD.dismiss()
                     Toast.makeText(
                         this@PhoneVerificatoinScreen,
                         jsonObject.get("message").toString(),
@@ -173,6 +215,14 @@ class PhoneVerificatoinScreen : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun resetCounter() {
+        tv_resend.isClickable = false
+        counter = 60
+        count_tv.setText("60")
+        timer.start();
+
     }
 
     private fun resent_otp() {
@@ -191,6 +241,8 @@ class PhoneVerificatoinScreen : AppCompatActivity() {
                     Log.d("PhoneVerificatoinScreen", "onResponse: " + response.body()?.toString())
 
                     if (response.isSuccessful) {
+
+                        resetCounter();
                         Toast.makeText(
                             this@PhoneVerificatoinScreen,
                             response.body()?.message,

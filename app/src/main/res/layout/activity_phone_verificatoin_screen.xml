@@ -123,6 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_otp"
+        android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:gravity="center"
@@ -130,7 +131,15 @@
         android:textColor="#0092FF"
         android:textSize="14sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/count_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_resend"
+        android:layout_centerInParent="true"
 
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tv_resend"

@@ -39,6 +39,7 @@ fun saveAccessToken(context: Context, access_token: String) {
     editor.apply()
 }
 
+
 fun clearSharedPreference(context: Context) {
 
     val settings = context.getSharedPreferences(USER_PREF, Context.MODE_PRIVATE)
@@ -57,6 +58,103 @@ fun saveUserEmailAndPass(context: Context, email: String, pass: String) {
     editor.putString(AppConstants.PASSWORD, pass)
     editor.apply()
 }
+
+
+fun saveUserDetails(
+    context: Context,
+    id: String,
+    userName: String,
+    role: String,
+    image: String,
+    email: String
+) {
+
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.USERNAME, userName)
+    editor.putString(AppConstants.ROLE, role)
+    editor.putString(AppConstants.IMAGE_PATH, image)
+    editor.putString(AppConstants.USER_ID, id)
+    editor.putString(AppConstants.EMAIL, email)
+    editor.apply()
+
+}
+fun saveUserDetails(context: Context, id: String, userName: String) {
+
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.USERNAME, userName)
+      editor.putString(AppConstants.USER_ID, id)
+    editor.apply()
+
+}
+
+fun saveUserDetails(context: Context, id: String, userName: String, role: String) {
+
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.USERNAME, userName)
+    editor.putString(AppConstants.ROLE, role)
+
+    editor.putString(AppConstants.USER_ID, id)
+    editor.apply()
+
+}
+fun savegender(context: Context, gender: String) {
+
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.GENDER, gender)
+    editor.apply()
+
+}
+
+fun SaveNames(context: Context, fname: String, lname: String) {
+
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.FIRST_NAME, fname)
+    editor.putString(AppConstants.LAST_NAME, lname)
+    editor.apply()
+
+}
+
+fun saveEmailVerified(context: Context, gender: String) {
+
+    val editor = getShared_Preference(context).edit()
+    editor.putString(AppConstants.emailVerified, gender)
+    editor.apply()
+
+}
+
+fun getEmailVerified(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.emailVerified, "").toString()
+}
+
+fun getFirstName(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.FIRST_NAME, "").toString()
+}
+
+fun getLastName(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.LAST_NAME, "").toString()
+}
+
+fun getGener(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.GENDER, "").toString()
+}
+
+fun getUserName(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.USERNAME, "").toString()
+}
+
+fun getRole(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.ROLE, "").toString()
+}
+
+fun getImage(context: Context): String {
+    return getShared_Preference(context).getString(AppConstants.IMAGE_PATH, "").toString()
+}
+
+fun getUserID(context: Context): String {
+
+    return getShared_Preference(context).getString(AppConstants.USER_ID, "").toString()
+}
+
 
 fun saveLoggedIn(context: Context, value: String) {
     val editor = getShared_Preference(context).edit()

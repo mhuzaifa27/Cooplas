@@ -1,6 +1,7 @@
 package com.example.cooplas.activities;
 
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -12,8 +13,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -21,18 +26,34 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cooplas.R;
+import com.example.cooplas.events.VerifyEvent;
 import com.example.cooplas.fragments.Main.ChatFragment;
 import com.example.cooplas.fragments.Main.DiscoverFragment;
 import com.example.cooplas.fragments.Main.HomeFragment;
 import com.example.cooplas.fragments.Main.VideosFragment;
+import com.example.cooplas.models.profile.Post;
+import com.example.cooplas.models.profile.ProfileModel;
+import com.example.cooplas.signup_screens.EmailInAppScreeenVerification;
 import com.example.cooplas.utils.CheckConnectivity;
 import com.example.cooplas.utils.CheckInternetEvent;
 import com.example.cooplas.utils.SessionManager;
 import com.example.cooplas.utils.ShowDialogues;
+import com.example.cooplas.utils.retrofitJava.APIClient;
+import com.example.cooplas.utils.retrofitJava.APIInterface;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.jobesk.gong.utils.FunctionsKt;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,10 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ChatFragment chatFragment;
     private VideosFragment videosFragment;
     private DiscoverFragment discoverFragment;
-
     private BroadcastReceiver mNetworkReceiver;
     private FragmentManager fm = null;
-
     public static final String TAG_HOME = "tag_home";
     public static final String TAG_VIDEOS = "tag_videos";
     public static final String TAG_CHAT = "tag_chat";
@@ -55,16 +74,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler mHandler;
     private SessionManager sessionManager;
     private EventBus eventBus = EventBus.getDefault();
-
     private boolean shouldLoadHomeFragOnBackPress = true;
-
     private View parentLayout;
     private String extras;
-
     private LinearLayout ll_home, ll_chat, ll_videos, ll_discover;
     private ImageView img_home, img_chat, img_videos, img_discover;
     private TextView tv_home, tv_chat, tv_videos, tv_discover;
-
+    private TextView resend_tv, verify_email_tv;
+    RelativeLayout verifyEmailCon;
 
 
     @Override
@@ -72,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        saveUserData();
+        Log.d("token", "Userdetails: userID:" + FunctionsKt.getUserID(getApplicationContext()) + "  userName:" + FunctionsKt.getUserName(getApplicationContext()) + "  userToken:" + FunctionsKt.getAccessToken(getApplicationContext()));
+        verifyEmailCon = findViewById(R.id.verifyEmailCon);
         iniComponents();
         loadHomeFragment();
 
@@ -79,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_chat.setOnClickListener(this);
         ll_videos.setOnClickListener(this);
         ll_discover.setOnClickListener(this);
+
     }
 
     private void iniComponents() {
@@ -115,7 +136,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_discover = findViewById(R.id.tv_discover);
 
         parentLayout = findViewById(android.R.id.content);
+
+        resend_tv = findViewById(R.id.resend_tv);
+        verify_email_tv = findViewById(R.id.verify_email_tv);
+
+
+        resend_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                resendCode();
+            }
+        });
+
+        verify_email_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(getApplicationContext(), EmailInAppScreeenVerification.class);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
+
+
+
+
 
     /*private void checkIntentData() {
         if(extras != null ){
@@ -172,9 +222,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onPause();
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void loadHomeFragment() {
@@ -198,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void selectNavMenu() {
-        switch (navItemIndex){
+        switch (navItemIndex) {
             case 0:
                 setHome();
                 break;
@@ -319,11 +377,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loadHomeFragment();
             return;
         }
-        //clickDone();
+        clickDone();
     }
 
-    /*public void clickDone() {
-        new AlertDialog.Builder(this,R.style.MyDialogTheme)
+    public void clickDone() {
+        new AlertDialog.Builder(this, R.style.MyDialogTheme)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle(getResources().getString(R.string.app_name))
                 .setMessage(R.string.close_warning)
@@ -341,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 })
                 .show();
-    }*/
+    }
 
 
     //    /**
@@ -417,4 +475,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         loadHomeFragment();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(VerifyEvent event) {
+        saveUserData();
+
+    }
+
+    private void saveUserData() {
+
+        String accessToken = FunctionsKt.getAccessToken(getApplicationContext());
+        APIInterface apiInterface = APIClient.getClient(getApplicationContext()).create(APIInterface.class);
+        Call<ProfileModel> call = apiInterface.getUserWall("Bearer " + accessToken, String.valueOf(0));
+        call.enqueue(new Callback<ProfileModel>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
+                Log.d("updateUserData", "" + new Gson().toJson(response.body()));
+
+                if (response.isSuccessful()) {
+                    ProfileModel model = response.body();
+
+                    String nameF = model.getWall().getFirstName();
+                    String nameL = model.getWall().getLastName();
+                    String email = model.getWall().getEmail();
+                    String image = model.getWall().getProfilePic();
+                    String token = model.getWall().getAuthToken();
+                    String id = String.valueOf(model.getWall().getId());
+                    String role = String.valueOf(model.getWall().getRole());
+                    String gender = String.valueOf(model.getWall().getGender());
+                    String userName = String.valueOf(model.getWall().getUsername());
+                    String emailVerified = String.valueOf(model.getWall().getEmailVerified());
+
+
+                    if (emailVerified.equalsIgnoreCase("true")) {
+                        verifyEmailCon.setVisibility(View.GONE);
+                    } else {
+                        verifyEmailCon.setVisibility(View.VISIBLE);
+                    }
+
+                    FunctionsKt.saveUserDetails(getApplicationContext(), id, userName, role, image, email);
+                    FunctionsKt.saveAccessToken(getApplicationContext(), token);
+                    FunctionsKt.savegender(getApplicationContext(), gender);
+                    FunctionsKt.saveEmailVerified(getApplicationContext(), emailVerified);
+                    FunctionsKt.SaveNames(getApplicationContext(), nameF, nameL);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileModel> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+
+            }
+        });
+    }
+
+    private void resendCode() {
+        KProgressHUD progressHUD = KProgressHUD.create(MainActivity.this);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(getApplicationContext());
+        APIInterface apiInterface = APIClient.getClient(getApplicationContext()).create(APIInterface.class);
+        Call<JsonObject> call = apiInterface.emailVerifyMain("Bearer " + accessToken);
+        call.enqueue(new Callback<JsonObject>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("updateUserData", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Code has been Send to your email", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
 }

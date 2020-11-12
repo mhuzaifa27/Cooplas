@@ -27,6 +27,7 @@ import com.example.cooplas.utils.MarshMallowPermission
 import com.jobesk.gong.utils.checkConnection
 import com.jobesk.gong.utils.getAccessToken
 import com.jobesk.gong.utils.saveLoggedIn
+import com.jobesk.gong.utils.saveUserDetails
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.OnClickListener
@@ -70,7 +71,10 @@ class CompleteSignup : AppCompatActivity() {
 
                     // Display Selected date in textbox
                     tv_dob.text = "$year-$monthOfYear-$dayOfMonth"
-                    selected_date = "$year-$monthOfYear-$dayOfMonth"
+
+                    var monthVal=monthOfYear+1;
+
+                    selected_date = "$year-$monthVal-$dayOfMonth"
                 },
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
@@ -264,6 +268,7 @@ class CompleteSignup : AppCompatActivity() {
                 kProgressHUD.dismiss()
                 Toast.makeText(this@CompleteSignup, t.message, Toast.LENGTH_SHORT).show()
             }
+
             override fun onResponse(call: Call<GeneralRes>, response: Response<GeneralRes>) {
                 kProgressHUD.dismiss()
                 if (response.isSuccessful) {
@@ -272,6 +277,7 @@ class CompleteSignup : AppCompatActivity() {
                         response.body()?.message,
                         Toast.LENGTH_SHORT
                     ).show()
+
 
                     saveLoggedIn(applicationContext, "1")
                     startActivity(

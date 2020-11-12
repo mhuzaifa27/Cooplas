@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_white"
+    android:id="@+id/parentLayout"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -68,7 +69,7 @@
             android:layout_below="@id/rl_top"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. "
+
             android:textColor="@color/black"
             android:textSize="13sp" />
 
@@ -96,10 +97,10 @@
 
                 <ImageView
                     android:id="@+id/iv_fav"
-                    android:layout_width="18dp"
-                    android:layout_height="16sp"
+                    android:layout_width="@dimen/feedIiconSizes"
+                    android:layout_height="@dimen/feedIiconSizes"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/fav" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_like_count"
@@ -108,8 +109,9 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/iv_fav"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:singleLine="true"
-                    android:text="145"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -122,8 +124,8 @@
 
                 <ImageView
                     android:id="@+id/iv_comment"
-                    android:layout_width="18dp"
-                    android:layout_height="16sp"
+                    android:layout_width="@dimen/feedIiconSizes"
+                    android:layout_height="@dimen/feedIiconSizes"
                     android:layout_centerVertical="true"
                     android:src="@drawable/comment_icon" />
 
@@ -135,7 +137,8 @@
                     android:layout_toEndOf="@id/iv_comment"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:text="14"
+                    android:text="0"
+                    android:padding="5dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -147,8 +150,8 @@
 
                 <ImageView
                     android:id="@+id/iv_share"
-                    android:layout_width="18dp"
-                    android:layout_height="16sp"
+                    android:layout_width="@dimen/feedIiconSizes"
+                    android:layout_height="@dimen/feedIiconSizes"
                     android:layout_centerVertical="true"
                     android:src="@drawable/share" />
 
@@ -161,6 +164,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="Share"
+                    android:padding="5dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -174,13 +178,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_option"
             tools:itemCount="0"
-            tools:listitem="@layout/comment_item" />
+     />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_below="@id/rcv_comment"
-            android:layout_marginTop="10dp"
+            android:id="@+id/commentCon"
+
             android:layout_marginBottom="10dp"
             android:background="@drawable/round_primary">
 
