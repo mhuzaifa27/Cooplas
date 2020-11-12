@@ -22,23 +22,59 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.Music.AlbumActivity"></activity>
+        <activity android:name=".activities.Music.ArtistDetailActivity" />
+        <activity android:name=".activities.Music.AllYourPlaylistActivity" />
+        <activity
+            android:name=".activities.Music.AllTrendingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Music.MusicActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.AddressesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.ReviewRestaurantsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Food.FoodOrderDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SupportTicketsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ReportBugActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.SupportActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ContactUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".activities.Travel.Customer.AddAddressDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.Travel.Customer.AddAddressActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.Travel.Customer.FaqDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".activities.Travel.Customer.AddAddressDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.AddAddressActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Travel.Customer.FaqDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Travel.Customer.FaqActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.EnterNewPassword"
-
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.Travel.Customer.InviteFriendsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -171,7 +207,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCg2fLwnWOPqqYY_2tx3nkN-D_ypZCV3_Y" />
+            android:value="AIzaSyDnwPC80ZGwM5fFmhT1vfaSp25Ys6PY5bQ" />
     </application>
 
 </manifest>

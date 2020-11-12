@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:background="@color/colorPrimaryDark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.example.cooplas.utils.CustomAutoCompleteTextView
+            android:id="@+id/et_address"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#f3f3f3"
+            android:hint="Address"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="#000" />
+
+        <ProgressBar
+            android:id="@+id/addressProgress"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="5dp"
+            android:indeterminateTint="#000"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

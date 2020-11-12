@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="15dp"
+    android:paddingHorizontal="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/round_border_grey_white_bg">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_toLeftOf="@+id/img_delete"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/fira_sans_regular"/>
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="P.O.Box 32379, Lusaka, Zambia"
+        android:layout_below="@+id/tv_title"
+        android:textColor="@color/mid_grey"
+        android:textSize="20sp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/fira_sans_regular"/>
+
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"/>
+</RelativeLayout>

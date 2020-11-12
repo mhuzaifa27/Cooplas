@@ -51,6 +51,7 @@
             android:paddingHorizontal="20dp">
 
             <TextView
+                android:id="@+id/tv_vehicle_maker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,6 +62,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_vehicle_reg_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -100,6 +102,7 @@
             android:paddingHorizontal="20dp">
 
             <TextView
+                android:id="@+id/tv_countdown"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -160,7 +163,7 @@
                     android:textColor="@color/black" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_user"
+                    android:id="@+id/img_driver"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_below="@+id/your_driver"
@@ -175,12 +178,12 @@
                     app:civ_border_width="1dp" />
 
                 <TextView
-                    android:id="@+id/tv_user_name"
+                    android:id="@+id/tv_driver_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/your_driver"
                     android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_user"
+                    android:layout_toRightOf="@+id/img_driver"
                     android:fontFamily="@font/fira_sans_medium"
                     android:text="Mart Banks"
                     android:textColor="@color/black"
@@ -190,8 +193,8 @@
                     android:id="@+id/tv_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_user_name"
-                    android:layout_toRightOf="@+id/img_user"
+                    android:layout_below="@+id/tv_driver_name"
+                    android:layout_toRightOf="@+id/img_driver"
                     android:drawableLeft="@drawable/ic_star_border"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/fira_sans_light"

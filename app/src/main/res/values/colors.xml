@@ -12,8 +12,12 @@
     <color name="grey_light">#DDDDDD</color>
     <color name="dark_grey">#3E3E3E</color>
     <color name="mid_grey">#7D7D7D</color>
+    <color name="light_grey">#CFD1D3</color>
     <color name="light_purple">#423050</color>
     <color name="inactive_text">#C2BCC7</color>
     <color name="transparent">#00FFFFFF</color>
 
+    <color name="green">#1FE900</color>
+    <color name="yellow">#EDB95E</color>
+    <color name="red">#E23636</color>
 </resources>

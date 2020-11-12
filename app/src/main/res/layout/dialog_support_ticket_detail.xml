@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_customer_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="50dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="id-120bvc36"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toLeftOf="@+id/tv_status"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/fira_sans_regular"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Pending"
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="5dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/fira_sans_bold"
+            android:background="@drawable/round_light_grey"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/tv_status"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Subject"
+                android:paddingVertical="5dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fira_sans_bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="subject goes here"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fira_sans_regular" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Description"
+                android:paddingVertical="5dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fira_sans_bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="and looooong description goes here.and looooong description goes here.and loooong description goes here.and loong description goes here."
+                android:textSize="18sp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fira_sans_regular" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
+

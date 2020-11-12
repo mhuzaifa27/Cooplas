@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.Music.AllYourPlaylistActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_search_music"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/header"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/round_border_orange_white_bg">
+            <EditText
+                android:id="@+id/rt_playlist_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:hint="Create Playlist"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black">
+            </EditText>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_add"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_your_playlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="20"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            android:layout_marginTop="30dp"
+            tools:listitem="@layout/item_music_your_all_playlists"/>
+    </LinearLayout>
+</RelativeLayout>

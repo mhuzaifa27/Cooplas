@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    tools:context=".activities.Travel.Customer.PromoCodeActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general"></include>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.6dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="Notifications"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp"
+                        android:buttonTint="@color/colorPrimaryDark"
+                        android:thumbTint="@color/colorPrimaryDark"
+                        android:checked="true"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.6dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="Agreements"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.6dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="Change Password"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_bold"
+                android:textColor="@color/colorSecond"
+                android:text="Feedback"
+                android:textSize="18sp"
+                android:elevation="0.1dp"
+                android:background="@color/light_white"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="50dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.01dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="App Feedback"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.6dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="Report a Bug"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_bold"
+                android:textColor="@color/colorSecond"
+                android:text="Legal"
+                android:textSize="18sp"
+                android:elevation="0.1dp"
+                android:background="@color/light_white"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="50dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.01dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="Terms &amp; Conditions "
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginRight="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
+                    android:elevation="0.6dp"
+                    android:paddingTop="20dp"
+                    android:weightSum="1"
+                    android:background="@drawable/round_border_grey">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:layout_weight="1"
+                        android:text="Privacy Policy"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/fira_sans_regular"
+                        android:textSize="18sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow_blue"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:text="V 1.1.0"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/dark_grey"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/fira_sans_bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

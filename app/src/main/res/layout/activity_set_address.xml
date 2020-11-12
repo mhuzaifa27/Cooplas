@@ -58,8 +58,8 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="20dp">
 
-                <EditText
-                    android:id="@+id/et_pick_up_address"
+                <TextView
+                    android:id="@+id/tv_pick_up_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -68,9 +68,10 @@
                     android:textSize="18sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/fira_sans_regular"
                     android:layout_centerInParent="true">
-                </EditText>
+                </TextView>
                 <View
                     android:id="@+id/view_2"
                     android:layout_width="match_parent"
@@ -80,20 +81,21 @@
                     android:layout_below="@+id/et_amount"
                     android:alpha="0.1"/>
 
-                <EditText
-                    android:id="@+id/et_destination_address"
+                <TextView
+                    android:id="@+id/tv_destination_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:layout_marginBottom="8dp"
-                    android:text="Diana Trail 115 A"
+                    android:hint="Diana Trail 115 A"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/fira_sans_regular"
                     android:layout_centerInParent="true">
-                </EditText>
+                </TextView>
                 <View
                     android:id="@+id/view_5"
                     android:layout_width="match_parent"

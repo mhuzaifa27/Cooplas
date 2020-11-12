@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.Food.ReviewRestaurantsActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/app_header_general"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How was the food?"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/fira_sans_extra_bold"
+            android:layout_gravity="center_horizontal">
+        </TextView>
+
+        <com.willy.ratingbar.ScaleRatingBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/srb_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingVertical="5dp"
+            app:srb_clickable="true"
+            app:srb_drawableEmpty="@drawable/ic_star_border"
+            app:srb_drawableFilled="@drawable/ic_fill_star"
+            app:srb_isIndicator="false"
+            app:srb_numStars="5"
+            app:srb_starHeight="40dp"
+            app:srb_starPadding="10dp"
+            app:srb_starWidth="40dp"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/header"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            android:layout_marginHorizontal="50dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center">
+                <EditText
+                    android:id="@+id/et_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Additional Comments"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:fontFamily="@font/fira_sans_regular"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_centerInParent="true">
+                </EditText>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_orange">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="14dp"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -53,7 +53,6 @@
             android:src="@drawable/ic_cart"
             android:layout_toLeftOf="@+id/ll_user"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
             android:padding="10dp">
 
         </ImageView>
@@ -61,7 +60,7 @@
             android:id="@+id/img_user"
             android:layout_width="40dp"
             android:layout_height="40dp"
-
+            android:layout_marginLeft="20dp"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_4"
             app:civ_border_color="@color/colorSecond"

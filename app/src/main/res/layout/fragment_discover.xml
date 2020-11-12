@@ -92,6 +92,7 @@
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_music"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dp"
@@ -556,6 +557,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_settings"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -610,6 +612,7 @@
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_support"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dp"

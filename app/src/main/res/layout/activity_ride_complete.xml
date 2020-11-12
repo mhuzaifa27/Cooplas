@@ -160,7 +160,7 @@
             android:layout_height="220dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_profile"
+                android:id="@+id/img_driver"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@drawable/profile_2"
@@ -170,7 +170,7 @@
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_profile"
+                android:layout_below="@id/img_driver"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textColor="@color/colorSecond"
@@ -178,7 +178,7 @@
                 android:text="Your Driver:"/>
 
             <TextView
-                android:id="@+id/tv_name_heading"
+                android:id="@+id/tv_driver_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_user_name"
@@ -217,7 +217,7 @@
 
     <com.willy.ratingbar.ScaleRatingBar
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/srb_5"
+        android:id="@+id/srb_driver_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"

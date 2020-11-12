@@ -90,7 +90,7 @@ public class EnterNewPassword extends AppCompatActivity {
         progressHUD.show();
         String accessToken = FunctionsKt.getAccessToken(EnterNewPassword.this);
 
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        APIInterface apiInterface = APIClient.getClient(getApplicationContext()).create(APIInterface.class);
         Call<GeneralRes> call = apiInterface.changeForgetPassword("Bearer " + accessToken, String.valueOf(pass));
         call.enqueue(new Callback<GeneralRes>() {
             @Override

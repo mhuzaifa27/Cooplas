@@ -61,7 +61,7 @@
                         android:textColor="@color/black" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/img_user"
+                        android:id="@+id/img_driver"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_below="@+id/your_driver"
@@ -76,12 +76,12 @@
                         app:civ_border_width="1dp" />
 
                     <TextView
-                        android:id="@+id/tv_user_name"
+                        android:id="@+id/tv_driver_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/your_driver"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/img_user"
+                        android:layout_toRightOf="@+id/img_driver"
                         android:fontFamily="@font/fira_sans_medium"
                         android:text="Mart Banks"
                         android:textColor="@color/black"
@@ -91,8 +91,8 @@
                         android:id="@+id/tv_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_user_name"
-                        android:layout_toRightOf="@+id/img_user"
+                        android:layout_below="@+id/tv_driver_name"
+                        android:layout_toRightOf="@+id/img_driver"
                         android:drawableLeft="@drawable/ic_star_border"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/fira_sans_light"
@@ -138,6 +138,7 @@
                         android:weightSum="2">
 
                         <TextView
+                            android:id="@+id/tv_vehicle_maker"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -148,6 +149,7 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/tv_vehicle_reg_num"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -207,6 +209,7 @@
                                 android:textSize="14sp"></TextView>
 
                             <TextView
+                                android:id="@+id/tv_destination"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/fira_sans_bold"
@@ -317,6 +320,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/fira_sans_bold"
@@ -358,6 +362,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
                     android:layout_toLeftOf="@+id/img_search_address"
                     android:background="@color/white"
                     android:editable="false"
@@ -375,7 +380,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:src="@drawable/ic_search"
-                    app:tint="@color/grey">
+                    app:tint="@color/grey"
+                    tools:ignore="MissingPrefix">
 
                 </ImageView>
             </RelativeLayout>
@@ -384,7 +390,7 @@
 
         <!--Select Car type layout-->
         <RelativeLayout
-            android:id="@+id/rl_driver_info"
+            android:id="@+id/rl_car_types"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
@@ -421,6 +427,7 @@
                         android:weightSum="3">
 
                         <LinearLayout
+                            android:id="@+id/ll_car_type_economy"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -447,6 +454,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_car_type_luxury"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -473,6 +481,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_car_type_family"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -538,6 +547,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tv_calculated_fare"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/ic_dollar_sign_orange"
@@ -729,6 +739,7 @@
                                 android:textSize="14sp"></TextView>
 
                             <TextView
+                                android:id="@+id/tv_pick_up_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/fira_sans_bold"
@@ -746,6 +757,7 @@
                                 android:textSize="14sp"></TextView>
 
                             <TextView
+                                android:id="@+id/tv_destination_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/fira_sans_bold"

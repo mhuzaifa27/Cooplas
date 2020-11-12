@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="150dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="15dp"
+    android:padding="1dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@android:color/transparent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_category"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_dummy_music">
+            </ImageView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:alpha="0.7"
+                android:background="@color/colorPrimary">
+            </ImageView>
+            <ImageView
+                android:id="@+id/img_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_play_circle_white">
+            </ImageView>
+            <TextView
+                android:id="@+id/tv_song_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/fira_sans_bold"
+                android:text="Sorry"
+                android:textColor="@color/white"
+                android:textSize="22sp">
+            </TextView>
+            <TextView
+                android:id="@+id/tv_singer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/fira_sans_regular"
+                android:text="Justin Bieber"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_alignParentBottom="true">
+            </TextView>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

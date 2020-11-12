@@ -1,16 +1,25 @@
 package com.example.cooplas.activities.Travel.Customer;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,13 +29,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.cooplas.R;
+import com.example.cooplas.models.Travel.Customer.CallbackAcceptRide.CallbackAcceptRide;
+import com.example.cooplas.models.Travel.Customer.CallbackSearchForVehicle.CallbackSearchForVehicle;
+import com.example.cooplas.models.Travel.Customer.CallbackUpdateVehicleType.CallbackUpdateVehicleType;
+import com.example.cooplas.models.Travel.Customer.Callbacks.CallbackCreateRide;
+import com.example.cooplas.utils.Constants;
+import com.example.cooplas.utils.DirectionPointListener;
+import com.example.cooplas.utils.GetPathFromLocation;
 import com.example.cooplas.utils.NetworkManager;
+import com.example.cooplas.utils.RippleEffectLoader;
+import com.example.cooplas.utils.ShowDialogues;
+import com.example.cooplas.utils.retrofitJava.APIClient;
+import com.example.cooplas.utils.retrofitJava.APIInterface;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -37,14 +58,28 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.jobesk.gong.utils.FunctionsKt;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainCustomerActivity extends AppCompatActivity implements View.OnClickListener {
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainCustomerActivity extends Activity implements View.OnClickListener {
 
     private String TAG = MainCustomerActivity.class.getSimpleName();
     private Context context = MainCustomerActivity.this;
     private Activity activity = MainCustomerActivity.this;
+    public static final int REQUEST_TO_SET_ADDRESSES = 2533;
+    public static final int REQUEST_DRIVER_REACHED = 2531;
+    public static final int REQUEST_RIDE_COMPLETE = 2521;
+    public static final int REQUEST_TO_UPDATE_ADDRESSES = 2534;
 
     private DrawerLayout drawer_customer;
     private MapView mMapView;
@@ -55,17 +90,32 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
     private String id;
     private Bitmap smallMarker;
 
-    private LinearLayout ll_offline_header, ll_btns_accept_ignore, ll_btn_start_ride;
+    private LinearLayout ll_offline_header, ll_btns_accept_ignore, ll_btn_start_ride,
+            ll_car_type_economy, ll_car_type_luxury, ll_car_type_family;
     private RelativeLayout rl_driver_info;
 
-    private RelativeLayout rl_bottom_float_buttons, rl_customer_info;
-    private CardView card_pick_up,card_address;
+    private RelativeLayout rl_bottom_float_buttons, rl_customer_info, rl_car_types, rl_confirm, rl_filled_addresses;
+    private CardView card_pick_up, card_address;
     private Switch swch_online_ofline;
     private Button btn_ignore_ride, btn_accept_ride, btn_start_ride;
-    private TextView tv_my_wallet, tv_rides_history, tv_promo_codes, tv_add_address, tv_notifications,tv_invite_friends, tv_help_and_support, tv_log_out;
+    private TextView tv_my_wallet, tv_rides_history, tv_promo_codes, tv_add_address, tv_notifications, tv_invite_friends, tv_help_and_support, tv_log_out;
 
     private EditText et_address;
-    private ImageView img_discover,img_menu;
+    private ImageView img_discover, img_menu;
+    private TextView tv_calculated_fare, tv_pick_up_address, tv_destination_address, tv_title_text,
+            tv_driver_name, tv_vehicle_maker, tv_vehicle_reg_num, tv_destination;
+    private CircleImageView img_driver;
+
+    private CallbackCreateRide callbackCreateRide;
+    private CallbackAcceptRide callbackAcceptRide;
+    private KProgressHUD progressHUD;
+    private RippleEffectLoader rippleEffectLoader;
+    private Map<String, String> updateVehicleTypeParams = new HashMap<>();
+    private Double lati = 31.465214, longi = 74.253296;
+    private boolean isMarkerRotating = false;
+    private Location targetLocation;
+    private int loop = 0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +126,12 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
         getNearDarzi();
 
         card_address.setOnClickListener(this::onClick);
-
         et_address.setOnClickListener(this::onClick);
+        ll_car_type_economy.setOnClickListener(this::onClick);
+        ll_car_type_luxury.setOnClickListener(this::onClick);
+        ll_car_type_family.setOnClickListener(this::onClick);
+        rl_confirm.setOnClickListener(this::onClick);
+        rl_filled_addresses.setOnClickListener(this::onClick);
 
         tv_my_wallet.setOnClickListener(this::onClick);
         tv_rides_history.setOnClickListener(this::onClick);
@@ -163,8 +217,8 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
                 //googleMap.setMyLocationEnabled(true);
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(Double.parseDouble("-33.865143"), Double.parseDouble("151.209900"));
-                googleMap.addMarker(new MarkerOptions().position(sydney)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_customer_marker));
+                LatLng sydney = new LatLng(lati, longi);
+                // Marker markerName=googleMap.addMarker(new MarkerOptions().position(sydney)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_customer_marker));
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -174,24 +228,45 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initComponents() {
-        drawer_customer=findViewById(R.id.drawer_customer);
+        targetLocation = new Location("");
+        progressHUD = KProgressHUD.create(activity);
+        rippleEffectLoader = new RippleEffectLoader(activity, false);
 
-        et_address=findViewById(R.id.et_address);
+        drawer_customer = findViewById(R.id.drawer_customer);
 
-        card_address=findViewById(R.id.card_address);
+        et_address = findViewById(R.id.et_address);
 
-        tv_my_wallet=findViewById(R.id.tv_my_wallet);
-        tv_rides_history=findViewById(R.id.tv_rides_history);
-        tv_promo_codes=findViewById(R.id.tv_promo_codes);
-        tv_notifications=findViewById(R.id.tv_notifications);
-        tv_add_address=findViewById(R.id.tv_add_address);
-        tv_invite_friends=findViewById(R.id.tv_invite_friends);
-        tv_help_and_support=findViewById(R.id.tv_help_and_support);
-        tv_log_out=findViewById(R.id.tv_log_out);
+        card_address = findViewById(R.id.card_address);
 
-        img_menu=findViewById(R.id.img_menu);
-        img_discover=findViewById(R.id.img_discover);
+        tv_my_wallet = findViewById(R.id.tv_my_wallet);
+        tv_rides_history = findViewById(R.id.tv_rides_history);
+        tv_promo_codes = findViewById(R.id.tv_promo_codes);
+        tv_notifications = findViewById(R.id.tv_notifications);
+        tv_add_address = findViewById(R.id.tv_add_address);
+        tv_invite_friends = findViewById(R.id.tv_invite_friends);
+        tv_help_and_support = findViewById(R.id.tv_help_and_support);
+        tv_log_out = findViewById(R.id.tv_log_out);
+        tv_calculated_fare = findViewById(R.id.tv_calculated_fare);
+        tv_pick_up_address = findViewById(R.id.tv_pick_up_address);
+        tv_destination_address = findViewById(R.id.tv_destination_address);
+        tv_title_text = findViewById(R.id.tv_title_text);
+        tv_vehicle_maker = findViewById(R.id.tv_vehicle_maker);
+        tv_driver_name = findViewById(R.id.tv_driver_name);
+        tv_vehicle_reg_num = findViewById(R.id.tv_vehicle_reg_num);
+        tv_destination = findViewById(R.id.tv_destination);
 
+        img_menu = findViewById(R.id.img_menu);
+        img_discover = findViewById(R.id.img_discover);
+        img_driver = findViewById(R.id.img_driver);
+
+        rl_car_types = findViewById(R.id.rl_car_types);
+        rl_confirm = findViewById(R.id.rl_confirm);
+        rl_filled_addresses = findViewById(R.id.rl_filled_addresses);
+        rl_customer_info = findViewById(R.id.rl_customer_info);
+
+        ll_car_type_economy = findViewById(R.id.ll_car_type_economy);
+        ll_car_type_luxury = findViewById(R.id.ll_car_type_luxury);
+        ll_car_type_family = findViewById(R.id.ll_car_type_family);
     }
 
     private void getNearDarzi() {
@@ -335,27 +410,27 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.tv_rides_history:
                 drawer_customer.closeDrawer(Gravity.LEFT);
-                startActivity(new Intent(context,RidesHistoryActivity.class));
+                startActivity(new Intent(context, RidesHistoryActivity.class));
                 break;
             case R.id.tv_promo_codes:
                 drawer_customer.closeDrawer(Gravity.LEFT);
-                startActivity(new Intent(context,PromoCodeActivity.class));
+                startActivity(new Intent(context, PromoCodeActivity.class));
                 break;
             case R.id.tv_notifications:
                 drawer_customer.closeDrawer(Gravity.LEFT);
-                startActivity(new Intent(context,NotificationActivity.class));
+                startActivity(new Intent(context, NotificationActivity.class));
                 break;
             case R.id.tv_add_address:
                 drawer_customer.closeDrawer(Gravity.LEFT);
-                startActivity(new Intent(context,AddAddressActivity.class));
+                startActivity(new Intent(context, AddAddressActivity.class));
                 break;
             case R.id.tv_invite_friends:
                 drawer_customer.closeDrawer(Gravity.LEFT);
-                startActivity(new Intent(context,InviteFriendsActivity.class));
+                startActivity(new Intent(context, InviteFriendsActivity.class));
                 break;
             case R.id.tv_help_and_support:
                 drawer_customer.closeDrawer(Gravity.LEFT);
-                startActivity(new Intent(context,SupportActivity.class));
+                startActivity(new Intent(context, SupportActivity.class));
                 break;
             case R.id.tv_log_out:
                 break;
@@ -366,12 +441,351 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
                 onBackPressed();
                 break;
             case R.id.card_address:
-                startActivity(new Intent(context,SetAddressActivity.class));
+
                 break;
             case R.id.et_address:
-                startActivity(new Intent(context,SetAddressActivity.class));
+                startActivityForResult(new Intent(context, SetAddressActivity.class), REQUEST_TO_SET_ADDRESSES);
+                break;
+            case R.id.ll_car_type_economy:
+                updateVehicleTypeParams.put(Constants.RIDE_ID, callbackCreateRide.getRide().getId().toString());
+                updateVehicleTypeParams.put(Constants.VEHICLE_TYPE, getString(R.string.car_economy));
+                selectCarType(1);
+                break;
+            case R.id.ll_car_type_luxury:
+                updateVehicleTypeParams.put(Constants.RIDE_ID, callbackCreateRide.getRide().getId().toString());
+                updateVehicleTypeParams.put(Constants.VEHICLE_TYPE, getString(R.string.car_luxury));
+                selectCarType(2);
+                break;
+            case R.id.ll_car_type_family:
+                updateVehicleTypeParams.put(Constants.RIDE_ID, callbackCreateRide.getRide().getId().toString());
+                updateVehicleTypeParams.put(Constants.VEHICLE_TYPE, getString(R.string.car_family));
+                selectCarType(3);
+                break;
+            case R.id.rl_confirm:
+                searchForVehicle();
                 break;
         }
+    }
+
+    private void searchForVehicle() {
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(context);
+        Log.d(TAG, "onResponse: " + accessToken);
+        APIInterface apiInterface = APIClient.getClient(context).create(APIInterface.class);
+        Call<CallbackSearchForVehicle> call = apiInterface.searchForVehicle("Bearer " + accessToken, callbackCreateRide.getRide().getId().toString());
+        call.enqueue(new Callback<CallbackSearchForVehicle>() {
+            @Override
+            public void onResponse(Call<CallbackSearchForVehicle> call, Response<CallbackSearchForVehicle> response) {
+                CallbackSearchForVehicle responseUpdateCarType = response.body();
+                if (responseUpdateCarType != null) {
+                    progressHUD.dismiss();
+                    rl_filled_addresses.setVisibility(View.GONE);
+                    rl_car_types.setVisibility(View.GONE);
+                    tv_title_text.setText(R.string.searching_for_vehicle);
+                    rippleEffectLoader.showIndicator();
+                    new CountDownTimer(6000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            // TODO Auto-generated method stub
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            // TODO Auto-generated method stub
+                            acceptRide();
+                        }
+                    }.start();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CallbackSearchForVehicle> call, Throwable t) {
+                if (!call.isCanceled()) {
+                    Log.d(TAG, "onResponse: " + t.getMessage());
+                    progressHUD.dismiss();
+                }
+            }
+        });
+    }
+
+    private void acceptRide() {
+        String accessToken = FunctionsKt.getAccessToken(context);
+        Log.d(TAG, "onResponse: " + accessToken);
+        APIInterface apiInterface = APIClient.getClient(context).create(APIInterface.class);
+        Call<CallbackAcceptRide> call = apiInterface.acceptRide("Bearer EZ8OOnBW4JAvsCffaZBJKX9sygyMSH9V4xYAXvDQKj6A6sqXzBC3BbVD0mrH", callbackCreateRide.getRide().getId().toString());
+        call.enqueue(new Callback<CallbackAcceptRide>() {
+            @Override
+            public void onResponse(Call<CallbackAcceptRide> call, Response<CallbackAcceptRide> response) {
+                CallbackAcceptRide responseAcceptRide = response.body();
+                if (responseAcceptRide != null) {
+                    setDirectionsOnMap(responseAcceptRide);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CallbackAcceptRide> call, Throwable t) {
+                if (!call.isCanceled()) {
+                    Log.d(TAG, "onResponse: " + t.getMessage());
+                    rippleEffectLoader.hideIndicator();
+                }
+            }
+        });
+    }
+
+    private void setDirectionsOnMap(CallbackAcceptRide response) {
+        callbackAcceptRide = response;
+        rippleEffectLoader.hideIndicator();
+        rl_customer_info.setVisibility(View.VISIBLE);
+        rl_filled_addresses.setVisibility(View.GONE);
+        tv_title_text.setText(R.string.vehicle_is_on_the_way);
+
+        tv_driver_name.setText(response.getDriver().getFirstName() + " " + response.getDriver().getLastName());
+        tv_vehicle_maker.setText(response.getVehicle().getMaker() + "-" + response.getVehicle().getModel());
+        tv_vehicle_reg_num.setText(response.getVehicle().getRegistrationNumber());
+        tv_destination.setText(response.getRide().getDestination().getName());
+
+        if (response.getDriver().getProfilePic() != null) {
+            Glide
+                    .with(context)
+                    .load(response.getDriver().getProfilePic())
+                    .centerCrop()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_dummy_user)
+                    .into(img_driver);
+        }
+
+        LatLng source = new LatLng(31.467077, 74.249046);
+        MarkerOptions markerDriver = new MarkerOptions().position(source).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_logo));
+        Marker m1 = googleMap.addMarker(markerDriver);
+
+        LatLng destination = new LatLng(lati, longi);
+        MarkerOptions markerUser = new MarkerOptions().position(destination).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_customer_marker));
+        googleMap.addMarker(markerUser);
+
+        new GetPathFromLocation(context, source, destination, new DirectionPointListener() {
+            @Override
+            public void onPath(PolylineOptions polyLine) {
+                googleMap.addPolyline(polyLine);
+                new CountDownTimer(2000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        // TODO Auto-generated method stub
+                        Intent intent = new Intent(context, ReachedAtPickUpActivity.class);
+                        intent.putExtra(Constants.RIDE_ID, callbackCreateRide.getRide().getId().toString());
+                        startActivityForResult(intent, REQUEST_DRIVER_REACHED);
+                    }
+                }.start();
+                //startDriverMovement(response, m1);
+            }
+        }).execute();
+    }
+
+    private void startDriverMovement(CallbackAcceptRide response, Marker markerDriver) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //calling method to animate marker
+                if (GetPathFromLocation.listOfPaths.size() > loop) {
+                    loop++;
+                    targetLocation.setLatitude(Double.parseDouble(GetPathFromLocation.listOfPaths.get(loop).get("lat")));
+                    targetLocation.setLongitude(Double.parseDouble(GetPathFromLocation.listOfPaths.get(loop).get("lng")));
+
+                    animateMarkerNew(targetLocation, markerDriver);
+
+                    handler.postDelayed(this, 3000);
+                } else {
+//                    startActivity(new Intent(context,ReachedAtPickUpActivity.class));
+                }
+            }
+        }, 3000);
+    }
+
+    private void animateMarkerNew(final Location destination, final Marker marker) {
+
+        if (marker != null) {
+
+            final LatLng startPosition = marker.getPosition();
+            final LatLng endPosition = new LatLng(destination.getLatitude(), destination.getLongitude());
+
+            final float startRotation = marker.getRotation();
+            final LatLngInterpolatorNew latLngInterpolator = new LatLngInterpolatorNew.LinearFixed();
+
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
+            valueAnimator.setDuration(3000); // duration 3 second
+            valueAnimator.setInterpolator(new LinearInterpolator());
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    try {
+                        float v = animation.getAnimatedFraction();
+                        LatLng newPosition = latLngInterpolator.interpolate(v, startPosition, endPosition);
+                        marker.setPosition(newPosition);
+                        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder()
+                                .target(newPosition)
+                                .zoom(15.5f)
+                                .build()));
+
+                        marker.setRotation(getBearing(startPosition, new LatLng(destination.getLatitude(), destination.getLongitude())));
+                    } catch (Exception ex) {
+                        //I don't care atm..
+                    }
+                }
+            });
+            valueAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+
+                    // if (mMarker != null) {
+                    // mMarker.remove();
+                    // }
+                    // mMarker = googleMap.addMarker(new MarkerOptions().position(endPosition).icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_car)));
+
+                }
+            });
+            valueAnimator.start();
+        }
+    }
+
+    private interface LatLngInterpolatorNew {
+        LatLng interpolate(float fraction, LatLng a, LatLng b);
+
+        class LinearFixed implements LatLngInterpolatorNew {
+            @Override
+            public LatLng interpolate(float fraction, LatLng a, LatLng b) {
+                double lat = (b.latitude - a.latitude) * fraction + a.latitude;
+                double lngDelta = b.longitude - a.longitude;
+                // Take the shortest path across the 180th meridian.
+                if (Math.abs(lngDelta) > 180) {
+                    lngDelta -= Math.signum(lngDelta) * 360;
+                }
+                double lng = lngDelta * fraction + a.longitude;
+                return new LatLng(lat, lng);
+            }
+        }
+    }
+
+
+    //Method for finding bearing between two points
+    private float getBearing(LatLng begin, LatLng end) {
+        double lat = Math.abs(begin.latitude - end.latitude);
+        double lng = Math.abs(begin.longitude - end.longitude);
+
+        if (begin.latitude < end.latitude && begin.longitude < end.longitude)
+            return (float) (Math.toDegrees(Math.atan(lng / lat)));
+        else if (begin.latitude >= end.latitude && begin.longitude < end.longitude)
+            return (float) ((90 - Math.toDegrees(Math.atan(lng / lat))) + 90);
+        else if (begin.latitude >= end.latitude && begin.longitude >= end.longitude)
+            return (float) (Math.toDegrees(Math.atan(lng / lat)) + 180);
+        else if (begin.latitude < end.latitude && begin.longitude >= end.longitude)
+            return (float) ((90 - Math.toDegrees(Math.atan(lng / lat))) + 270);
+        return -1;
+    }
+    /*private double bearingBetweenLocations(LatLng latLng1,LatLng latLng2) {
+        double PI = 3.14159;
+        double lat1 = latLng1.latitude * PI / 180;
+        double long1 = latLng1.longitude * PI / 180;
+        double lat2 = latLng2.latitude * PI / 180;
+        double long2 = latLng2.longitude * PI / 180;
+
+        double dLon = (long2 - long1);
+
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+                * Math.cos(lat2) * Math.cos(dLon);
+
+        double brng = Math.atan2(y, x);
+
+        brng = Math.toDegrees(brng);
+        brng = (brng + 360) % 360;
+
+        return brng;
+    }
+    private void rotateMarker(final Marker marker, final float toRotation) {
+        if(!isMarkerRotating) {
+            final Handler handler = new Handler();
+            final long start = SystemClock.uptimeMillis();
+            final float startRotation = marker.getRotation();
+            final long duration = 1000;
+
+            final LinearInterpolator interpolator = new LinearInterpolator();
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    isMarkerRotating = true;
+
+                    long elapsed = SystemClock.uptimeMillis() - start;
+                    float t = interpolator.getInterpolation((float) elapsed / duration);
+
+                    float rot = t * toRotation + (1 - t) * startRotation;
+
+                    marker.setRotation(-rot > 180 ? rot / 2 : rot);
+                    if (t < 1.0) {
+                        // Post again 16ms later.
+                        handler.postDelayed(this, 16);
+                    } else {
+                        isMarkerRotating = false;
+                    }
+                }
+            });
+        }
+    }*/
+
+    private void selectCarType(int i) {
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(context);
+        Log.d(TAG, "onResponse: " + accessToken);
+        APIInterface apiInterface = APIClient.getClient(context).create(APIInterface.class);
+        Call<CallbackUpdateVehicleType> call = apiInterface.updateRideVehicleType("Bearer " + accessToken, updateVehicleTypeParams);
+        call.enqueue(new Callback<CallbackUpdateVehicleType>() {
+            @Override
+            public void onResponse(Call<CallbackUpdateVehicleType> call, Response<CallbackUpdateVehicleType> response) {
+                CallbackUpdateVehicleType responseUpdateCarType = response.body();
+                Log.d(TAG, "onResponse: " + response);
+                if (responseUpdateCarType != null) {
+                    updateCarType(responseUpdateCarType, i);
+                } else {
+                    progressHUD.dismiss();
+                    ShowDialogues.SHOW_SERVER_ERROR_DIALOG(context);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CallbackUpdateVehicleType> call, Throwable t) {
+                if (!call.isCanceled()) {
+                    Log.d(TAG, "onResponse: " + t.getMessage());
+                    progressHUD.dismiss();
+                }
+            }
+        });
+    }
+
+    private void updateCarType(CallbackUpdateVehicleType response, int i) {
+        if (i == 1) {
+            ll_car_type_economy.setBackground(getResources().getDrawable(R.drawable.round_orange_small));
+            ll_car_type_luxury.setBackground(getResources().getDrawable(R.drawable.round_white_small));
+            ll_car_type_family.setBackground(getResources().getDrawable(R.drawable.round_white_small));
+        } else if (i == 2) {
+            ll_car_type_economy.setBackground(getResources().getDrawable(R.drawable.round_white_small));
+            ll_car_type_luxury.setBackground(getResources().getDrawable(R.drawable.round_orange_small));
+            ll_car_type_family.setBackground(getResources().getDrawable(R.drawable.round_white_small));
+        } else {
+            ll_car_type_economy.setBackground(getResources().getDrawable(R.drawable.round_white_small));
+            ll_car_type_luxury.setBackground(getResources().getDrawable(R.drawable.round_white_small));
+            ll_car_type_family.setBackground(getResources().getDrawable(R.drawable.round_orange_small));
+        }
+        updateVehicleTypeParams.clear();
+        tv_calculated_fare.setText(response.getRide().getPrice().toString());
+        progressHUD.dismiss();
     }
 
 
@@ -448,4 +862,55 @@ public class MainCustomerActivity extends AppCompatActivity implements View.OnCl
 //            return view;
 //        }
 //    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        Toast.makeText(context, "here", Toast.LENGTH_SHORT).show();
+        if (requestCode == REQUEST_TO_SET_ADDRESSES && resultCode == RESULT_OK) {
+//            Toast.makeText(context, "here1", Toast.LENGTH_SHORT).show();
+            Log.d("REQUEST", "onActivityResult: " + data);
+            if (data != null) {
+//                Toast.makeText(context, "here2", Toast.LENGTH_SHORT).show();
+                callbackCreateRide = (CallbackCreateRide) data.getExtras().getSerializable(Constants.CREATE_RIDE_OBJ);
+                Log.d("REQUEST", "onActivityResult: " + callbackCreateRide);
+                selectCarTypeView(callbackCreateRide);
+            }
+        }
+        if (requestCode == REQUEST_DRIVER_REACHED) {
+            if (resultCode == RESULT_OK) {
+                new CountDownTimer(2000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        // TODO Auto-generated method stub
+                        Intent intent = new Intent(context, RideCompleteActivity.class);
+                        intent.putExtra(Constants.CREATE_RIDE_OBJ, callbackAcceptRide);
+                        startActivityForResult(intent,REQUEST_RIDE_COMPLETE);
+                    }
+                }.start();
+            } else {
+                recreate();
+            }
+        }
+        if(requestCode==REQUEST_RIDE_COMPLETE && resultCode==RESULT_OK){
+            recreate();
+        }
+    }
+
+    private void selectCarTypeView(CallbackCreateRide callbackCreateRide) {
+        tv_title_text.setText(R.string.select_vehicle_type);
+        tv_calculated_fare.setText(callbackCreateRide.getRide().getPrice().toString());
+        tv_pick_up_address.setText(callbackCreateRide.getStart().getName());
+        tv_destination_address.setText(callbackCreateRide.getDestination().getName());
+
+        rl_filled_addresses.setVisibility(View.VISIBLE);
+        card_address.setVisibility(View.GONE);
+        rl_car_types.setVisibility(View.VISIBLE);
+    }
 }

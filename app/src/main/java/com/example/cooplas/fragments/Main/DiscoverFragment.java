@@ -15,10 +15,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cooplas.R;
 import com.example.cooplas.activities.Food.FoodActivity;
+import com.example.cooplas.activities.Food.FoodOrderDetailActivity;
 import com.example.cooplas.activities.LikesScreen;
+import com.example.cooplas.activities.Music.MusicActivity;
+import com.example.cooplas.activities.SettingsActivity;
 import com.example.cooplas.activities.SigninSignupScreen;
 
 import com.example.cooplas.activities.Travel.Customer.MainCustomerActivity;
+import com.example.cooplas.activities.Travel.Customer.SupportActivity;
 import com.example.cooplas.activities.Wallet.WalletActivity;
 import com.jobesk.gong.utils.FunctionsKt;
 
@@ -27,7 +31,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     private static final String TAG = "DiscoverFragment";
     private Context context;
     private Activity activity;
-    private CardView card_wallet, card_food, logoutCard, card_travel;
+    private CardView card_music,card_wallet, card_food, logoutCard, card_travel,card_settings,card_support;
 
 
     @Override
@@ -36,9 +40,12 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         initComponents(view);
 
+        card_music.setOnClickListener(this);
         card_wallet.setOnClickListener(this);
         card_food.setOnClickListener(this);
         card_travel.setOnClickListener(this);
+        card_settings.setOnClickListener(this);
+        card_support.setOnClickListener(this);
 
         return view;
     }
@@ -47,10 +54,13 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         context = getContext();
         activity = getActivity();
 
+        card_music=view.findViewById(R.id.card_music);
         card_wallet = view.findViewById(R.id.card_wallet);
         card_food = view.findViewById(R.id.card_food);
         card_travel = view.findViewById(R.id.card_travel);
         logoutCard = view.findViewById(R.id.logoutCard);
+        card_settings=view.findViewById(R.id.card_settings);
+        card_support=view.findViewById(R.id.card_support);
 
         logoutCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +69,6 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                 Intent intent = new Intent(getActivity(), SigninSignupScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-
             }
         });
 
@@ -74,6 +83,10 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
+            case R.id.card_music:
+                startActivity(new Intent(context, MusicActivity.class));
+                break;
             case R.id.card_wallet:
                 startActivity(new Intent(context, WalletActivity.class));
                 break;
@@ -82,6 +95,12 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                 break;
             case R.id.card_travel:
                 startActivity(new Intent(context, MainCustomerActivity.class));
+                break;
+            case R.id.card_settings:
+                startActivity(new Intent(context, SettingsActivity.class));
+                break;
+            case R.id.card_support:
+                startActivity(new Intent(context, SupportActivity.class));
                 break;
         }
     }

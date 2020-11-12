@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void getPosts() {
-
         if (swipeRefreshCheck == true) {
             swipeRefreshLayout.setRefreshing(true);
         } else {
@@ -89,7 +88,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
 
         String accessToken = FunctionsKt.getAccessToken(getContext());
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        APIInterface apiInterface = APIClient.getClient(getContext()).create(APIInterface.class);
         Call<HomeModel> call = apiInterface.getHomeFeed("Bearer " + accessToken, String.valueOf(offsetValue));
         call.enqueue(new Callback<HomeModel>() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -144,7 +143,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void arrangeResponse(List<Post> listOfPosts) {
-
         if (listOfPosts.size() > 0) {
 
         } else {
@@ -218,7 +216,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initComponents() {
-
         context = getContext();
         activity = getActivity();
         progressHUD = KProgressHUD.create(getActivity());
@@ -227,8 +224,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
         parentLayout = rootView.findViewById(android.R.id.content);
-
-
     }
 
     @Override
