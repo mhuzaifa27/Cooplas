@@ -78,7 +78,7 @@ public class VideosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         activity = getActivity();
         EventBus.getDefault().register(this);
         init();
-
+        resetFrag();
 
         recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -109,6 +109,20 @@ public class VideosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         getPosts();
 
         return rootView;
+    }
+
+    private void resetFrag() {
+        headerPosts = 0;
+        adapterCheck = 0;
+        isLoading = true;
+        isLastPage = false;
+        previousTotal = 0;
+        offsetValue = 0;
+        visibleThreshold = 5;
+        if (arrayList.size() > 0) {
+            arrayList.clear();
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

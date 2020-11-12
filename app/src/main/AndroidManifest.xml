@@ -24,9 +24,6 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.video.EditVideoPostsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.StoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 

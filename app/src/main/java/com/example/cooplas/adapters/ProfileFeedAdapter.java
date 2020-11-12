@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.cooplas.R;
 
 
+import com.example.cooplas.activities.home.EditPostActivity;
 import com.example.cooplas.activities.home.HomePostLikesActivity;
 import com.example.cooplas.activities.home.ImageViewActivity;
 import com.example.cooplas.activities.home.VideoViewActivity;
@@ -34,13 +36,22 @@ import com.example.cooplas.models.profile.Wall;
 import com.example.cooplas.utils.CircleTransform;
 import com.example.cooplas.utils.RoundedCornersTransformation;
 import com.example.cooplas.utils.ShowMenu;
+import com.example.cooplas.utils.retrofitJava.APIClient;
+import com.example.cooplas.utils.retrofitJava.APIInterface;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.jobesk.gong.utils.FunctionsKt;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFeedAdapter extends RecyclerView.Adapter {
 
@@ -225,10 +236,10 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         String currentUserID = FunctionsKt.getUserID(activity);
                         if (currentUserID.equalsIgnoreCase(String.valueOf(postUserID))) {
                             // current user
-                            showPostMenuMine(activity, view, ((ViewHolderText) holder).parentLayout);
+                            showPostMenuMine(activity, view, ((ViewHolderText) holder).parentLayout, postModel.getId(), position);
                         } else {
                             //other User
-                            showPostMenuOthers(activity, view, ((ViewHolderText) holder).parentLayout);
+                            showPostMenuOthers(activity, view, ((ViewHolderText) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
                                          }
                 });
@@ -348,10 +359,10 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         String currentUserID = FunctionsKt.getUserID(activity);
                         if (currentUserID.equalsIgnoreCase(String.valueOf(postUserID))) {
                             // current user
-                            showPostMenuMine(activity, view, ((ViewHolderImageSingle) holder).parentLayout);
+                            showPostMenuMine(activity, view, ((ViewHolderImageSingle) holder).parentLayout, postModel.getId(), position);
                         } else {
                             //other User
-                            showPostMenuOthers(activity, view, ((ViewHolderImageSingle) holder).parentLayout);
+                            showPostMenuOthers(activity, view, ((ViewHolderText) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
                     }
                 });
@@ -481,10 +492,10 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         String currentUserID = FunctionsKt.getUserID(activity);
                         if (currentUserID.equalsIgnoreCase(String.valueOf(postUserID))) {
                             // current user
-                            showPostMenuMine(activity, view, ((ViewHolderImageDouble) holder).parentLayout);
+                            showPostMenuMine(activity, view, ((ViewHolderImageDouble) holder).parentLayout, postModel.getId(), position);
                         } else {
                             //other User
-                            showPostMenuOthers(activity, view, ((ViewHolderImageDouble) holder).parentLayout);
+                            showPostMenuOthers(activity, view, ((ViewHolderImageDouble) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
                     }
                 });
@@ -634,10 +645,10 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         String currentUserID = FunctionsKt.getUserID(activity);
                         if (currentUserID.equalsIgnoreCase(String.valueOf(postUserID))) {
                             // current user
-                            showPostMenuMine(activity, view, ((ViewHolderImageTripple) holder).parentLayout);
+                            showPostMenuMine(activity, view, ((ViewHolderImageTripple) holder).parentLayout, postModel.getId(), position);
                         } else {
                             //other User
-                            showPostMenuOthers(activity, view, ((ViewHolderImageTripple) holder).parentLayout);
+                            showPostMenuOthers(activity, view, ((ViewHolderImageTripple) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
                     }
                 });
@@ -791,10 +802,10 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         String currentUserID = FunctionsKt.getUserID(activity);
                         if (currentUserID.equalsIgnoreCase(String.valueOf(postUserID))) {
                             // current user
-                            showPostMenuMine(activity, view, ((ViewHolderImageMultiple) holder).parentLayout);
+                            showPostMenuMine(activity, view, ((ViewHolderImageMultiple) holder).parentLayout, postModel.getId(), position);
                         } else {
                             //other User
-                            showPostMenuOthers(activity, view, ((ViewHolderImageMultiple) holder).parentLayout);
+                            showPostMenuOthers(activity, view, ((ViewHolderImageMultiple) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
                     }
                 });
@@ -897,10 +908,10 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         String currentUserID = FunctionsKt.getUserID(activity);
                         if (currentUserID.equalsIgnoreCase(String.valueOf(postUserID))) {
                             // current user
-                            showPostMenuMine(activity, view, ((ViewHolderVideo) holder).parentLayout);
+                            showPostMenuMine(activity, view, ((ViewHolderVideo) holder).parentLayout, postModel.getId(), position);
                         } else {
                             //other User
-                            showPostMenuOthers(activity, view, ((ViewHolderVideo) holder).parentLayout);
+                            showPostMenuOthers(activity, view, ((ViewHolderVideo) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
                     }
                 });
@@ -1135,7 +1146,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
     }
 
 
-    public static void showPostMenuOthers(Activity activity, View view, ViewGroup viewGroup) {
+    public void showPostMenuOthers(Activity activity, View view, ViewGroup viewGroup, int postID, int position, String isFollowing, int userID) {
         LayoutInflater inflater = (LayoutInflater)
                 activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.post_menu, viewGroup, false);
@@ -1143,6 +1154,12 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
         TextView tv_unfollow = v.findViewById(R.id.tv_unfollow);
         TextView tv_report = v.findViewById(R.id.tv_report);
 
+        if (isFollowing.equalsIgnoreCase("1")) {
+            tv_unfollow.setText("Un Follow");
+        } else {
+            tv_unfollow.setText("Follow");
+        }
+
         PopupWindow mypopupWindow = new PopupWindow(v, 300, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         if (v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v); // <- fix
@@ -1155,16 +1172,48 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                 mypopupWindow.dismiss();
             }
         });
+
+        tv_unfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (isFollowing.equalsIgnoreCase("1")) {
+                    tv_unfollow.setText("Un Follow");
+
+                    dataList.get(position).setIsFollowing("0");
+                    UnFollowUser(userID);
+
+
+                } else {
+
+                    tv_unfollow.setText("Follow");
+                    dataList.get(position).setIsFollowing("1");
+                    FollowUser(userID);
+                }
+                notifyItemChanged(position);
+                mypopupWindow.dismiss();
+            }
+        });
+        tv_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                reportPost(postID);
+                mypopupWindow.dismiss();
+            }
+        });
+
+
     }
 
-    public static void showPostMenuMine(Activity activity, View view, ViewGroup viewGroup) {
+    public void showPostMenuMine(Activity activity, View view, ViewGroup viewGroup, int postID, int position) {
         LayoutInflater inflater = (LayoutInflater)
                 activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.post_menu_mine, viewGroup, false);
 
-        TextView tv_unfollow = v.findViewById(R.id.tv_unfollow);
-        TextView tv_report = v.findViewById(R.id.tv_report);
-
+        TextView tv_edit = v.findViewById(R.id.tv_edit);
+        TextView tv_delete = v.findViewById(R.id.tv_delete);
         PopupWindow mypopupWindow = new PopupWindow(v, 300, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         if (v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v); // <- fix
@@ -1177,6 +1226,136 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                 mypopupWindow.dismiss();
             }
         });
+
+        tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                deletePost(postID, position);
+                mypopupWindow.dismiss();
+            }
+        });
+        tv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(activity, EditPostActivity.class);
+                intent.putExtra("from", "home");
+                intent.putExtra("postID", String.valueOf(postID));
+                activity.startActivity(intent);
+                mypopupWindow.dismiss();
+
+            }
+        });
+
+
     }
 
+    private void deletePost(int postID, int position) {
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<JsonObject> call = apiInterface.deletePost("Bearer " + accessToken, String.valueOf(postID));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("postDel", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    dataList.remove(position);
+                    notifyItemChanged(position);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
+    private void FollowUser(int postID) {
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<JsonObject> call = apiInterface.followUser("Bearer " + accessToken, String.valueOf(postID));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("postDel", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    Toast.makeText(activity, "User UnFollowed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
+    private void UnFollowUser(int postID) {
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<JsonObject> call = apiInterface.unFollowUser("Bearer " + accessToken, String.valueOf(postID));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("postDel", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    Toast.makeText(activity, "User UnFollowed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+    private void reportPost(int postID) {
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<JsonObject> call = apiInterface.repostPost("Bearer " + accessToken, String.valueOf(postID));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("postDel", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    Toast.makeText(activity, "Post Reported Successfully!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
 }

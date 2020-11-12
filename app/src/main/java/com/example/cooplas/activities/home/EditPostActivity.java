@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.cooplas.R;
 import com.example.cooplas.adapters.HomeCreatePostImagesAdapter;
 import com.example.cooplas.events.home.HomeRefreshFeedEvent;
+import com.example.cooplas.events.videos.VideoRefreshFeedEvent;
 import com.example.cooplas.models.home.MediaTypeModel;
 import com.example.cooplas.models.home.createPost.CreatePostModel;
 import com.example.cooplas.models.home.singlePost.Medium;
@@ -54,7 +55,7 @@ public class EditPostActivity extends AppCompatActivity {
     private String descriptionVal;
     private AlertDialog alertDialog;
     private ArrayList<MediaTypeModel> listMedia = new ArrayList<>();
-    String postID;
+    String postID, from;
     private EditText description_et;
     public static StringBuilder stringBuilder;
 
@@ -67,7 +68,10 @@ public class EditPostActivity extends AppCompatActivity {
         stringBuilder = new StringBuilder();
 
         Intent intent = getIntent();
-        postID = intent.getStringExtra("postID");
+        if (intent != null) {
+            postID = intent.getStringExtra("postID");
+            from = intent.getStringExtra("from");
+        }
 
 
         RelativeLayout back_img = findViewById(R.id.rl_back);
@@ -273,8 +277,7 @@ public class EditPostActivity extends AppCompatActivity {
 
     private void uploadPost() {
 
-        KProgressHUD progressHUD = KProgressHUD.create(EditPostActivity.this).show();
-        progressHUD.show();
+
         String accessToken = FunctionsKt.getAccessToken(EditPostActivity.this);
         APIInterface apiInterface = APIClient.getClient(getApplicationContext()).create(APIInterface.class);
 
@@ -283,9 +286,21 @@ public class EditPostActivity extends AppCompatActivity {
         builder.setType(MultipartBody.FORM);
 
 
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (arrayList.size() > 0) {
+            arrayList.clear();
+        }
         for (int i = 0; i < listMedia.size(); i++) {
 
-            if (listMedia.get(i).getType().equals("vid")) {
+            if (listMedia.get(i).getType().equals("vid") || listMedia.get(i).getType().equals("video/mp4")) {
+
+                arrayList.add(String.valueOf(i));
+                if (arrayList.size() > 1) {
+                    Toast.makeText(this, "You can upload only one video at a time!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
                 File file = new File(listMedia.get(i).getPath());
                 String mimeType = getMimeType(listMedia.get(i).getPath());
                 RequestBody requestImage = RequestBody.create(MediaType.parse(mimeType), file);
@@ -314,7 +329,8 @@ public class EditPostActivity extends AppCompatActivity {
             builder.addFormDataPart("delete_media_ids", String.valueOf(stringBuilder));
         }
 
-
+        KProgressHUD progressHUD = KProgressHUD.create(EditPostActivity.this).show();
+        progressHUD.show();
         MultipartBody requestBody = builder.build();
         Call<CreatePostModel> call = apiInterface.updatePost("Bearer " + accessToken, postID, requestBody);
         call.enqueue(new Callback<CreatePostModel>() {
@@ -323,12 +339,19 @@ public class EditPostActivity extends AppCompatActivity {
                 Log.d("postUpload", "" + new Gson().toJson(response.body()));
                 progressHUD.dismiss();
                 if (response.isSuccessful()) {
-                    Toast.makeText(EditPostActivity.this, "Profile Updated successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditPostActivity.this, "Post Updated successfully", Toast.LENGTH_SHORT).show();
 
                     stringBuilder.delete(0, stringBuilder.length());
 
                     // send noti
-                    EventBus.getDefault().post(new HomeRefreshFeedEvent());
+
+                    if (from.equalsIgnoreCase("video")) {
+                        EventBus.getDefault().post(new VideoRefreshFeedEvent());
+                    } else {
+                        EventBus.getDefault().post(new HomeRefreshFeedEvent());
+                    }
+
+
                     finish();
                 }
             }
@@ -365,9 +388,9 @@ public class EditPostActivity extends AppCompatActivity {
         }
 
         if (requestCode == VideoPicker.VIDEO_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-            if (listMedia.size() > 0) {
-                listMedia.clear();
-            }
+//            if (listMedia.size() > 0) {
+//                listMedia.clear();
+//            }
             List<String> mPaths = data.getStringArrayListExtra(VideoPicker.EXTRA_VIDEO_PATH);
             String path = mPaths.get(0);
             MediaTypeModel model = new MediaTypeModel();

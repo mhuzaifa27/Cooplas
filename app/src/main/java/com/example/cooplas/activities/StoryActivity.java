@@ -29,6 +29,7 @@ import com.example.cooplas.utils.OnSwipeTouchListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import jp.shts.android.storiesprogressview.StoriesProgressView;
@@ -47,15 +48,16 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_story);
-
 
 
         Intent intent = getIntent();
         UserStory myParcelableObject = intent.getParcelableExtra("userStories");
 
         List<Story> story = myParcelableObject.getStories();
+        Collections.reverse(story);
+
 
         arrayList = new ArrayList<>();
         for (int i = 0; i < story.size(); i++) {
@@ -63,6 +65,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
             String mediaPath = story.get(i).getMedia();
             arrayList.add(mediaPath);
         }
+
 
         storiesProgressView = (StoriesProgressView) findViewById(R.id.stories);
         storiesProgressView.setStoriesCount(arrayList.size()); // <- set stories
@@ -94,7 +97,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
         storyImage = findViewById(R.id.storyImage);
         bottin_point = findViewById(R.id.bottin_point);
 
-
+        storiesProgressView.pause();
         setImages(arrayList.get(counter));
 
         arrow_left.setOnClickListener(new View.OnClickListener() {
@@ -182,14 +185,14 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         progressBar.setVisibility(View.GONE);
-//                        storiesProgressView.resume();
+                        storiesProgressView.resume();
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         progressBar.setVisibility(View.GONE);
-//                        storiesProgressView.resume();
+                        storiesProgressView.resume();
                         return false;
                     }
                 })

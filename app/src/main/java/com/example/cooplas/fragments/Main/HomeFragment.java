@@ -105,6 +105,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         initComponents();
 
+        resetFrag();
+
 
         recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -134,6 +136,22 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         getPosts();
 
         return rootView;
+    }
+
+    private void resetFrag() {
+
+
+        headerPosts = 0;
+        adapterCheck = 0;
+        isLoading = true;
+        isLastPage = false;
+        previousTotal = 0;
+        offsetValue = 0;
+        visibleThreshold = 5;
+        if (arrayList.size() > 0) {
+            arrayList.clear();
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -462,7 +480,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         });
     }
 
-    public static String getMimeType(String url) {
+    public  String getMimeType(String url) {
         String type = null;
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
         if (extension != null) {

@@ -26,7 +26,6 @@ import com.example.cooplas.activities.home.EditPostActivity;
 import com.example.cooplas.activities.home.HomePostLikesActivity;
 import com.example.cooplas.activities.home.PostCommentActivity;
 import com.example.cooplas.activities.home.VideoViewActivity;
-import com.example.cooplas.activities.video.EditVideoPostsActivity;
 import com.example.cooplas.adapters.TagsAdapter;
 
 import com.example.cooplas.events.videos.VideoLikeEvent;
@@ -76,8 +75,6 @@ public class VideoAdapter extends RecyclerView.Adapter {
                 return -1;
         }
     }
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -86,7 +83,7 @@ public class VideoAdapter extends RecyclerView.Adapter {
                 View layoutTwo = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_video_tags, parent, false);
                 return new ViewHolderTags(layoutTwo);
             case Video.TYPE_VIDEO:
-                View layoutEight = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_home_video, parent, false);
+                View layoutEight = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_home_video2, parent, false);
                 return new ViewHolderVideo(layoutEight);
             default:
                 return null;
@@ -392,9 +389,9 @@ public class VideoAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(activity, EditVideoPostsActivity.class);
-
+                Intent intent = new Intent(activity, EditPostActivity.class);
                 intent.putExtra("postID", String.valueOf(postID));
+                intent.putExtra("from", "video");
                 activity.startActivity(intent);
                 mypopupWindow.dismiss();
 
@@ -487,6 +484,8 @@ public class VideoAdapter extends RecyclerView.Adapter {
     }
 
     private void reportPost(int postID) {
+
+
         KProgressHUD progressHUD = KProgressHUD.create(activity);
         progressHUD.show();
         String accessToken = FunctionsKt.getAccessToken(activity);

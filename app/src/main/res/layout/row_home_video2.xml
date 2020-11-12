@@ -70,14 +70,16 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/black"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:visibility="gone" />
 
 
         <RelativeLayout
             android:id="@+id/videoCon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_description">
+            android:layout_below="@id/tv_description"
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:id="@+id/firt_image_view"

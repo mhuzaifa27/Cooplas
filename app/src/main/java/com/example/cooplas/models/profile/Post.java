@@ -8,6 +8,9 @@ import java.util.List;
 
 public class Post {
 
+
+    String isFollowing;
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -54,8 +57,13 @@ public class Post {
     private User user;
 
 
+    public String getIsFollowing() {
+        return isFollowing;
+    }
 
-
+    public void setIsFollowing(String isFollowing) {
+        this.isFollowing = isFollowing;
+    }
 
     public static final int TYPE_HORIZONTAL_LIST = 1;
     public static final int TYPE_TEXT = 2;

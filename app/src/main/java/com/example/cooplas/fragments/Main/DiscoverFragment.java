@@ -3,12 +3,16 @@ package com.example.cooplas.fragments.Main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
+
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,19 +24,34 @@ import com.example.cooplas.activities.Music.MusicActivity;
 import com.example.cooplas.activities.SettingsActivity;
 import com.example.cooplas.activities.SigninSignupScreen;
 
+import com.example.cooplas.activities.StoryActivity;
 import com.example.cooplas.activities.Travel.Customer.MainCustomerActivity;
 import com.example.cooplas.activities.Travel.Customer.SupportActivity;
 import com.example.cooplas.activities.Wallet.WalletActivity;
 import com.example.cooplas.activities.profile.ProfileActivity;
+import com.example.cooplas.models.home.homeFragmentModel.HomeModel;
+import com.example.cooplas.models.home.homeFragmentModel.Post;
+import com.example.cooplas.models.home.homeFragmentModel.UserStory;
+import com.example.cooplas.utils.retrofitJava.APIClient;
+import com.example.cooplas.utils.retrofitJava.APIInterface;
+import com.google.gson.Gson;
 import com.jobesk.gong.utils.FunctionsKt;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
-public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "DiscoverFragment";
     private Context context;
     private Activity activity;
     private CardView card_wallet, card_food, profileContainer, logoutCard, card_travel;
-    private CardView card_music,card_settings,card_support;
+    private CardView card_music, card_settings, card_support, storiesCon;
 
 
     @Override
@@ -41,6 +60,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         initComponents(view);
 
+        storiesCon.setOnClickListener(this);
         card_music.setOnClickListener(this);
         card_wallet.setOnClickListener(this);
         card_food.setOnClickListener(this);
@@ -55,14 +75,15 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         context = getContext();
         activity = getActivity();
 
-        card_music=view.findViewById(R.id.card_music);
+        card_music = view.findViewById(R.id.card_music);
         card_wallet = view.findViewById(R.id.card_wallet);
         card_food = view.findViewById(R.id.card_food);
         card_travel = view.findViewById(R.id.card_travel);
         logoutCard = view.findViewById(R.id.logoutCard);
         profileContainer = view.findViewById(R.id.profileContainer);
-        card_settings=view.findViewById(R.id.card_settings);
-        card_support=view.findViewById(R.id.card_support);
+        card_settings = view.findViewById(R.id.card_settings);
+        card_support = view.findViewById(R.id.card_support);
+        storiesCon = view.findViewById(R.id.storiesCon);
 
         logoutCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,10 +110,6 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
 
-    @Override
-    public void onRefresh() {
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -116,6 +133,59 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             case R.id.card_support:
                 startActivity(new Intent(context, SupportActivity.class));
                 break;
+            case R.id.storiesCon:
+
+                getPosts();
+
+
+                break;
         }
     }
+
+    private void getPosts() {
+        int offsetValue = 0;
+
+        KProgressHUD progressHUD = KProgressHUD.create(getActivity());
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(getContext());
+        APIInterface apiInterface = APIClient.getClient(getActivity()).create(APIInterface.class);
+        Call<HomeModel> call = apiInterface.getHomeFeed("Bearer " + accessToken, String.valueOf(offsetValue));
+        call.enqueue(new Callback<HomeModel>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
+                Log.d("getCommunity", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+
+                if (response.isSuccessful()) {
+                    HomeModel model = response.body();
+                    List<UserStory> listOFStories = new ArrayList<>();
+                    listOFStories.addAll(model.getUserStories());
+
+                    if (listOFStories.size()>0){
+
+                        Intent intent = new Intent(activity, StoryActivity.class);
+                        intent.putExtra("userStories", listOFStories.get(0));
+                        activity.startActivity(intent);
+                    }else {
+
+                        Toast.makeText(activity, "you have not uploaded any story yet!", Toast.LENGTH_SHORT).show();
+                    }
+                    
+
+                
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeModel> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
 }

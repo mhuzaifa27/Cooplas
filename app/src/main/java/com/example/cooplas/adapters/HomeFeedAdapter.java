@@ -1228,7 +1228,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
 
                 Intent intent = new Intent(activity, EditPostActivity.class);
-
+                intent.putExtra("from", "home");
                 intent.putExtra("postID", String.valueOf(postID));
                 activity.startActivity(intent);
                 mypopupWindow.dismiss();
