@@ -54,6 +54,7 @@ public class PostCommentActivity extends AppCompatActivity {
     private ImageView iv_write_comment, iv_send;
     private EditText et_comment;
     private String commentValue = "";
+
     @Override
     public void onStart() {
         super.onStart();
@@ -65,6 +66,7 @@ public class PostCommentActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,8 +262,9 @@ public class PostCommentActivity extends AppCompatActivity {
             postLike(id);
         }
     }
+
     private void postLike(int postID) {
-        KProgressHUD progressHUD = KProgressHUD.create(getApplicationContext());
+        KProgressHUD progressHUD = KProgressHUD.create(PostCommentActivity.this);
         progressHUD.show();
         String accessToken = FunctionsKt.getAccessToken(getApplicationContext());
 
@@ -290,7 +293,7 @@ public class PostCommentActivity extends AppCompatActivity {
     }
 
     private void postUnLike(int postID) {
-        KProgressHUD progressHUD = KProgressHUD.create(getApplicationContext());
+        KProgressHUD progressHUD = KProgressHUD.create(PostCommentActivity.this);
         progressHUD.show();
 
         String accessToken = FunctionsKt.getAccessToken(getApplicationContext());

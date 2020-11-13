@@ -94,8 +94,7 @@
                     android:id="@+id/iv_fav"
                     android:layout_width="@dimen/feedIiconSizes"
                     android:layout_height="@dimen/feedIiconSizes"
-                    android:layout_centerVertical="true"
-                   />
+                    android:layout_centerVertical="true" />
 
                 <TextView
                     android:id="@+id/tv_like_count"
@@ -181,7 +180,8 @@
             android:layout_height="46dp"
             android:layout_below="@id/rcv_comment"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/round_primary">
+            android:background="@drawable/round_primary"
+            android:clickable="true">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_write_comment"
@@ -189,6 +189,7 @@
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"
+                android:clickable="true"
                 android:src="@drawable/profile_icon"
                 app:civ_border_color="@color/colorSecond"
                 app:civ_border_width="2dp" />
@@ -202,6 +203,7 @@
                 android:layout_toStartOf="@id/iv_send"
                 android:layout_toEndOf="@id/iv_write_comment"
                 android:background="@null"
+                android:clickable="true"
                 android:hint="Write a comment..."
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -213,6 +215,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
+                android:clickable="true"
                 android:src="@drawable/send_icon" />
 
         </RelativeLayout>

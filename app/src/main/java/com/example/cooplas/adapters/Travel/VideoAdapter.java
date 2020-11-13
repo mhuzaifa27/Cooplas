@@ -26,10 +26,13 @@ import com.example.cooplas.activities.home.EditPostActivity;
 import com.example.cooplas.activities.home.HomePostLikesActivity;
 import com.example.cooplas.activities.home.PostCommentActivity;
 import com.example.cooplas.activities.home.VideoViewActivity;
+import com.example.cooplas.adapters.HomeFeedAdapter;
 import com.example.cooplas.adapters.TagsAdapter;
 
 import com.example.cooplas.events.videos.VideoLikeEvent;
 
+import com.example.cooplas.models.home.commentModels.CommentMainModel;
+import com.example.cooplas.models.home.singlePost.Comment;
 import com.example.cooplas.models.videos.TagsModel;
 import com.example.cooplas.models.videos.Video;
 import com.example.cooplas.utils.CircleTransform;
@@ -240,6 +243,19 @@ public class VideoAdapter extends RecyclerView.Adapter {
                             //other User
                             showPostMenuOthers(activity, view, ((ViewHolderVideo) holder).parentLayout, videoModel.getId(), position, videoModel.getIsFollowing(), videoModel.getUser().getId());
                         }
+                    }
+                });
+                ((ViewHolderVideo) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String commentVal = ((ViewHolderVideo) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderVideo) holder).et_comment.setText("");
+                        postComment(String.valueOf(videoModel.getId()), commentVal, position, Integer.valueOf(videoModel.getCommentsCount()));
                     }
                 });
 
@@ -505,6 +521,43 @@ public class VideoAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
+    private void postComment(String postID, String commentValue, int position, int commentCount) {
+
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<CommentMainModel> call = apiInterface.postComment("Bearer " + accessToken, postID, commentValue);
+        call.enqueue(new Callback<CommentMainModel>() {
+            @Override
+            public void onResponse(Call<CommentMainModel> call, Response<CommentMainModel> response) {
+                Log.d("getSinglePost", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    CommentMainModel commentMainModel = response.body();
+                    Comment comment = commentMainModel.getComment();
+
+
+                    int count = commentCount + 1;
+                    dataList.get(position).setCommentsCount(String.valueOf(count));
+                    notifyItemChanged(position);
+
+                    Intent intent = new Intent(activity, PostCommentActivity.class);
+                    intent.putExtra("postID", postID);
+                    activity.startActivity(intent);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentMainModel> call, Throwable t) {
                 Log.d("onFailure", t + "");
                 call.cancel();
                 progressHUD.dismiss();

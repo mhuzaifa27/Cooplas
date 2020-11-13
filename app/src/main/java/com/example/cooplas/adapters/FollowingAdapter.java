@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.cooplas.R;
-import com.example.cooplas.models.home.homeLikesModels.Like;
-import com.example.cooplas.models.home.homeLikesModels.LikeMainModel;
+import com.example.cooplas.models.profile.Followers.Follower;
+import com.example.cooplas.models.profile.Following.Following;
 import com.example.cooplas.utils.retrofitJava.APIClient;
 import com.example.cooplas.utils.retrofitJava.APIInterface;
 import com.google.gson.Gson;
@@ -28,11 +28,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeLikesAdapter extends Adapter<HomeLikesAdapter.ViewHolder> {
-    private List<Like> data;
+public class FollowingAdapter extends Adapter<FollowingAdapter.ViewHolder> {
+    private List<Follower> data;
     private Activity activity;
 
-    public HomeLikesAdapter(Activity activity, List<Like> data) {
+    public FollowingAdapter(Activity activity, List<Follower> data) {
         this.data = data;
         this.activity = activity;
     }
@@ -40,21 +40,20 @@ public class HomeLikesAdapter extends Adapter<HomeLikesAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.like_item, parent, false);
+        View view = inflater.inflate(R.layout.row_follow, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Like likeModel = data.get(position);
-//        int LikeID = likeModel.getId();
+        Follower model = data.get(position);
 
-        String userID = String.valueOf(likeModel.getUser().getId());
-        if (userID.equalsIgnoreCase(FunctionsKt.getUserID(activity))) {
-            holder.follow_tv.setVisibility(View.GONE);
-        }
 
-        String followVal = likeModel.getUser().getIsFollowing();
+        String userID = String.valueOf(model.getId());
+        String currentID = FunctionsKt.getUserID(activity);
+
+
+        String followVal = model.getFollowing();
         if (followVal.equalsIgnoreCase("1")) {
             holder.follow_tv.setText(activity.getResources().getString(R.string.unfollow));
             holder.follow_tv.setTextColor(activity.getResources().getColor(R.color.colorPrimaryDark));
@@ -64,21 +63,21 @@ public class HomeLikesAdapter extends Adapter<HomeLikesAdapter.ViewHolder> {
             holder.follow_tv.setTextColor(activity.getResources().getColor(R.color.white));
             holder.follow_tv.setBackground(activity.getResources().getDrawable(R.drawable.bf_follow));
         }
-
+//
         holder.follow_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String followVal = likeModel.getUser().getIsFollowing();
+                String followVal = model.getFollowing();
                 if (followVal.equalsIgnoreCase("1")) {
                     //make it unfollow
 
-                    String id = String.valueOf(likeModel.getUser().getId());
-                    likeModel.getUser().setIsFollowing("0");
+                    String id = String.valueOf(model.getId());
+                    model.setFollowing("0");
                     unfollow(id);
                 } else {
                     //make it Follow
-                    String id = String.valueOf(likeModel.getUser().getId());
-                    likeModel.getUser().setIsFollowing("1");
+                    String id = String.valueOf(model.getId());
+                    model.setFollowing("1");
                     follow(id);
                 }
 
@@ -88,10 +87,15 @@ public class HomeLikesAdapter extends Adapter<HomeLikesAdapter.ViewHolder> {
         });
 
 
-        String userName = likeModel.getUser().getFirstName() + " " + likeModel.getUser().getLastName();
-        String userImage = likeModel.getUser().getProfilePic();
+        String userName = model.getFirstName() + " " + model.getLastName();
+        String userImage = model.getProfilePic();
         holder.tv_name.setText(userName);
         Picasso.get().load(userImage).fit().centerCrop().placeholder(R.drawable.image_placeholder).into(holder.iv_profile);
+
+
+        if (userID.equalsIgnoreCase(currentID)) {
+            holder.follow_tv.setVisibility(View.GONE);
+        }
     }
 
 

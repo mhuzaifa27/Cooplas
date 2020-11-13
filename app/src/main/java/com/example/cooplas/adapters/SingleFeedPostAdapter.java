@@ -173,6 +173,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderText) holder).iv_profile);
 
                 ((ViewHolderText) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -198,6 +199,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderText) holder).iv_write_comment);
 
                 ((ViewHolderText) holder).tv_like_count.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +271,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageSingle) holder).iv_profile);
 
                 ((ViewHolderImageSingle) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -300,6 +303,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageSingle) holder).iv_write_comment);
 
 
@@ -400,6 +404,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageDouble) holder).iv_profile);
 
                 ((ViewHolderImageDouble) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -434,6 +439,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageDouble) holder).iv_write_comment);
 
                 ((ViewHolderImageDouble) holder).first_image_view.setOnClickListener(new View.OnClickListener() {
@@ -541,6 +547,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageTripple) holder).iv_profile);
 
                 ((ViewHolderImageTripple) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -579,6 +586,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageTripple) holder).iv_write_comment);
 
 
@@ -701,6 +709,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageMultiple) holder).iv_profile);
 
                 ((ViewHolderImageMultiple) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -745,6 +754,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageMultiple) holder).iv_write_comment);
 
 
@@ -868,6 +878,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderVideo) holder).iv_profile);
 
                 ((ViewHolderVideo) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -899,6 +910,7 @@ public class SingleFeedPostAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderVideo) holder).iv_write_comment);
                 ((ViewHolderVideo) holder).first_image_view.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,17 +24,21 @@ import com.example.cooplas.R;
 
 
 import com.example.cooplas.activities.home.EditPostActivity;
+import com.example.cooplas.activities.home.FollowersUsersActivity;
+import com.example.cooplas.activities.home.FollowingUsersActivity;
 import com.example.cooplas.activities.home.HomePostLikesActivity;
 import com.example.cooplas.activities.home.ImageViewActivity;
+import com.example.cooplas.activities.home.PostCommentActivity;
 import com.example.cooplas.activities.home.VideoViewActivity;
 
 import com.example.cooplas.events.profile.PostLikeProfile;
+import com.example.cooplas.models.home.commentModels.CommentMainModel;
+import com.example.cooplas.models.home.singlePost.Comment;
 import com.example.cooplas.models.profile.Medium;
 import com.example.cooplas.models.profile.Post;
 import com.example.cooplas.models.profile.Wall;
 import com.example.cooplas.utils.CircleTransform;
 import com.example.cooplas.utils.RoundedCornersTransformation;
-import com.example.cooplas.utils.ShowMenu;
 import com.example.cooplas.utils.retrofitJava.APIClient;
 import com.example.cooplas.utils.retrofitJava.APIInterface;
 import com.google.gson.Gson;
@@ -144,12 +147,30 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
 
                 Picasso.get().load(userDataWall.getProfilePic()).fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderHorizontalList) holder).iv_profile);
 
 
                 ((ViewHolderHorizontalList) holder).tv_user_name.setText(userDataWall.getEmail());
                 ((ViewHolderHorizontalList) holder).tv_following.setText(String.valueOf(userDataWall.getFollowingCount()));
                 ((ViewHolderHorizontalList) holder).tv_follow.setText(String.valueOf(userDataWall.getFollowersCount()));
+
+                ((ViewHolderHorizontalList) holder).rl_followers.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(activity, FollowersUsersActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                ((ViewHolderHorizontalList) holder).rl_following.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, FollowingUsersActivity.class);
+
+                        activity.startActivity(intent);
+                    }
+                });
 
 
                 break;
@@ -193,6 +214,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderText) holder).iv_profile);
 
                 ((ViewHolderText) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -218,6 +240,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderText) holder).iv_write_comment);
 
                 ((ViewHolderText) holder).tv_like_count.setOnClickListener(new View.OnClickListener() {
@@ -241,9 +264,21 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                             //other User
                             showPostMenuOthers(activity, view, ((ViewHolderText) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
-                                         }
+                    }
                 });
+                ((ViewHolderText) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderText) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderText) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
 
                 break;
             case Post.TYPE_IMAGES_SINGLE:
@@ -285,6 +320,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageSingle) holder).iv_profile);
 
                 ((ViewHolderImageSingle) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -316,6 +352,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageSingle) holder).iv_write_comment);
 
 
@@ -367,7 +404,19 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                     }
                 });
 
+                ((ViewHolderImageSingle) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageSingle) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageSingle) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             case Post.TYPE_IMAGES_DOUBLE:
 
@@ -408,6 +457,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageDouble) holder).iv_profile);
 
                 ((ViewHolderImageDouble) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -442,6 +492,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageDouble) holder).iv_write_comment);
 
                 ((ViewHolderImageDouble) holder).first_image_view.setOnClickListener(new View.OnClickListener() {
@@ -499,7 +550,19 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         }
                     }
                 });
+                ((ViewHolderImageDouble) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageDouble) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageDouble) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             case Post.TYPE_IMAGES_TRIPPLE:
 
@@ -541,6 +604,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageTripple) holder).iv_profile);
 
                 ((ViewHolderImageTripple) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -579,6 +643,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageTripple) holder).iv_write_comment);
 
 
@@ -652,7 +717,19 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         }
                     }
                 });
+                ((ViewHolderImageTripple) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageTripple) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageTripple) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
 
                 break;
             case Post.TYPE_IMAGES_MULTIPLE:
@@ -692,6 +769,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageMultiple) holder).iv_profile);
 
                 ((ViewHolderImageMultiple) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -736,6 +814,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageMultiple) holder).iv_write_comment);
 
 
@@ -810,7 +889,19 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                     }
                 });
 
+                ((ViewHolderImageMultiple) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageMultiple) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageMultiple) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             case Post.TYPE_VIDEO:
 
@@ -850,6 +941,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderVideo) holder).iv_profile);
 
                 ((ViewHolderVideo) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -882,6 +974,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderVideo) holder).iv_write_comment);
                 ((ViewHolderVideo) holder).first_image_view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -916,7 +1009,19 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
                     }
                 });
 
+                ((ViewHolderVideo) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderVideo) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderVideo) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             default:
                 return;
@@ -931,8 +1036,9 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
 
 
     static class ViewHolderHorizontalList extends RecyclerView.ViewHolder {
-        TextView tv_name, tv_name_heading, tv_user_name, tv_following, tv_follow;
-        ImageView iv_profile, rl_edit;
+        private TextView tv_name, tv_name_heading, tv_user_name, tv_following, tv_follow;
+        private ImageView iv_profile, rl_edit;
+        private RelativeLayout rl_followers, rl_following;
 
         public ViewHolderHorizontalList(@NonNull View itemView) {
             super(itemView);
@@ -944,7 +1050,8 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
             tv_user_name = itemView.findViewById(R.id.tv_user_name);
             tv_following = itemView.findViewById(R.id.tv_following);
             tv_follow = itemView.findViewById(R.id.tv_follow);
-
+            rl_followers = itemView.findViewById(R.id.rl_followers);
+            rl_following = itemView.findViewById(R.id.rl_following);
         }
     }
 
@@ -1332,6 +1439,7 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
             }
         });
     }
+
     private void reportPost(int postID) {
         KProgressHUD progressHUD = KProgressHUD.create(activity);
         progressHUD.show();
@@ -1352,6 +1460,43 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
+    private void postComment(String postID, String commentValue, int position, int commentCount) {
+
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<CommentMainModel> call = apiInterface.postComment("Bearer " + accessToken, postID, commentValue);
+        call.enqueue(new Callback<CommentMainModel>() {
+            @Override
+            public void onResponse(Call<CommentMainModel> call, Response<CommentMainModel> response) {
+                Log.d("getSinglePost", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    CommentMainModel commentMainModel = response.body();
+                    Comment comment = commentMainModel.getComment();
+
+
+                    int count = commentCount + 1;
+                    dataList.get(position).setCommentsCount(count);
+                    notifyItemChanged(position);
+
+                    Intent intent = new Intent(activity, PostCommentActivity.class);
+                    intent.putExtra("postID", postID);
+                    activity.startActivity(intent);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentMainModel> call, Throwable t) {
                 Log.d("onFailure", t + "");
                 call.cancel();
                 progressHUD.dismiss();

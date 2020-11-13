@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cooplas.R;
 import com.example.cooplas.activities.home.HomeCreatePostActivity;
+import com.example.cooplas.activities.home.SearchUserActivity;
 import com.example.cooplas.adapters.HomeFeedAdapter;
 import com.example.cooplas.events.AddStoryEvent;
 import com.example.cooplas.events.home.HomeRefreshFeedEvent;
@@ -392,6 +393,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
 
+        ImageView search_img = rootView.findViewById(R.id.search_img);
+        search_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, SearchUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -480,7 +490,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         });
     }
 
-    public  String getMimeType(String url) {
+    public String getMimeType(String url) {
         String type = null;
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
         if (extension != null) {

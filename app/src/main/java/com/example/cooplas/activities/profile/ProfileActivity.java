@@ -158,10 +158,10 @@ public class ProfileActivity extends AppCompatActivity implements SwipeRefreshLa
 
                     List<Post> listOfPosts = model.getWall().getPosts();
 
-                    if (listOfPosts.size() > 0) {
-                    } else {
-                        return;
-                    }
+//                    if (listOfPosts.size() > 0) {
+//                    } else {
+//                        return;
+//                    }
 
                     if (headerPosts == 0) {
                         post = new Post();
@@ -196,9 +196,10 @@ public class ProfileActivity extends AppCompatActivity implements SwipeRefreshLa
     private void arrangeResponse(List<Post> listOfPosts) {
 
         if (listOfPosts.size() > 0) {
+
         } else {
             isLastPage = true;
-            return;
+//            return;
         }
         for (int i = 0; i < listOfPosts.size(); i++) {
             int id = listOfPosts.get(i).getId();

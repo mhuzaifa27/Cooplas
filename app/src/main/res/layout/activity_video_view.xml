@@ -8,17 +8,31 @@
     tools:context=".activities.home.VideoViewActivity">
 
 
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <!--    <WebView-->
+    <!--        android:id="@+id/webView"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+
+    <!--    </WebView>-->
+    <com.potyvideo.library.AndExoPlayerView
+        android:id="@+id/andExoPlayerView"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:andexo_full_screen="true"
+        app:andexo_play_when_ready="true"
+        app:andexo_resize_mode="Fit"
+        app:andexo_show_controller="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-    </WebView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/back_img"
@@ -27,7 +41,9 @@
         android:layout_x="161dp"
         android:layout_y="141dp"
         android:padding="12dp"
-        app:layout_constraintStart_toStartOf="@+id/webView"
-        app:layout_constraintTop_toTopOf="@+id/webView"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 </androidx.constraintlayout.widget.ConstraintLayout>

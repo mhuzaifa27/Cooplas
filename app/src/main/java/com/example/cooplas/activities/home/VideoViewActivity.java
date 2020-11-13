@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.example.cooplas.R;
+import com.potyvideo.library.AndExoPlayerView;
 
 public class VideoViewActivity extends AppCompatActivity {
 
@@ -29,11 +30,15 @@ public class VideoViewActivity extends AppCompatActivity {
             }
         });
 
-        WebView webView = findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(videoLink);
+//        WebView webView = findViewById(R.id.webView);
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.setWebViewClient(new WebViewClient());
+//        webView.loadUrl(videoLink);
 
+
+        AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
+
+        andExoPlayerView.setSource(videoLink);
 
     }
 }

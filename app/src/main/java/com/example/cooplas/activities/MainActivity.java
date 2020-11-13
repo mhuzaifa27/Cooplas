@@ -163,10 +163,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-
-
-
     /*private void checkIntentData() {
         if(extras != null ){
             if (extras.equals("tag_live")) {

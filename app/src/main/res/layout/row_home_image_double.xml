@@ -207,12 +207,14 @@
             android:layout_height="46dp"
             android:layout_below="@id/rcv_comment"
             android:id="@+id/commentCon"
+            android:clickable="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/round_primary">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_write_comment"
                 android:layout_width="30dp"
+                android:clickable="true"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"
@@ -226,6 +228,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="2dp"
+                android:clickable="true"
                 android:layout_toStartOf="@id/iv_send"
                 android:layout_toEndOf="@id/iv_write_comment"
                 android:background="@null"
@@ -240,6 +243,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
+
+                android:clickable="true"
                 android:src="@drawable/send_icon" />
 
         </RelativeLayout>

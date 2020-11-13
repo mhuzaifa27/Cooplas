@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/parentLayout"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -99,8 +99,7 @@
                     android:id="@+id/iv_fav"
                     android:layout_width="@dimen/feedIiconSizes"
                     android:layout_height="@dimen/feedIiconSizes"
-                    android:layout_centerVertical="true"
-                     />
+                    android:layout_centerVertical="true" />
 
                 <TextView
                     android:id="@+id/tv_like_count"
@@ -136,9 +135,9 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/iv_comment"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:singleLine="true"
                     android:text="0"
-                    android:padding="5dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -162,9 +161,9 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/iv_share"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:singleLine="true"
                     android:text="Share"
-                    android:padding="5dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -177,22 +176,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_option"
-            tools:itemCount="0"
-     />
+            tools:itemCount="0" />
 
         <RelativeLayout
+            android:id="@+id/commentCon"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_below="@id/rcv_comment"
-            android:id="@+id/commentCon"
-
             android:layout_marginBottom="10dp"
-            android:background="@drawable/round_primary">
+            android:background="@drawable/round_primary"
+            android:clickable="true">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_write_comment"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:clickable="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"
                 android:src="@drawable/profile_icon"
@@ -202,6 +201,7 @@
             <EditText
                 android:id="@+id/et_comment"
                 android:layout_width="wrap_content"
+                android:clickable="true"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="2dp"
@@ -218,6 +218,7 @@
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:clickable="true"
                 android:layout_margin="10dp"
                 android:src="@drawable/send_icon" />
 

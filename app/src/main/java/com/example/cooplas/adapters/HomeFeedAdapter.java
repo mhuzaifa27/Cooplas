@@ -30,8 +30,10 @@ import com.example.cooplas.activities.home.PostCommentActivity;
 import com.example.cooplas.activities.home.VideoViewActivity;
 
 import com.example.cooplas.events.home.PostLikeHome;
+import com.example.cooplas.models.home.commentModels.CommentMainModel;
 import com.example.cooplas.models.home.homeFragmentModel.Medium;
 import com.example.cooplas.models.home.homeFragmentModel.Post;
+import com.example.cooplas.models.home.singlePost.Comment;
 import com.example.cooplas.utils.CircleTransform;
 import com.example.cooplas.utils.RoundedCornersTransformation;
 import com.example.cooplas.utils.retrofitJava.APIClient;
@@ -172,6 +174,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderText) holder).iv_profile);
 
                 ((ViewHolderText) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -197,6 +200,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderText) holder).iv_write_comment);
 
                 ((ViewHolderText) holder).tv_like_count.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +226,20 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                             //other User
                             showPostMenuOthers(activity, view, ((ViewHolderText) holder).parentLayout, postModel.getId(), position, postModel.getIsFollowing(), postModel.getUser().getId());
                         }
+                    }
+                });
+
+                ((ViewHolderText) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String commentVal = ((ViewHolderText) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderText) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
                     }
                 });
 
@@ -268,6 +286,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageSingle) holder).iv_profile);
 
                 ((ViewHolderImageSingle) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -299,6 +318,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageSingle) holder).iv_write_comment);
 
 
@@ -352,7 +372,19 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                     }
                 });
 
+                ((ViewHolderImageSingle) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageSingle) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageSingle) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             case Post.TYPE_IMAGES_DOUBLE:
 
@@ -395,6 +427,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageDouble) holder).iv_profile);
 
                 ((ViewHolderImageDouble) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -429,6 +462,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageDouble) holder).iv_write_comment);
 
                 ((ViewHolderImageDouble) holder).first_image_view.setOnClickListener(new View.OnClickListener() {
@@ -487,7 +521,19 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         }
                     }
                 });
+                ((ViewHolderImageDouble) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageDouble) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageDouble) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             case Post.TYPE_IMAGES_TRIPPLE:
 
@@ -531,6 +577,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageTripple) holder).iv_profile);
 
                 ((ViewHolderImageTripple) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -569,6 +616,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageTripple) holder).iv_write_comment);
 
 
@@ -643,7 +691,19 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         }
                     }
                 });
+                ((ViewHolderImageTripple) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageTripple) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageTripple) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
 
                 break;
             case Post.TYPE_IMAGES_MULTIPLE:
@@ -685,6 +745,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageMultiple) holder).iv_profile);
 
                 ((ViewHolderImageMultiple) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -729,6 +790,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderImageMultiple) holder).iv_write_comment);
 
 
@@ -804,7 +866,19 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                     }
                 });
 
+                ((ViewHolderImageMultiple) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderImageMultiple) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderImageMultiple) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
                 break;
             case Post.TYPE_VIDEO:
 
@@ -846,6 +920,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderVideo) holder).iv_profile);
 
                 ((ViewHolderVideo) holder).tv_name.setText(postModel.getUser().getFirstName() + " " + postModel.getUser().getLastName());
@@ -878,6 +953,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         .getProfilePic())
                         .fit().centerCrop()
                         .transform(new CircleTransform())
+                        .placeholder(R.drawable.image_placeholder)
                         .into(((ViewHolderVideo) holder).iv_write_comment);
                 ((ViewHolderVideo) holder).first_image_view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -912,7 +988,19 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                         }
                     }
                 });
+                ((ViewHolderVideo) holder).iv_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        String commentVal = ((ViewHolderVideo) holder).et_comment.getText().toString();
+                        if (commentVal.isEmpty()) {
+                            Toast.makeText(activity, "Please enter comment to send!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ((ViewHolderVideo) holder).et_comment.setText("");
+                        postComment(String.valueOf(postModel.getId()), commentVal, position, Integer.valueOf(postModel.getCommentsCount()));
+                    }
+                });
 
                 break;
             default:
@@ -1320,6 +1408,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
             }
         });
     }
+
     private void reportPost(int postID) {
         KProgressHUD progressHUD = KProgressHUD.create(activity);
         progressHUD.show();
@@ -1340,6 +1429,43 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                progressHUD.dismiss();
+            }
+        });
+    }
+
+    private void postComment(String postID, String commentValue, int position, int commentCount) {
+
+        KProgressHUD progressHUD = KProgressHUD.create(activity);
+        progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(activity);
+        APIInterface apiInterface = APIClient.getClient(activity).create(APIInterface.class);
+        Call<CommentMainModel> call = apiInterface.postComment("Bearer " + accessToken, postID, commentValue);
+        call.enqueue(new Callback<CommentMainModel>() {
+            @Override
+            public void onResponse(Call<CommentMainModel> call, Response<CommentMainModel> response) {
+                Log.d("getSinglePost", "" + new Gson().toJson(response.body()));
+                progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    CommentMainModel commentMainModel = response.body();
+                    Comment comment = commentMainModel.getComment();
+
+
+                    int count = commentCount + 1;
+                    dataList.get(position).setCommentsCount(String.valueOf(count));
+                    notifyItemChanged(position);
+
+                    Intent intent = new Intent(activity, PostCommentActivity.class);
+                    intent.putExtra("postID", postID);
+                    activity.startActivity(intent);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentMainModel> call, Throwable t) {
                 Log.d("onFailure", t + "");
                 call.cancel();
                 progressHUD.dismiss();

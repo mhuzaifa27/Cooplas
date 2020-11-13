@@ -13,7 +13,10 @@ import com.example.cooplas.models.home.commentModels.CommentMainModel;
 import com.example.cooplas.models.home.createPost.CreatePostModel;
 import com.example.cooplas.models.home.homeFragmentModel.HomeModel;
 import com.example.cooplas.models.home.homeLikesModels.LikeMainModel;
+import com.example.cooplas.models.home.searchUser.SearchUserModel;
 import com.example.cooplas.models.home.singlePost.SinglePostMainModel;
+import com.example.cooplas.models.profile.Followers.FollowersModel;
+import com.example.cooplas.models.profile.Following.FollowingModel;
 import com.example.cooplas.models.profile.ProfileModel;
 import com.example.cooplas.models.videos.VideosFeedModel;
 import com.google.gson.JsonObject;
@@ -26,8 +29,8 @@ import com.example.cooplas.models.Travel.Customer.Callbacks.CallbackCreateRide;
 import com.example.cooplas.models.Travel.Customer.Callbacks.CallbackGetRecentPlaces;
 
 
-
 import okhttp3.RequestBody;
+
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -131,6 +134,16 @@ public interface APIInterface {
     @POST("api/report/post/{id}")
     Call<JsonObject> repostPost(@Header("Authorization") String token, @Path("id") String id);
 
+    @GET("api/user/followers")
+    Call<FollowersModel> userFollowers(@Header("Authorization") String token, @Query("offset") String offset);
+
+    @GET("api/user/following")
+    Call<FollowingModel> userFollowing(@Header("Authorization") String token, @Query("offset") String offset);
+
+
+    @GET("api/search/users")
+    Call<SearchUserModel> searchUsers(@Header("Authorization") String token, @Query("q") String searchKeyword, @Query("offset") String offset);
+
 
     /**************************APIS IMPLEMENTED BY M.HUZAIFA 11/04/2020********************************/
 
@@ -195,15 +208,16 @@ public interface APIInterface {
             @Query("mode") String mode,
             @Query("key") String key
     );
+
     @FormUrlEncoded
     @POST("api/set/ride-locations")
     Call<CallbackCreateRide> createRide(@Header("Authorization") String token,
-                                                 @FieldMap Map<String,String> params);
+                                        @FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("api/update/ride-vehicle-type")
     Call<CallbackUpdateVehicleType> updateRideVehicleType(@Header("Authorization") String token,
-                                                          @FieldMap Map<String,String> params);
+                                                          @FieldMap Map<String, String> params);
 
     @GET("api/search/vehicle")
     Call<CallbackSearchForVehicle> searchForVehicle(@Header("Authorization") String token,
@@ -217,11 +231,12 @@ public interface APIInterface {
     @FormUrlEncoded
     @POST("api/driver/arrived")
     Call<CallbackDriverReached> driverReached(@Header("Authorization") String token,
-                                           @Field("ride_id") String ride_id);
+                                              @Field("ride_id") String ride_id);
+
     @FormUrlEncoded
     @POST("api/rate/driver")
     Call<ResponseBody> rateDriver(@Header("Authorization") String token,
-                                              @FieldMap Map<String,String> parmas);
+                                  @FieldMap Map<String, String> parmas);
 
     /************TRAVEL API's**************/
     /**********************************************************/
