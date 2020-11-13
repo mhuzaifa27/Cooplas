@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.cooplas.R;
@@ -35,6 +36,12 @@ public class NotificationActivity extends AppCompatActivity {
 
         initComponents();
         setData();
+        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void setData() {

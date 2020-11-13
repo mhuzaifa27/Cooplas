@@ -33,6 +33,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         initComponents();
 
         btn_confirm.setOnClickListener(this);
+        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initComponents() {

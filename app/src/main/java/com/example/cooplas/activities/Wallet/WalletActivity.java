@@ -29,6 +29,12 @@ public class WalletActivity extends AppCompatActivity implements View.OnClickLis
         initComponents();
 
         btn_recharge.setOnClickListener(this);
+        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initComponents() {

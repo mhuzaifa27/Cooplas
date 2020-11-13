@@ -130,6 +130,8 @@ public class AllYourPlaylistActivity extends AppCompatActivity implements View.O
         tv_title = findViewById(R.id.tv_title);
         tv_title.setText(R.string.your_playlist);
 
+        img_back=findViewById(R.id.img_back);
+
         rv_your_playlist = findViewById(R.id.rv_your_playlist);
 
         layoutManagerYourPlaylist = new GridLayoutManager(context, 3);

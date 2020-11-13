@@ -79,7 +79,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     private MusicFeaturedArtistAdapter musicFeaturedArtistAdapter;
     private MusicFeaturedAlbumAdapter musicFeaturedAlbumAdapter;
 
-    private TextView tv_see_all_categories, tv_see_trending, tv_see_near_you, tv_see_popular_restaurant;
+    private TextView tv_see_your_playlist, tv_see_trending, tv_see_near_you, tv_see_popular_restaurant;
     private ImageView img_filters, img_cart, img_discover, img_back;
     private CircleImageView img_user;
 
@@ -97,6 +97,8 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         getMusicData();
 
         tv_see_trending.setOnClickListener(this);
+        img_discover.setOnClickListener(this);
+        tv_see_your_playlist.setOnClickListener(this);
         //tv_see_near_you.setOnClickListener(this);
 /*        img_filters.setOnClickListener(this);
         img_cart.setOnClickListener(this);
@@ -224,16 +226,18 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         parentLayout = findViewById(android.R.id.content);
 
         progressHUD = KProgressHUD.create(activity);
-
-       /* img_filters = findViewById(R.id.img_filters);
-        img_cart = findViewById(R.id.img_cart);
         img_discover = findViewById(R.id.img_discover);
         img_discover.setVisibility(View.VISIBLE);
+        img_cart = findViewById(R.id.img_cart);
+        img_cart.setVisibility(View.GONE);
+
+       /* img_filters = findViewById(R.id.img_filters);
         img_back = findViewById(R.id.img_back);
         img_back.setVisibility(View.GONE);
         img_user = findViewById(R.id.img_user);*/
 
         tv_see_trending = findViewById(R.id.tv_see_trending);
+        tv_see_your_playlist=findViewById(R.id.tv_see_your_playlist);
         /*tv_see_near_you = findViewById(R.id.tv_see_near_you);
         tv_see_popular_restaurant = findViewById(R.id.tv_see_popular_restaurant);
 
@@ -331,6 +335,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tv_log_out:
                 drawer_food.closeDrawer(Gravity.LEFT);
+                break;
+            case R.id.img_discover:
+                onBackPressed();
+                break;
+            case R.id.tv_see_your_playlist:
+                startActivity(new Intent(context,AllYourPlaylistActivity.class));
                 break;
         }
     }

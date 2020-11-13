@@ -40,6 +40,12 @@ public class FoodTrackOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_track_order);
 
         initComponents();
+        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initComponents() {

@@ -17,10 +17,12 @@
             android:layout_centerInParent="true"
             android:gravity="center">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_user_menu"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/profile_4"/>
             <TextView
+                android:id="@+id/tv_user_name_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Jack Snow"
@@ -30,6 +32,7 @@
 
             </TextView>
             <TextView
+                android:id="@+id/tv_user_name_pet_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="\@jacksnow"

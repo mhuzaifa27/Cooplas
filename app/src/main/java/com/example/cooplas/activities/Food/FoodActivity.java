@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.cooplas.R;
 import com.example.cooplas.activities.ContactUsActivity;
 import com.example.cooplas.activities.Travel.Customer.NotificationActivity;
@@ -81,11 +83,12 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView tv_see_all_categories, tv_see_for_you, tv_see_near_you, tv_see_popular_restaurant;
     private ImageView img_filters, img_cart, img_discover, img_back;
-    private CircleImageView img_user;
+    private CircleImageView img_user,img_user_menu;
 
     private KProgressHUD progressHUD;
 
-    private TextView tv_my_wallet, tv_order_history, tv_track_order, tv_addresses, tv_notifications, tv_invite_friends, tv_help_and_support, tv_log_out;
+    private TextView tv_my_wallet, tv_order_history, tv_track_order, tv_addresses, tv_notifications, tv_invite_friends, tv_help_and_support, tv_log_out,
+    tv_user_name_menu,tv_usere_name_pet_menu;
 
 
     @Override
@@ -95,6 +98,7 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
 
         initComponents();
         getFoodData();
+
 
         tv_see_all_categories.setOnClickListener(this);
         tv_see_for_you.setOnClickListener(this);
@@ -264,11 +268,14 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         img_back = findViewById(R.id.img_back);
         img_back.setVisibility(View.GONE);
         img_user = findViewById(R.id.img_user);
+        img_user_menu = findViewById(R.id.img_user_menu);
 
         tv_see_all_categories = findViewById(R.id.tv_see_all_categories);
         tv_see_for_you = findViewById(R.id.tv_see_for_you);
         tv_see_near_you = findViewById(R.id.tv_see_near_you);
         tv_see_popular_restaurant = findViewById(R.id.tv_see_popular_restaurant);
+        tv_user_name_menu = findViewById(R.id.tv_user_name_menu);
+        tv_usere_name_pet_menu = findViewById(R.id.tv_user_name_pet_menu);
 
         tv_my_wallet = findViewById(R.id.tv_my_wallet);
         tv_order_history = findViewById(R.id.tv_order_history);
@@ -303,6 +310,29 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
         rv_popular_restaurants.setAdapter(foodPopularRestaurantAdapter);
 
         drawer_food = findViewById(R.id.drawer_food);
+
+        Glide
+                .with(context)
+                .load(FunctionsKt.getImage(context))
+                .centerCrop()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
+                .placeholder(R.drawable.ic_dummy_user)
+                .into(img_user);
+        Glide
+                .with(context)
+                .load(FunctionsKt.getImage(context))
+                .centerCrop()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
+                .placeholder(R.drawable.ic_dummy_user)
+                .into(img_user_menu);
+        tv_user_name_menu.setText(FunctionsKt.getFirstName(context)+" "+FunctionsKt.getLastName(context));
+        tv_usere_name_pet_menu.setText("@"+FunctionsKt.getUserName(context));
+
+
     }
 
     @Override
@@ -327,7 +357,7 @@ public class FoodActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(context, FoodCartActivity.class));
                 break;
             case R.id.img_user:
-                drawer_food.closeDrawer(Gravity.LEFT);
+                drawer_food.openDrawer(Gravity.LEFT);
                 break;
 
             case R.id.tv_my_wallet:

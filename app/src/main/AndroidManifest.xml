@@ -22,11 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activities.Music.NowPlayingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.Music.PlaylistDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.StoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.home.EditPostActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -39,7 +42,6 @@
         <activity
             android:name=".activities.home.HomePostLikesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.Music.AlbumActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -93,7 +95,6 @@
         <activity
             android:name=".activities.home.ImageViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.Travel.Customer.AddAddressDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -103,7 +104,6 @@
         <activity
             android:name=".activities.Travel.Customer.FaqDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.Travel.Customer.FaqActivity"
             android:theme="@style/AppTheme.NoActionBar" />

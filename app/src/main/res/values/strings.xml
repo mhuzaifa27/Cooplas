@@ -63,6 +63,9 @@
     <string name="vehicle_is_on_the_way">Vehicle is on the Way</string>
     <string name="your_playlist">Your Playlist</string>
     <string name="close_warning">Are you sure you want to close the app?</string>
+    <string name="album">Album</string>
+    <string name="dummy_artist">Justin Bieber</string>
+    <string name="now_playing">Now Playing</string>
     <string-array name="tickets_status">
         <item>All</item>
         <item>Pending</item>

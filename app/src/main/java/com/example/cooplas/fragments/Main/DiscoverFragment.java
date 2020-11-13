@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toast;
 
 
@@ -17,10 +19,14 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.cooplas.R;
 import com.example.cooplas.activities.Food.FoodActivity;
 
 import com.example.cooplas.activities.Music.MusicActivity;
+import com.example.cooplas.activities.Music.NowPlayingActivity;
+import com.example.cooplas.activities.Music.PlaylistDetailActivity;
 import com.example.cooplas.activities.SettingsActivity;
 import com.example.cooplas.activities.SigninSignupScreen;
 
@@ -41,24 +47,29 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DiscoverFragment extends Fragment implements View.OnClickListener {
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final String TAG = "DiscoverFragment";
     private Context context;
     private Activity activity;
     private CardView card_wallet, card_food, profileContainer, logoutCard, card_travel;
-    private CardView card_music, card_settings, card_support, storiesCon;
+    private CardView card_music,card_settings,card_support,card_coopay,card_nearby,card_notifications;
+    private CardView storiesCon;
 
+    private CircleImageView img_user;
+    private TextView tv_user_name,tv_user_name_pet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
 
         initComponents(view);
+        setData();
 
         storiesCon.setOnClickListener(this);
         card_music.setOnClickListener(this);
@@ -67,8 +78,26 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         card_travel.setOnClickListener(this);
         card_settings.setOnClickListener(this);
         card_support.setOnClickListener(this);
+        card_coopay.setOnClickListener(this);
+        card_nearby.setOnClickListener(this);
+        card_notifications.setOnClickListener(this);
 
         return view;
+    }
+
+    private void setData() {
+        tv_user_name.setText(FunctionsKt.getFirstName(context)+" "+FunctionsKt.getLastName(context));
+        tv_user_name_pet.setText("@"+FunctionsKt.getUserName(context));
+
+            Glide
+                    .with(context)
+                    .load(FunctionsKt.getImage(context))
+                    .centerCrop()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_dummy_user)
+                    .into(img_user);
     }
 
     private void initComponents(View view) {
@@ -84,6 +113,11 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         card_settings = view.findViewById(R.id.card_settings);
         card_support = view.findViewById(R.id.card_support);
         storiesCon = view.findViewById(R.id.storiesCon);
+        card_settings=view.findViewById(R.id.card_settings);
+        card_support=view.findViewById(R.id.card_support);
+        card_coopay=view.findViewById(R.id.card_coopay);
+        card_nearby=view.findViewById(R.id.card_nearby);
+        card_notifications=view.findViewById(R.id.card_notifications);
 
         logoutCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +128,6 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
         });
-
-
         profileContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +139,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        img_user=view.findViewById(R.id.img_user);
+        tv_user_name=view.findViewById(R.id.tv_user_name);
+        tv_user_name_pet=view.findViewById(R.id.tv_user_name_pet);
 
     }
 
@@ -134,11 +169,14 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(context, SupportActivity.class));
                 break;
             case R.id.storiesCon:
-
                 getPosts();
-
-
                 break;
+            case R.id.card_coopay:
+            case R.id.card_nearby:
+            case R.id.card_notifications:
+                Toast.makeText(context, "Coming Soon...", Toast.LENGTH_SHORT).show();
+                break;
+
         }
     }
 
@@ -171,9 +209,9 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
 
                         Toast.makeText(activity, "you have not uploaded any story yet!", Toast.LENGTH_SHORT).show();
                     }
-                    
 
-                
+
+
 
 
                 }
@@ -188,4 +226,8 @@ public class DiscoverFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    @Override
+    public void onRefresh() {
+
+    }
 }

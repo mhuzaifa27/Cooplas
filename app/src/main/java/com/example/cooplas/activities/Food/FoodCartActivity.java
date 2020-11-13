@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cooplas.R;
 import com.example.cooplas.adapters.Food.FoodCartAdapter;
@@ -289,6 +290,10 @@ public class FoodCartActivity extends AppCompatActivity implements View.OnClickL
             case R.id.img_back:
                 onBackPressed();
                 break;
+            case R.id.rl_checkout:
+                Toast.makeText(context, "Coming Soon...", Toast.LENGTH_SHORT).show();
+                break;
+
         }
     }
 

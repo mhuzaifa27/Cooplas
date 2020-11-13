@@ -1,6 +1,7 @@
 package com.example.cooplas.adapters.Music;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cooplas.R;
+import com.example.cooplas.activities.Music.PlaylistDetailActivity;
 
 import java.util.List;
 
@@ -95,6 +97,13 @@ public class MusicAllYourPlaylistAdapter extends RecyclerView.Adapter<MusicAllYo
                 .centerCrop()
                 .placeholder(R.drawable.ic_place_holder_image)
                 .into(holder.img_category);*/
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, PlaylistDetailActivity.class));
+            }
+        });
     }
 
 

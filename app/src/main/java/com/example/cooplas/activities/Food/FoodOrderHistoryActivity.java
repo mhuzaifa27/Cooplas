@@ -63,6 +63,12 @@ public class FoodOrderHistoryActivity extends AppCompatActivity implements View.
         orderHistoryList.add("d");
         orderHistoryList.add("d");
 
+        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initComponents() {

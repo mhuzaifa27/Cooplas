@@ -104,7 +104,7 @@ public class MainCustomerActivity extends Activity implements View.OnClickListen
     private ImageView img_discover, img_menu;
     private TextView tv_calculated_fare, tv_pick_up_address, tv_destination_address, tv_title_text,
             tv_driver_name, tv_vehicle_maker, tv_vehicle_reg_num, tv_destination;
-    private CircleImageView img_driver;
+    private CircleImageView img_driver,img_user,img_user_menu;
 
     private CallbackCreateRide callbackCreateRide;
     private CallbackAcceptRide callbackAcceptRide;
@@ -115,6 +115,8 @@ public class MainCustomerActivity extends Activity implements View.OnClickListen
     private boolean isMarkerRotating = false;
     private Location targetLocation;
     private int loop = 0;
+    private TextView tv_user_name_menu,tv_user_name_pet_menu;
+
 
 
     @Override
@@ -254,10 +256,14 @@ public class MainCustomerActivity extends Activity implements View.OnClickListen
         tv_driver_name = findViewById(R.id.tv_driver_name);
         tv_vehicle_reg_num = findViewById(R.id.tv_vehicle_reg_num);
         tv_destination = findViewById(R.id.tv_destination);
+        tv_user_name_menu = findViewById(R.id.tv_user_name_menu);
+        tv_user_name_pet_menu = findViewById(R.id.tv_user_name_pet_menu);
 
         img_menu = findViewById(R.id.img_menu);
         img_discover = findViewById(R.id.img_discover);
         img_driver = findViewById(R.id.img_driver);
+        img_user=findViewById(R.id.img_user);
+        img_user_menu=findViewById(R.id.img_user_menu);
 
         rl_car_types = findViewById(R.id.rl_car_types);
         rl_confirm = findViewById(R.id.rl_confirm);
@@ -267,6 +273,29 @@ public class MainCustomerActivity extends Activity implements View.OnClickListen
         ll_car_type_economy = findViewById(R.id.ll_car_type_economy);
         ll_car_type_luxury = findViewById(R.id.ll_car_type_luxury);
         ll_car_type_family = findViewById(R.id.ll_car_type_family);
+
+        Glide
+                .with(context)
+                .load(FunctionsKt.getImage(context))
+                .centerCrop()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
+                .placeholder(R.drawable.ic_dummy_user)
+                .into(img_user);
+
+        Glide
+                .with(context)
+                .load(FunctionsKt.getImage(context))
+                .centerCrop()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
+                .placeholder(R.drawable.ic_dummy_user)
+                .into(img_user_menu);
+        tv_user_name_menu.setText(FunctionsKt.getFirstName(context)+" "+FunctionsKt.getLastName(context));
+        tv_user_name_pet_menu.setText("@"+FunctionsKt.getUserName(context));
+
     }
 
     private void getNearDarzi() {
