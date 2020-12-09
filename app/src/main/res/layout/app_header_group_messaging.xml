@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/audience"
+    android:background="@color/colorPrimary"
+    android:clickable="true"
+    android:minHeight="60dp"
+    android:paddingHorizontal="20dp">
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:onClick="onClick"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jhony Deff"
+        android:layout_toRightOf="@+id/img_back"
+        android:layout_toLeftOf="@+id/img_video_call"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_centerVertical="true">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/img_video_call"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_video_call"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/img_phone_call"
+        app:tint="@color/white"
+        android:padding="10dp">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/img_phone_call"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_phone_call"
+        android:layout_centerVertical="true"
+        app:tint="@color/white"
+        android:padding="10dp"
+        android:layout_toLeftOf="@+id/img_menu">
+    </ImageView>
+    <ImageView
+        android:id="@+id/img_menu"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_dots_menu"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:tint="@color/white"
+        android:padding="10dp">
+    </ImageView>
+</RelativeLayout>

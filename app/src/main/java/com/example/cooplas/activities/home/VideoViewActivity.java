@@ -20,9 +20,12 @@ public class VideoViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_view);
         Intent intent = getIntent();
         String videoLink = intent.getStringExtra("videoLink");
+        String from = intent.getStringExtra("from");
 
         ImageView
                 back_img = findViewById(R.id.back_img);
+        AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
+        WebView webView = findViewById(R.id.webView);
         back_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,15 +33,14 @@ public class VideoViewActivity extends AppCompatActivity {
             }
         });
 
-//        WebView webView = findViewById(R.id.webView);
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.setWebViewClient(new WebViewClient());
-//        webView.loadUrl(videoLink);
-
-
-        AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
-
-        andExoPlayerView.setSource(videoLink);
-
+        if (from != null) {
+            andExoPlayerView.setVisibility(View.GONE);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl(videoLink);
+        } else {
+            webView.setVisibility(View.GONE);
+            andExoPlayerView.setSource(videoLink);
+        }
     }
 }

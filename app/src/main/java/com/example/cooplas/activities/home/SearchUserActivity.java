@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cooplas.AgoraClasses.ChatManager;
 import com.example.cooplas.R;
 import com.example.cooplas.adapters.FollowingAdapter;
 import com.example.cooplas.adapters.SearchUserAdapter;
@@ -21,6 +22,7 @@ import com.example.cooplas.models.home.searchUser.Result;
 import com.example.cooplas.models.home.searchUser.SearchUserModel;
 import com.example.cooplas.models.profile.Followers.Follower;
 import com.example.cooplas.models.profile.Followers.FollowersModel;
+import com.example.cooplas.utils.AGApplication;
 import com.example.cooplas.utils.retrofitJava.APIClient;
 import com.example.cooplas.utils.retrofitJava.APIInterface;
 import com.google.gson.Gson;
@@ -48,6 +50,7 @@ public class SearchUserActivity extends AppCompatActivity {
     private LinearLayoutManager postLayoutManager;
     private SearchUserAdapter adapter;
     private List<Result> arrayList = new ArrayList<>();
+    private ChatManager chatManager;
 
     private EditText keyword_et;
     private String keyword;
@@ -56,7 +59,6 @@ public class SearchUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_users);
-
 
         RelativeLayout rl_back = findViewById(R.id.rl_back);
         recyclerView = findViewById(R.id.recyclerView);

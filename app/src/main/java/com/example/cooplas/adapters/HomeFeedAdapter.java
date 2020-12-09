@@ -904,7 +904,6 @@ public class HomeFeedAdapter extends RecyclerView.Adapter {
                     }
                 });
 
-
                 ((ViewHolderVideo) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

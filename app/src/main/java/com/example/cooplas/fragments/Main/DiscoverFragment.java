@@ -24,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.cooplas.R;
 import com.example.cooplas.activities.Food.FoodActivity;
 
+import com.example.cooplas.activities.MainActivity;
 import com.example.cooplas.activities.Music.MusicActivity;
 import com.example.cooplas.activities.Music.NowPlayingActivity;
 import com.example.cooplas.activities.Music.PlaylistDetailActivity;
@@ -40,6 +41,7 @@ import com.example.cooplas.models.home.homeFragmentModel.Post;
 import com.example.cooplas.models.home.homeFragmentModel.UserStory;
 import com.example.cooplas.utils.retrofitJava.APIClient;
 import com.example.cooplas.utils.retrofitJava.APIInterface;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.jobesk.gong.utils.FunctionsKt;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -122,7 +124,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         logoutCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 FunctionsKt.clearSharedPreference(getActivity());
+                MainActivity.navItemIndex=0;
                 Intent intent = new Intent(getActivity(), SigninSignupScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

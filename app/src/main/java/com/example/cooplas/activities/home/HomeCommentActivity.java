@@ -14,7 +14,5 @@ public class HomeCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.);
 
-
-
     }
 }

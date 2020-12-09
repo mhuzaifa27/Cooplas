@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.Chat.SingleMessagingActivity">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/header_normal"
+            layout="@layout/app_header_group_messaging"
+            android:visibility="visible"/>
+        <include
+            android:id="@+id/header_searching"
+            layout="@layout/app_header_searching"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:layout_above="@+id/rl_type_message"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_messaging"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_sent_message"
+                tools:itemCount="15"/>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_type_message"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:background="@drawable/round_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/ll_sent_options">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_write_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_add"
+                app:civ_border_width="2dp"
+                android:visibility="gone"
+                android:layout_marginVertical="5dp"
+                app:civ_border_color="@color/colorSecond" />
+
+            <EditText
+                android:id="@+id/et_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:hint="Write a comment..."
+                android:layout_toEndOf="@id/iv_write_comment"
+                android:layout_marginStart="2dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fira_sans_italic"
+                android:textSize="16sp"
+                android:layout_toStartOf="@+id/img_camera" />
+            <ImageView
+                android:id="@+id/img_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_camera"
+                android:layout_marginRight="5dp"
+                android:onClick="onClick"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/ll_sent_options"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_recording_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:gravity="center_vertical">
+                <Chronometer
+                    android:id="@+id/chronometer_recording"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/fira_sans_regular"
+                    android:layout_marginHorizontal="5dp"
+                    android:gravity="center"/>
+                <ImageView
+                    android:id="@+id/img_cancel_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_image_cancel"
+                    android:visibility="visible"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    app:tint="@color/red" />
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/send_icon"
+                android:layout_toLeftOf="@+id/img_cancel_audio"
+                android:visibility="gone"
+                android:onClick="onClick"
+                android:padding="10dp" />
+            <ImageView
+                android:id="@+id/img_record_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_mic_white"
+                android:padding="10dp"
+                android:visibility="visible"
+                app:tint="@color/colorSecond"
+                android:onClick="onClick" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

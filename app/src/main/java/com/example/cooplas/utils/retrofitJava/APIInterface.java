@@ -57,6 +57,9 @@ public interface APIInterface {
     @GET("api/user/wall")
     Call<ProfileModel> getUserWall(@Header("Authorization") String token, @Query("posts_offset") String offset);
 
+    @GET("api/user/wall")
+    Call<ProfileModel> getOtherUserWall(@Header("Authorization") String token, @Query("user_id") String user_id, @Query("posts_offset") String offset);
+
     @GET("api/home")
     Call<HomeModel> getHomeFeed(@Header("Authorization") String token, @Query("posts_offset") String offset);
 

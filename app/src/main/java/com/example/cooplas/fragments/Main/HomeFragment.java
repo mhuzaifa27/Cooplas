@@ -20,6 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.cooplas.Firebase.AppState;
+import com.example.cooplas.Firebase.ChangeEventListener;
+import com.example.cooplas.Firebase.Services.UserFollowersService;
+import com.example.cooplas.Firebase.Services.UserService;
 import com.example.cooplas.R;
 import com.example.cooplas.activities.home.HomeCreatePostActivity;
 import com.example.cooplas.activities.home.SearchUserActivity;
@@ -31,8 +35,12 @@ import com.example.cooplas.models.home.homeFragmentModel.HomeModel;
 import com.example.cooplas.models.home.homeFragmentModel.Medium;
 import com.example.cooplas.models.home.homeFragmentModel.Post;
 import com.example.cooplas.models.home.homeFragmentModel.UserStory;
+import com.example.cooplas.models.profile.Followers.Follower;
+import com.example.cooplas.models.profile.Followers.FollowersModel;
 import com.example.cooplas.utils.retrofitJava.APIClient;
 import com.example.cooplas.utils.retrofitJava.APIInterface;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.jobesk.gong.utils.FunctionsKt;
@@ -91,6 +99,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private Post post;
     private ArrayList<Post> arrayList = new ArrayList<>();
     private List<UserStory> listStories;
+    private UserService userService;
+    private UserFollowersService userFollowersService;
 
     @Override
     public void onDetach() {
@@ -103,11 +113,57 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         EventBus.getDefault().register(this);
-
         initComponents();
+        userService = new UserService();
+        userService.setOnChangedListener(new ChangeEventListener() {
+            @Override
+            public void onChildChanged(EventType type, int index, int oldIndex) {
+
+            }
+
+            @Override
+            public void onDataChanged() {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+        userFollowersService = new UserFollowersService();
+        userFollowersService.setOnChangedListener(new ChangeEventListener() {
+            @Override
+            public void onChildChanged(EventType type, int index, int oldIndex) {
+
+            }
+
+            @Override
+            public void onDataChanged() {
+                getFollowers();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+        userService.updateUserProfile(AppState.currentFireUser.getUid(),
+                FunctionsKt.getUserID(context),
+                FunctionsKt.getRole(context),
+                FunctionsKt.getFirstName(context) + " " + FunctionsKt.getLastName(context),
+                "",
+                FunctionsKt.getEmail(context),
+                FunctionsKt.getImage(context),
+                new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        Log.d(TAG, "onComplete: USER PROFILE UPDATED!!!");
+                    }
+                });
+
 
         resetFrag();
-
 
         recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -547,6 +603,49 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 Log.d("onFailure", t + "");
                 call.cancel();
                 progressHUD.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    private void getFollowers() {
+        //progressHUD.show();
+        String accessToken = FunctionsKt.getAccessToken(context);
+        APIInterface apiInterface = APIClient.getClient(context).create(APIInterface.class);
+        Call<FollowersModel> call = apiInterface.userFollowers("Bearer " + accessToken, String.valueOf(offsetValue));
+        call.enqueue(new Callback<FollowersModel>() {
+            @Override
+            public void onResponse(Call<FollowersModel> call, Response<FollowersModel> response) {
+                Log.d("Following", "" + new Gson().toJson(response.body()));
+                //progressHUD.dismiss();
+                if (response.isSuccessful()) {
+                    FollowersModel followingModel = response.body();
+                    ArrayList<String> firebaseFollowersList = new ArrayList<>();
+
+                    List<Follower> followingList = followingModel.getFollowers();
+                    if (followingList.size() > 0) {
+                        for (int i = 0; i < followingList.size(); i++) {
+                            firebaseFollowersList.add(userService.getUserIdById(followingList.get(i).getId().toString()).getUserId());
+                        }
+                        userFollowersService.updateFollowersList(AppState.currentFireUser.getUid(), firebaseFollowersList, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                Log.d(TAG, "onComplete: FOLLOWERS UPDATED!!!");
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FollowersModel> call, Throwable t) {
+                Log.d("onFailure", t + "");
+                call.cancel();
+                //progressHUD.dismiss();
             }
         });
     }

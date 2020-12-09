@@ -102,7 +102,6 @@ public class FollowersUsersActivity extends AppCompatActivity {
     }
 
     private void apiCall() {
-
         progressHUD.show();
         String accessToken = FunctionsKt.getAccessToken(getApplicationContext());
         APIInterface apiInterface = APIClient.getClient(getApplicationContext()).create(APIInterface.class);

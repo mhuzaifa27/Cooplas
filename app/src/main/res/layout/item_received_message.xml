@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
-    android:layout_marginTop="10dp"
     android:weightSum="3"
     android:gravity="left">
 <LinearLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="2.5"
-    android:layout_marginTop="10dp"
     android:gravity="right"
     android:orientation="vertical">
 
@@ -33,11 +31,10 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="50dp"
             android:layout_alignParentStart="true">
-
             <TextView
-                android:id="@+id/tv_message"
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -45,10 +42,25 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:layout_marginLeft="10dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="Piper Adams"
+                android:visibility="gone"
+                android:textColor="@color/colorSecond"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_below="@+id/tv_name"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/lato_regular"
                 android:text="eirmod tempor sed diam nonumy eirmod tempor sed diam nonumy eirmod dfkkks tempor"
                 android:textColor="@color/black"
-                android:textSize="16sp"></TextView>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tv_time_ago"
                 android:layout_width="wrap_content"
@@ -61,7 +73,7 @@
                 android:text="11:48 PM"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp"></TextView>
+                android:textSize="12sp"/>
 
         </RelativeLayout>
     </RelativeLayout>

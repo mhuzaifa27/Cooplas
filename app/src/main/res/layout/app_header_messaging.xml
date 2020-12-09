@@ -9,19 +9,21 @@
     android:clickable="true"
     android:paddingHorizontal="20dp">
     <ImageView
-        android:id="@+id/img_logo"
+        android:id="@+id/img_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_back"
+        android:onClick="onClick"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp">
     </ImageView>
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jhony Deff"
-        android:layout_toRightOf="@+id/img_logo"
+        android:text=""
+        android:layout_toRightOf="@+id/img_back"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="24sp"

@@ -25,6 +25,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.cooplas.AgoraClasses.ChatManager;
+import com.example.cooplas.AgoraClasses.RTM.MessageUtil;
+import com.example.cooplas.AgoraClasses.RTM.SelectionActivity;
 import com.example.cooplas.R;
 import com.example.cooplas.events.VerifyEvent;
 import com.example.cooplas.fragments.Main.ChatFragment;
@@ -34,6 +37,8 @@ import com.example.cooplas.fragments.Main.VideosFragment;
 import com.example.cooplas.models.profile.Post;
 import com.example.cooplas.models.profile.ProfileModel;
 import com.example.cooplas.signup_screens.EmailInAppScreeenVerification;
+import com.example.cooplas.utils.AGApplication;
+import com.example.cooplas.utils.App;
 import com.example.cooplas.utils.CheckConnectivity;
 import com.example.cooplas.utils.CheckInternetEvent;
 import com.example.cooplas.utils.SessionManager;
@@ -51,12 +56,16 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import io.agora.rtm.ErrorInfo;
+import io.agora.rtm.ResultCallback;
+import io.agora.rtm.RtmClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MainActivity";
     private FrameLayout main_frame;
 
     private HomeFragment homeFragment;
@@ -81,13 +90,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView img_home, img_chat, img_videos, img_discover;
     private TextView tv_home, tv_chat, tv_videos, tv_discover;
     private TextView resend_tv, verify_email_tv;
-    RelativeLayout verifyEmailCon;
+    private RelativeLayout verifyEmailCon;
+
+    //TODO:AGORA
+    private RtmClient mRtmClient;
+    private boolean mIsInChat = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        ChatManager mChatManager = AGApplication.the().getChatManager();
+//        mRtmClient = mChatManager.getRtmClient();
 
         saveUserData();
         Log.d("token", "Userdetails: userID:" + FunctionsKt.getUserID(getApplicationContext()) + "  userName:" + FunctionsKt.getUserName(getApplicationContext()) + "  userToken:" + FunctionsKt.getAccessToken(getApplicationContext()));
@@ -99,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_chat.setOnClickListener(this);
         ll_videos.setOnClickListener(this);
         ll_discover.setOnClickListener(this);
-
     }
 
     private void iniComponents() {
@@ -475,11 +490,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(VerifyEvent event) {
         saveUserData();
-
     }
 
     private void saveUserData() {
-
         String accessToken = FunctionsKt.getAccessToken(getApplicationContext());
         APIInterface apiInterface = APIClient.getClient(getApplicationContext()).create(APIInterface.class);
         Call<ProfileModel> call = apiInterface.getUserWall("Bearer " + accessToken, String.valueOf(0));
@@ -516,6 +529,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     FunctionsKt.saveEmailVerified(getApplicationContext(), emailVerified);
                     FunctionsKt.SaveNames(getApplicationContext(), nameF, nameL);
 
+                    //doLogin(id);
                 }
             }
 
@@ -553,5 +567,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+
+    /*********AGORA CODE*************/
+    /**
+     * API CALL: login RTM server
+     */
+    private void doLogin(String mUserId) {
+        mIsInChat = true;
+        mRtmClient.login(null, mUserId, new ResultCallback<Void>() {
+            @Override
+            public void onSuccess(Void responseInfo) {
+                Log.i("gggggg", "login success");
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(MainActivity.this, SelectionActivity.class);
+                    intent.putExtra(MessageUtil.INTENT_EXTRA_USER_ID, mUserId);
+                    startActivity(intent);
+                });
+            }
+
+            @Override
+            public void onFailure(ErrorInfo errorInfo) {
+                Log.i(TAG, "login failed: " + errorInfo.getErrorDescription());
+                runOnUiThread(() -> {
+                    mIsInChat = false;
+                    //showToast(getString(R.string.login_failed));
+                });
+            }
+        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //mLoginBtn.setEnabled(true);
+        if (mIsInChat) {
+            doLogout();
+        }
+    }
+    /**
+     * API CALL: logout from RTM server
+     */
+    private void doLogout() {
+        mRtmClient.logout(null);
+//            MessageUtil.cleanMessageListBeanList();
+    }
+    /**********************/
 
 }

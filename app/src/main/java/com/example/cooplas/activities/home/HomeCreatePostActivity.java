@@ -100,7 +100,6 @@ public class HomeCreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MediaSelectionAlert();
-
             }
         });
 

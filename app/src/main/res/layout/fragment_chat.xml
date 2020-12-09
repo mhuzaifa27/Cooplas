@@ -40,7 +40,7 @@
                         android:gravity="center"
                         android:text="Inbox"
                         android:textColor="@color/colorSecond"
-                        android:textSize="15sp"></TextView>
+                        android:textSize="15sp"/>
 
                     <View
                         android:id="@+id/view_inbox"
@@ -79,7 +79,7 @@
                         android:gravity="center"
                         android:text="Call Logs"
                         android:textColor="@color/mid_grey"
-                        android:textSize="15sp"></TextView>
+                        android:textSize="15sp"/>
 
                     <View
                         android:id="@+id/view_call_logs"

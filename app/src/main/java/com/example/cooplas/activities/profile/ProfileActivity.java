@@ -73,7 +73,6 @@ public class ProfileActivity extends AppCompatActivity implements SwipeRefreshLa
         progressHUD = KProgressHUD.create(ProfileActivity.this);
         initComponents();
 
-
         swipeRefreshLayout.setOnRefreshListener(this);
 //        populateFeedAdapter();
         recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -255,7 +254,6 @@ public class ProfileActivity extends AppCompatActivity implements SwipeRefreshLa
 
 
     private void populateFeedAdapter() {
-
         postLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         adapter = new ProfileFeedAdapter(ProfileActivity.this, arrayList, wallModel);
 //        homePostAdapter.setOnMenuClick(new HomePostAdapter.IClicks() {
@@ -382,7 +380,6 @@ public class ProfileActivity extends AppCompatActivity implements SwipeRefreshLa
 
                 }
             }
-
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("onFailure", t + "");
@@ -421,5 +418,4 @@ public class ProfileActivity extends AppCompatActivity implements SwipeRefreshLa
             }
         });
     }
-
 }

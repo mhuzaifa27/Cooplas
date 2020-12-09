@@ -1,6 +1,7 @@
 package com.example.cooplas.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import com.example.cooplas.AgoraClasses.ChatManager;
 import com.example.cooplas.R;
+import com.example.cooplas.activities.profile.OtherUserProfileActivity;
+import com.example.cooplas.activities.profile.ProfileActivity;
 import com.example.cooplas.models.home.searchUser.Result;
 import com.example.cooplas.models.profile.Followers.Follower;
+import com.example.cooplas.utils.AGApplication;
 import com.example.cooplas.utils.retrofitJava.APIClient;
 import com.example.cooplas.utils.retrofitJava.APIInterface;
 import com.google.gson.Gson;
@@ -96,6 +101,34 @@ public class SearchUserAdapter extends Adapter<SearchUserAdapter.ViewHolder> {
         if (userID.equalsIgnoreCase(currentID)) {
             holder.follow_tv.setVisibility(View.GONE);
         }
+        holder.tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(model.getId().toString().equalsIgnoreCase(FunctionsKt.getUserID(activity))){
+                    Intent intent=new Intent(activity, ProfileActivity.class);
+                    activity.startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(activity, OtherUserProfileActivity.class);
+                    intent.putExtra("userId",model.getId().toString());
+                    activity.startActivity(intent);
+                }
+            }
+        });
+        holder.iv_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(model.getId().toString().equalsIgnoreCase(FunctionsKt.getUserID(activity))){
+                    Intent intent=new Intent(activity, ProfileActivity.class);
+                    activity.startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(activity, OtherUserProfileActivity.class);
+                    intent.putExtra("userId",model.getId().toString());
+                    activity.startActivity(intent);
+                }
+            }
+        });
     }
 
 

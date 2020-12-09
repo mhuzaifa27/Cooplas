@@ -1,19 +1,34 @@
 package com.example.cooplas.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import com.example.cooplas.AgoraClasses.ChatManager
+import com.example.cooplas.Firebase.AppState
+import com.example.cooplas.Firebase.ChangeEventListener
+import com.example.cooplas.Firebase.Services.UserService
 import com.example.cooplas.R
 import com.example.cooplas.models.SignUpSigninRes
 import com.example.cooplas.signup_screens.CompleteSignup
 import com.example.cooplas.signup_screens.PhoneVerificatoinScreen
 import com.example.cooplas.utils.AppManager
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.messaging.FirebaseMessaging
 import com.jobesk.gong.utils.*
 import com.kaopiz.kprogresshud.KProgressHUD
+import io.agora.rtm.ErrorInfo
+import io.agora.rtm.ResultCallback
+import io.agora.rtm.RtmClient
 import kotlinx.android.synthetic.main.activity_signin_signup_screen.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,10 +37,34 @@ import retrofit2.Response
 
 class SigninSignupScreen : AppCompatActivity() {
 
+    private var mRtmClient: RtmClient? = null
+    private var mChatManager: ChatManager? = null
+    private val mIsInChat = false
+    private var mAuth: FirebaseAuth? = null
+    private var firstName: String? = null
+    private var lastName: String? = null
+    private var email: String? = null
+    private var id: String? = null
+    private var userService: UserService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin_signup_screen)
+
+        mAuth = FirebaseAuth.getInstance()
+        userService = UserService()
+        userService?.setOnChangedListener(object : ChangeEventListener {
+            override fun onChildChanged(
+                type: ChangeEventListener.EventType,
+                index: Int,
+                oldIndex: Int
+            ) {
+            }
+
+            override fun onDataChanged() {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
+//        mChatManager= App.instance.getChatManager()
 
         tv_sign_in.setOnClickListener {
             tv_sign_up.alpha = .3f
@@ -51,12 +90,9 @@ class SigninSignupScreen : AppCompatActivity() {
             startActivity(Intent(this@SigninSignupScreen, ForgotPassword::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-
-
     }
 
     private fun validateDataAndLogin() {
-
         when {
             et_email.text.trim().isEmpty() -> run {
                 et_email.error = "Enter your Email"
@@ -100,6 +136,7 @@ class SigninSignupScreen : AppCompatActivity() {
                     Toast.makeText(this@SigninSignupScreen, t.message, Toast.LENGTH_SHORT).show()
                 }
 
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun onResponse(
                     call: Call<SignUpSigninRes>,
                     response: Response<SignUpSigninRes>
@@ -129,37 +166,30 @@ class SigninSignupScreen : AppCompatActivity() {
                             roleVal
 
                         )
+                        loginFirebase(email, password, progressHUD, response.body()!!)
 
 
-                        var phoneVerified = response.body()?.user?.phone_verified
+                        /*var phoneVerified = response.body()?.user?.phone_verified
                         if (phoneVerified == false) {
-
-
                             var intentPhone =
                                 Intent(this@SigninSignupScreen, PhoneVerificatoinScreen::class.java)
                             intentPhone.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             intentPhone.putExtra("fromLogin", "1")
                             startActivity(intentPhone)
-
-
                             return
                         }
                         var emailVerified = response.body()?.user?.username
                         if (emailVerified == null) {
-
-
                             var intent = Intent(this@SigninSignupScreen, CompleteSignup::class.java)
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
                             return
                         }
-
-
                         var intentMain = Intent(this@SigninSignupScreen, MainActivity::class.java)
                         intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         saveLoggedIn(applicationContext, "1")
-                        startActivity(intentMain)
-
+                        startActivity(intentMain)*/
+                        //LoginInAgora(idUser.toString())
 
                     } else {
                         val jsonObject = JSONObject(response.errorBody()?.string())
@@ -171,6 +201,77 @@ class SigninSignupScreen : AppCompatActivity() {
                     }
                 }
             })
+    }
+
+    private fun loginFirebase(
+        email: String,
+        password: String,
+        progressHUD: KProgressHUD,
+        response: SignUpSigninRes
+    ) {
+        mAuth?.signInWithEmailAndPassword(email, password)
+            ?.addOnCompleteListener(this, fun(task: Task<AuthResult>) {
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("TAG", "signInWithEmail:success")
+                    AppState.currentFireUser = mAuth!!.currentUser
+                    AppState.currentBpackCustomer =
+                        userService?.getUserById(AppState.currentFireUser.uid)
+
+                    var phoneVerified = response?.user?.phone_verified
+                        if (phoneVerified == false) {
+                            var intentPhone =
+                                Intent(this@SigninSignupScreen, PhoneVerificatoinScreen::class.java)
+                            intentPhone.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intentPhone.putExtra("fromLogin", "1")
+                            startActivity(intentPhone)
+                            return
+                        }
+                        var emailVerified = response?.user?.username
+                        if (emailVerified == null) {
+                            var intent = Intent(this@SigninSignupScreen, CompleteSignup::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                            return
+                        }
+                        var intentMain = Intent(this@SigninSignupScreen, MainActivity::class.java)
+                        intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        saveLoggedIn(applicationContext, "1")
+                        startActivity(intentMain)
+                } else {
+                    Log.d("TAG", "signInWithEmail:failure", task.exception)
+                }
+            })
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun LoginInAgora(mUserId: String) {
+        /*  val rtmTokenBuilder=RtmTokenBuilder()
+          val token:String =rtmTokenBuilder.buildToken("08cd21b565a04f78b133cf68a1389d2d"
+          ,"9cc458ff6c4349ce8919edf4d7379523"
+          ,"2882341273L",RtmTokenBuilder.Role.Rtm_User,0)*/
+
+        mRtmClient = mChatManager?.getRtmClient()
+        //Log.i("TANNNNNNG", "login "+token)
+        mRtmClient?.login(null, mUserId, object : ResultCallback<Void> {
+            override fun onSuccess(responseInfo: Void) {
+                Log.i("TANNNNNNG", "login success")
+                runOnUiThread {
+                    var intentMain = Intent(this@SigninSignupScreen, MainActivity::class.java)
+                    intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    saveLoggedIn(applicationContext, "1")
+                    startActivity(intentMain)
+                }
+            }
+
+            override fun onFailure(errorInfo: ErrorInfo) {
+                Log.i(
+                    "TANNNNNNG",
+                    "login failed: " + errorInfo.errorDescription
+                )
+            }
+        })
     }
 
     private fun validateDataAndSingUp() {
@@ -250,7 +351,7 @@ class SigninSignupScreen : AppCompatActivity() {
         first_name: String,
         last_name: String,
         phone: String,
-        email: String,
+        email_: String,
         password: String,
         role: String
     ) {
@@ -259,7 +360,7 @@ class SigninSignupScreen : AppCompatActivity() {
             first_name,
             last_name,
             phone,
-            email,
+            email_,
             password,
             role
         ).enqueue(object : Callback<SignUpSigninRes> {
@@ -280,15 +381,15 @@ class SigninSignupScreen : AppCompatActivity() {
                     val stringResponse = response.body()
                     Log.d("signUP", "onResponse: " + response.body()?.toString())
                     if (message?.contains("The email has already been taken")!!) {
-
+                        progressHUD.dismiss()
                         return
                     }
                     if (message.contains("The phone number belongs to an existing account")) {
-
+                        progressHUD.dismiss()
                         return
                     }
                     if (message.contains("Could not send phone verification code. Try again")) {
-
+                        progressHUD.dismiss()
                         Toast.makeText(
                             this@SigninSignupScreen,
                             "Could not send phone verification code. Try again",
@@ -296,7 +397,7 @@ class SigninSignupScreen : AppCompatActivity() {
                         ).show()
                         return
                     }
-                    saveUserEmailAndPass(this@SigninSignupScreen, email, password)
+                    saveUserEmailAndPass(this@SigninSignupScreen, email_, password)
                     saveAccessToken(
                         this@SigninSignupScreen, response.body()?.user?.auth_token ?: ""
                     )
@@ -309,19 +410,15 @@ class SigninSignupScreen : AppCompatActivity() {
                     saveUserDetails(
                         applicationContext,
                         idUser.toString(),
-                        userName,roleVal
+                        userName, roleVal
                     )
-
-
+                    firstName = first_name
+                    lastName = last_name
+                    email = email_
+                    id = idUser.toString()
+                    registerUser(email_, password, progressHUD);
 //                    when(response.body()?.status){
 //                        201-> {
-                    startActivity(
-                        Intent(
-                            this@SigninSignupScreen,
-                            PhoneVerificatoinScreen::class.java
-                        ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    )
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 //                        }
 //                    }
                 } else {
@@ -336,4 +433,89 @@ class SigninSignupScreen : AppCompatActivity() {
         })
     }
 
+    private fun registerUser(
+        email: String,
+        password: String,
+        progressHUD: KProgressHUD
+    ) {
+
+        this.mAuth?.createUserWithEmailAndPassword(email, password)
+            ?.addOnCompleteListener { task: Task<AuthResult> ->
+                if (task.isSuccessful) {
+                    progressHUD.dismiss()
+                    AppState.currentFireUser = mAuth?.getCurrentUser()
+                    createUser(AppState.currentFireUser, progressHUD)
+                } else {
+                    Log.d("messagee", "onComplete: " + task.result)
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(
+                        this@SigninSignupScreen, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    progressHUD.dismiss()
+                }
+            }
+        /*mAuth?.createUserWithEmailAndPassword(email, password)
+            ?.addOnCompleteListener(this@SigninSignupScreen,
+                OnCompleteListener<AuthResult> { task ->
+                    if (task.isSuccessful) {
+
+                    } else {
+                        Log.d("messagee", "onComplete: " + task.result)
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(
+                            this@SigninSignupScreen, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        progressHUD.dismiss()
+                    }
+                })*/
+    }
+
+    private fun createUser(
+        currentUser: FirebaseUser,
+        progressHUD: KProgressHUD
+    ) {
+        if (currentUser.uid != null) {
+            userService?.registerUser(
+                email,
+                firstName + " " + lastName,
+                currentUser.uid,
+                DatabaseReference.CompletionListener { databaseError, databaseReference ->
+                    if (databaseError == null) {
+                        progressHUD.dismiss()
+                        FirebaseMessaging.getInstance()
+                            .unsubscribeFromTopic("/topics/order_" + AppState.currentFireUser.uid)
+                        FirebaseMessaging.getInstance()
+                            .subscribeToTopic("/topics/order_" + AppState.currentFireUser.uid)
+//
+                        startActivity(
+                            Intent(
+                                this@SigninSignupScreen,
+                                PhoneVerificatoinScreen::class.java
+                            ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+                    } else {
+                        progressHUD.dismiss()
+                        Log.d(
+                            "messagee",
+                            "onComplete: " + databaseError.message
+                        )
+                        Toast.makeText(
+                            this@SigninSignupScreen,
+                            "SigUp failed - database error",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        } else {
+            Toast.makeText(
+                this@SigninSignupScreen,
+                "SigUp failed, email empty. Please try again",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 }

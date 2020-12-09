@@ -96,7 +96,6 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             case Post.TYPE_HORIZONTAL_LIST:
-
                 View layoutTwo = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_header_layout, parent, false);
                 return new ViewHolderHorizontalList(layoutTwo);
             case Post.TYPE_TEXT:
@@ -1354,8 +1353,6 @@ public class ProfileFeedAdapter extends RecyclerView.Adapter {
 
             }
         });
-
-
     }
 
     private void deletePost(int postID, int position) {

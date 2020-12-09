@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/audience"
+    android:background="@color/white"
+    android:clickable="true"
+    android:paddingBottom="5dp"
+    android:paddingHorizontal="20dp">
+
+    <ImageView
+        android:id="@+id/img_back_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_back"
+        android:onClick="onClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_search"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/img_back_search"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/tv_cancel"
+        android:visibility="visible"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_back_search"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/grey"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/mid_grey" />
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@+id/rl_search"
+                    android:layout_toRightOf="@+id/img_search"
+                    android:background="@color/grey"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/fira_sans_regular"
+                    android:hint="Search"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_grey"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_back"
+        android:layout_alignParentEnd="true"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:paddingVertical="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/card_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_search" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_search" />
+</androidx.constraintlayout.widget.ConstraintLayout>

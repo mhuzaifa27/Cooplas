@@ -42,6 +42,7 @@ public class ShowMenu {
         });
     }
 
+
     public boolean isShowingMenu() {
         if (mypopupWindow.isShowing()) return true;
         else return false;

@@ -1,27 +1,44 @@
 package com.example.cooplas.splashscreen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.example.cooplas.Firebase.AppState
+import com.example.cooplas.Firebase.ChangeEventListener
+import com.example.cooplas.Firebase.Services.UserService
 import com.example.cooplas.R
 import com.example.cooplas.activities.MainActivity
 import com.example.cooplas.activities.SigninSignupScreen
-import com.example.cooplas.utils.AppConstants
-import com.jobesk.gong.utils.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseError
+import com.jobesk.gong.utils.getLoggedIn
 
 
 class SplashScreen : AppCompatActivity() {
+    private var mAuth: FirebaseAuth? = null
+    private var userService: UserService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance()
+        userService = UserService()
+        userService?.setOnChangedListener(object : ChangeEventListener {
+            override fun onChildChanged(
+                type: ChangeEventListener.EventType,
+                index: Int,
+                oldIndex: Int
+            ) {
+            }
+
+            override fun onDataChanged() {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
 
         var loggedIN = getLoggedIn(applicationContext)
-
-
-
 
         Handler().postDelayed({
             when (loggedIN.isEmpty()) {
@@ -38,6 +55,15 @@ class SplashScreen : AppCompatActivity() {
 
                 }
                 false -> {
+                    /*AppState.currentFireUser = mAuth?.getCurrentUser()
+                    AppState.currentBpackCustomer =
+                        userService?.getUserById(
+                            AppState.currentFireUser.uid
+                        )*/
+                    //Log.d("dfdfd", "onCreate: "+userService)
+                    Log.d("dfdfd", "onCreate: "+AppState.currentFireUser.uid)
+                    Log.d("dfdfd", "onCreate: "+AppState.currentBpackCustomer)
+
                     startActivity(
                         Intent(
                             this,

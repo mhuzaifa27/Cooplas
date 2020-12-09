@@ -1,4 +1,4 @@
-package com.example.cooplas.adapters;
+package com.example.cooplas.adapters.Chat;
 
 import android.content.Context;
 import android.view.LayoutInflater;

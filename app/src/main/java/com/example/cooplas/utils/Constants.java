@@ -1,6 +1,7 @@
 package com.example.cooplas.utils;
 
 public class Constants {
+
     public static final String ID="id";
     public static final String ITEM_ID="item_id";
     public static final String QUANTITY="quantity";
@@ -22,4 +23,10 @@ public class Constants {
     public static final String VEHICLE_TYPE="vehicle_type";
     public static final String USER_STARS="user_stars";
     public static final String USER_COMMENTS="user_comments";
+    public static final String IMAGE = "image";
+    public static final String TYPE_TEXT = "text";
+    public static final String TYPE_AUDIO= "audio";
+    public static final String TYPE_IMAGE= "image";
+    public static final String TYPE_VIDEO= "video";
+
 }
