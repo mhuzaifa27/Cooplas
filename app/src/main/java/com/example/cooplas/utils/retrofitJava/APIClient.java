@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClient {
     private static Retrofit retrofit = null;
     private static Retrofit retrofit2 = null;
-    public static String BASEURL = "https://cooplas.jobesk.com/";
+    public static String BASEURL = "YOUR_SERVERR_UL_HERE";
     public static String GOOGLE_DISTANCE_API = "https://maps.googleapis.com/maps/";
 
     public static Retrofit getClient(Context context) {
